@@ -1,50 +1,86 @@
+
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Diamond Calculator</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body {
-            font-family: Arial;
-            text-align: center;
-            padding: 20px;
-        }
-        input {
-            padding: 10px;
-            margin: 5px;
-            width: 80%;
-            font-size: 16px;
-        }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-        }
-        h2 {
-            color: green;
-        }
-    </style>
+<title>Nagjibhai Diamond Calculator</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body{
+    font-family: Arial;
+    background:#f2f2f2;
+    text-align:center;
+    padding:20px;
+}
+.box{
+    background:white;
+    padding:20px;
+    border-radius:12px;
+    box-shadow:0 0 15px rgba(0,0,0,0.1);
+    max-width:400px;
+    margin:auto;
+}
+select,input{
+    width:90%;
+    padding:12px;
+    margin:8px;
+    font-size:16px;
+}
+button{
+    padding:12px 25px;
+    font-size:16px;
+    background:green;
+    color:white;
+    border:none;
+    border-radius:6px;
+}
+h2{color:green;}
+.result{
+    margin-top:15px;
+    font-size:18px;
+    font-weight:bold;
+}
+</style>
 </head>
 <body>
 
-<h1>Diamond Weight Calculator</h1>
+<div class="box">
+<h2>Diamond Weight Calculator</h2>
+
+<select id="shape">
+    <option value="round">Round</option>
+    <option value="fancy">Fancy (All Shape)</option>
+</select>
 
 <input type="number" id="diameter" placeholder="Enter Diameter (mm)">
-<br>
-<input type="number" id="depth" placeholder="Enter Total Depth (mm)">
-<br>
-<button onclick="calculate()">Calculate</button>
+<input type="number" id="depth" placeholder="Enter Total Height (mm)">
 
-<h2 id="result"></h2>
+<button onclick="calculate()">Calculate Weight</button>
+
+<div class="result" id="output"></div>
+</div>
 
 <script>
-function calculate() {
-    var d = document.getElementById("diameter").value;
-    var h = document.getElementById("depth").value;
+function calculate(){
 
-    var weight = (d * d * h * 0.0061).toFixed(3);
+    var shape = document.getElementById("shape").value;
+    var d = parseFloat(document.getElementById("diameter").value);
+    var h = parseFloat(document.getElementById("depth").value);
 
-    document.getElementById("result").innerHTML = 
-        "Estimated Weight: " + weight + " carat";
+    if(isNaN(d) || isNaN(h)){
+        document.getElementById("output").innerHTML="Enter valid numbers";
+        return;
+    }
+
+    var weight;
+
+    if(shape=="round"){
+        weight = d*d*h*0.0061;  // Round formula
+    }else{
+        weight = d*d*h*0.0059;  // Fancy shape average formula
+    }
+
+    document.getElementById("output").innerHTML=
+    "Estimated Weight: "+weight.toFixed(3)+" Carat";
 }
 </script>
 
