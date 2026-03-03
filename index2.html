@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GIA + IGI Diamond Calculator</title>
+
+<style>
+body {
+    font-family: Arial;
+    background: #f2f2f2;
+    text-align: center;
+    padding: 20px;
+}
+
+.container {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    max-width: 400px;
+    margin: auto;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+
+input, select, button {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+button {
+    border: none;
+    color: white;
+    font-weight: bold;
+}
+
+.calculate {
+    background: #007bff;
+}
+
+.share {
+    background: #28a745;
+}
+
+#result {
+    margin-top: 15px;
+    font-size: 18px;
+    font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>GIA + IGI Diamond Calculator</h2>
+
+<select id="shape">
+    <option value="Round">Round</option>
+    <option value="Oval">Oval</option>
+    <option value="Pear">Pear</option>
+    <option value="Emerald">Emerald</option>
+    <option value="Cushion">Cushion</option>
+</select>
+
+<input type="number" id="diameter" placeholder="Diameter (mm)" step="0.01">
+
+<input type="number" id="length" placeholder="Length (mm)" step="0.01" style="display:none;">
+
+<input type="number" id="width" placeholder="Width (mm)" step="0.01" style="display:none;">
+
+<input type="number" id="depth" placeholder="Depth %" step="0.01">
+
+<button class="calculate" onclick="calculateWeight()">Calculate</button>
+
+<button class="share" onclick="shareResult()">Share Result</button>
+
+<div id="result"></div>
+
+</div>
+
+<script>
+
+const shapeSelect = document.getElementById("shape");
+const diameterInput = document.getElementById("diameter");
+const lengthInput = document.getElementById("length");
+const widthInput = document.getElementById("width");
+
+shapeSelect.addEventListener("change", function () {
+
+    if (this.value === "Round") {
+        diameterInput.style.display = "block";
+        lengthInput.style.display = "none";
+        widthInput.style.display = "none";
+    } else {
+        diameterInput.style.display = "none";
+        lengthInput.style.display = "block";
+        widthInput.style.display = "block";
+    }
+});
+
+function calculateWeight() {
+
+    const shape = shapeSelect.value;
+    const depthPercent = parseFloat(document.getElementById("depth").value);
+
+    let weight = 0;
+
+    if (shape === "Round") {
+
+        const diameter = parseFloat(diameterInput.value);
+        const depthMM = (diameter * depthPercent) / 100;
+        weight = diameter * diameter * depthMM * 0.0061;
+
+    } else {
+
+        const length = parseFloat(lengthInput.value);
+        const width = parseFloat(widthInput.value);
+        const depthMM = (width * depthPercent) / 100;
+        weight = length * width * depthMM * 0.0061;
+    }
+
+    document.getElementById("result").innerHTML =
+        "Estimated Weight: " + weight.toFixed(2) + " ct";
+}
+
+function shareResult() {
+
+    const text = document.getElementById("result").innerText;
+
+    if (navigator.share) {
+        navigator.share({
+            title: "Diamond Weight Result",
+            text: text,
+            url: window.location.href
+        });
+    } else {
+        alert("Sharing not supported in this browser.");
+    }
+}
+
+</script>
+
+</body>
+</html>
