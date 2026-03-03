@@ -1,43 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Diamond Weight Calculator</title>
+<style>
+body { font-family: Arial; text-align:center; background:#f2f2f2; }
+.box { background:white; padding:20px; width:320px; margin:auto; margin-top:40px; border-radius:10px; box-shadow:0 0 10px #ccc; }
+input, select, button { width:100%; padding:10px; margin:8px 0; font-size:16px; }
+button { background:green; color:white; border:none; cursor:pointer; }
+h2 { margin-bottom:20px; }
+</style>
+</head>
+
+<body>
+
+<div class="box">
+<h2>Diamond Weight Calculator</h2>
+
+<select id="shape">
+<option value="round">Round Cut</option>
+<option value="fancy">Fancy (All Shape)</option>
+<option value="igi">IGI Cut</option>
+</select>
+
+<input type="number" id="diameter" placeholder="Diameter / Length (mm)">
+<input type="number" id="depth" placeholder="Total Depth %">
+
+<button onclick="calculate()">Calculate Weight</button>
+
+<h3 id="result"></h3>
+</div>
+
 <script>
-function calculateWeight() {
+function calculate() {
 
-    let shape = document.getElementById("shape").value;
-    let length = parseFloat(document.getElementById("length").value);
-    let width = parseFloat(document.getElementById("width").value);
-    let depthPercent = parseFloat(document.getElementById("depth").value);
+let shape = document.getElementById("shape").value;
+let dia = parseFloat(document.getElementById("diameter").value);
+let depthPercent = parseFloat(document.getElementById("depth").value);
 
-    if (!length || !width || !depthPercent) {
-        document.getElementById("result").innerText = "Please enter all values";
-        return;
-    }
+if(isNaN(dia) || isNaN(depthPercent)){
+document.getElementById("result").innerHTML = "Please enter valid values";
+return;
+}
 
-    let carat = 0;
+let depthMM = dia * (depthPercent / 100);
+let weight = 0;
 
-    // ROUND
-    if (shape === "Round") {
-        let depthMM = length * (depthPercent / 100);
-        carat = length * length * depthMM * 0.0061;
-    }
+if(shape === "round"){
+weight = dia * dia * depthMM * 0.0061;
+}
+else if(shape === "fancy"){
+weight = dia * dia * depthMM * 0.0059;
+}
+else if(shape === "igi"){
+weight = dia * dia * depthMM * 0.0060;
+}
 
-    // FANCY SHAPES
-    else {
-
-        let shapeFactor = 0.0062; // default
-
-        if (shape === "Oval") shapeFactor = 0.0062;
-        if (shape === "Cushion") shapeFactor = 0.0061;
-        if (shape === "Princess") shapeFactor = 0.0061;
-        if (shape === "Emerald") shapeFactor = 0.0065;
-        if (shape === "Pear") shapeFactor = 0.00615;
-        if (shape === "Marquise") shapeFactor = 0.0059;
-        if (shape === "Radiant") shapeFactor = 0.00615;
-        if (shape === "Heart") shapeFactor = 0.0060;
-
-        let depthMM = length * (depthPercent / 100);
-        carat = length * width * depthMM * shapeFactor;
-    }
-
-    document.getElementById("result").innerText =
-        "Estimated Weight: " + carat.toFixed(2) + " Carat";
+document.getElementById("result").innerHTML =
+"Estimated Weight: " + weight.toFixed(3) + " Carat";
 }
 </script>
+
+</body>
+</html>
