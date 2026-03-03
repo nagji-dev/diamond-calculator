@@ -3,14 +3,15 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Diamond Weight Calculator Pro</title>
+
 <style>
-body{
-  font-family:Arial;
-  background:#f2f2f2;
+body {
+  font-family: Arial;
+  background:#f4f4f4;
   padding:20px;
 }
-.card{
-  background:white;
+.box{
+  background:#fff;
   padding:20px;
   border-radius:10px;
   box-shadow:0 0 10px rgba(0,0,0,0.1);
@@ -18,29 +19,31 @@ body{
 input,select,button{
   width:100%;
   padding:10px;
-  margin-top:10px;
+  margin:8px 0;
   font-size:16px;
 }
 button{
   background:green;
-  color:white;
+  color:#fff;
   border:none;
 }
 .result{
-  margin-top:20px;
-  font-size:20px;
+  margin-top:15px;
+  font-size:18px;
   font-weight:bold;
 }
 </style>
 </head>
+
 <body>
 
-<div class="card">
+<div class="box">
+
 <h2>Diamond Weight Calculator (Pro)</h2>
 
-<select id="shape">
+<select id="shape" onchange="shapeChange()">
   <option value="round">Round Cut</option>
-  <option value="fancy">Fancy All Shape</option>
+  <option value="fancy">Fancy Cut</option>
 </select>
 
 <select id="lab">
@@ -48,69 +51,97 @@ button{
   <option value="igi">IGI</option>
 </select>
 
-<input type="number" id="length" placeholder="Diameter / Length (mm)">
-<input type="number" id="width" placeholder="Width (Fancy Only)">
-<input type="number" id="depthPercent" placeholder="Total Height %">
+<!-- ROUND INPUT -->
+<div id="roundInputs">
+  <input type="number" id="d1" placeholder="Diameter Min (mm)">
+  <input type="number" id="d2" placeholder="Diameter Max (mm)">
+  <input type="number" id="depthPercent" placeholder="Total Depth %">
+</div>
+
+<!-- FANCY INPUT -->
+<div id="fancyInputs" style="display:none;">
+  <select id="fancyShape">
+    <option value="oval">Oval</option>
+    <option value="pear">Pear</option>
+    <option value="marquise">Marquise</option>
+    <option value="princess">Princess</option>
+    <option value="cushion">Cushion</option>
+    <option value="emerald">Emerald</option>
+  </select>
+
+  <input type="number" id="length" placeholder="Length (mm)">
+  <input type="number" id="width" placeholder="Width (mm)">
+  <input type="number" id="fDepth" placeholder="Total Depth %">
+</div>
 
 <button onclick="calculate()">Calculate Weight</button>
 
 <div class="result" id="result"></div>
+
 </div>
 
 <script>
+
+function shapeChange(){
+  let shape = document.getElementById("shape").value;
+  if(shape=="round"){
+    document.getElementById("roundInputs").style.display="block";
+    document.getElementById("fancyInputs").style.display="none";
+  }else{
+    document.getElementById("roundInputs").style.display="none";
+    document.getElementById("fancyInputs").style.display="block";
+  }
+}
+
 function calculate(){
 
-let shape=document.getElementById("shape").value;
-let lab=document.getElementById("lab").value;
+  let shape = document.getElementById("shape").value;
+  let lab = document.getElementById("lab").value;
+  let weight = 0;
 
-let length=parseFloat(document.getElementById("length").value);
-let width=parseFloat(document.getElementById("width").value);
-let depthPercent=parseFloat(document.getElementById("depthPercent").value);
+  if(shape=="round"){
+    let d1 = parseFloat(document.getElementById("d1").value);
+    let d2 = parseFloat(document.getElementById("d2").value);
+    let depthPercent = parseFloat(document.getElementById("depthPercent").value);
 
-if(!length || !depthPercent){
-document.getElementById("result").innerText="Fill required fields";
-return;
+    let avg = (d1 + d2) / 2;
+    let depth = avg * (depthPercent/100);
+
+    weight = avg * avg * depth * 0.0061;
+
+  }else{
+
+    let length = parseFloat(document.getElementById("length").value);
+    let width = parseFloat(document.getElementById("width").value);
+    let depthPercent = parseFloat(document.getElementById("fDepth").value);
+    let fancyShape = document.getElementById("fancyShape").value;
+
+    let depth = width * (depthPercent/100);
+
+    let factor = 0.0061;
+
+    if(fancyShape=="princess"){ factor = 0.0080; }
+    if(fancyShape=="emerald"){ factor = 0.0078; }
+    if(fancyShape=="oval"){ factor = 0.0062; }
+    if(fancyShape=="pear"){ factor = 0.00615; }
+    if(fancyShape=="marquise"){ factor = 0.0059; }
+    if(fancyShape=="cushion"){ factor = 0.0065; }
+
+    weight = length * width * depth * factor;
+  }
+
+  // LAB difference
+  if(lab=="igi"){
+    weight = weight * 0.98;
+  }
+
+  weight = weight.toFixed(2);
+
+  document.getElementById("result").innerHTML =
+  "Weight: " + weight + " ct";
 }
 
-let factor=0.0061;   // GIA base
-
-if(lab==="igi"){
-factor=0.00615;
-}
-
-let weight=0;
-
-if(shape==="round"){
-
-let depthMM=(depthPercent/100)*length;
-weight=length*length*depthMM*factor;
-
-}
-
-if(shape==="fancy"){
-
-if(!width){
-document.getElementById("result").innerText="Enter Width for Fancy";
-return;
-}
-
-let depthMM=(depthPercent/100)*length;
-
-/* Fancy correction factor */
-let fancyFactor=1.05;   // trade average adjustment
-
-weight=length*width*depthMM*factor*fancyFactor;
-
-}
-
-let cent=weight*100;
-
-document.getElementById("result").innerHTML=
-"Carat: "+weight.toFixed(2)+" ct<br>"+
-"Cent: "+cent.toFixed(0)+" cent";
-
-}
 </script>
 
 </body>
-</html>
+</html￼Enter
