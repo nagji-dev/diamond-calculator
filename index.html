@@ -1,26 +1,52 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Diamond Pro Calculator</title>
+<title>GIA Advanced Diamond Calculator</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
 <style>
-body{font-family:Arial;background:#f2f2f2;padding:15px;}
-.container{background:#fff;padding:20px;border-radius:12px;box-shadow:0 0 15px rgba(0,0,0,0.1);}
+body{
+font-family:Arial;
+background:#f4f4f4;
+padding:15px;
+}
+.container{
+background:#fff;
+padding:20px;
+border-radius:12px;
+box-shadow:0 0 15px rgba(0,0,0,0.1);
+}
 h2{text-align:center;}
-input,select,button{width:100%;padding:10px;margin:6px 0;font-size:16px;}
-button{background:#000;color:#fff;border:none;border-radius:6px;}
-.result{margin-top:15px;font-size:20px;font-weight:bold;}
-.grade{font-size:18px;margin-top:5px;}
-.leftRight{margin-top:10px;font-size:15px;background:#fafafa;padding:10px;border-radius:6px;}
+input,select,button{
+width:100%;
+padding:10px;
+margin:6px 0;
+font-size:16px;
+}
+button{
+background:#000;
+color:#fff;
+border:none;
+border-radius:6px;
+}
+.result{
+margin-top:15px;
+font-size:20px;
+font-weight:bold;
+}
+.grade{
+font-size:18px;
+margin-top:5px;
+}
+.excellent{color:green;}
+.verygood{color:#1a73e8;}
+.good{color:#e67e22;}
+.fair{color:red;}
 </style>
 </head>
 <body>
 
 <div class="container">
-<h2>Diamond Pro Calculator</h2>
+<h2>Diamond Calculator (GIA + IGI Advanced)</h2>
 
 <label>Shape</label>
 <select id="shape">
@@ -52,104 +78,88 @@ button{background:#000;color:#fff;border:none;border-radius:6px;}
 <input type="number" id="pavilion">
 
 <button onclick="calculate()">Calculate</button>
-<button onclick="downloadPDF()">Download PDF Report</button>
 
 <div class="result" id="result"></div>
 <div class="grade" id="cutGrade"></div>
-<div class="leftRight" id="symmetry"></div>
 
 </div>
 
 <script>
-let finalWeight=0, finalGrade="", finalSymmetry="";
-
 function calculate(){
 
-let shape=document.getElementById("shape").value;
-let min=parseFloat(document.getElementById("min").value);
-let max=parseFloat(document.getElementById("max").value);
-let depthPercent=parseFloat(document.getElementById("depthPercent").value);
-let table=parseFloat(document.getElementById("table").value);
-let crown=parseFloat(document.getElementById("crown").value);
-let pavilion=parseFloat(document.getElementById("pavilion").value);
+let shape = document.getElementById("shape").value;
+let min = parseFloat(document.getElementById("min").value);
+let max = parseFloat(document.getElementById("max").value);
+let depthPercent = parseFloat(document.getElementById("depthPercent").value);
+let table = parseFloat(document.getElementById("table").value);
+let crown = parseFloat(document.getElementById("crown").value);
+let pavilion = parseFloat(document.getElementById("pavilion").value);
 
-if(!min||!max||!depthPercent||!table||!crown||!pavilion){
+if(!min || !max || !depthPercent || !table || !crown || !pavilion){
 document.getElementById("result").innerHTML="Enter all values";
 return;
 }
 
-let avg=(min+max)/2;
-let depthMM=(avg*depthPercent)/100;
+let avg = (min + max) / 2;
+let depthMM = (avg * depthPercent) / 100;
 
-let constant=0.0061;
-let factor=1;
+let constant = 0.0061;
+let factor = 1;
 
-if(shape=="oval") factor=1.00;
-if(shape=="cushion") factor=0.97;
-if(shape=="pear") factor=1.05;
-if(shape=="marquise") factor=1.10;
-if(shape=="emerald") factor=0.95;
-if(shape=="princess") factor=1.00;
+if(shape=="oval") factor = 1.00;
+if(shape=="cushion") factor = 0.97;
+if(shape=="pear") factor = 1.05;
+if(shape=="marquise") factor = 1.10;
+if(shape=="emerald") factor = 0.95;
+if(shape=="princess") factor = 1.00;
+
+let weight;
 
 if(shape=="round"){
-finalWeight=avg*avg*depthMM*constant;
+weight = avg * avg * depthMM * constant;
 }else{
-finalWeight=min*max*depthMM*constant*factor;
+weight = min * max * depthMM * constant * factor;
 }
 
-document.getElementById("result").innerHTML=
-"Estimated Weight: "+finalWeight.toFixed(2)+" ct";
+document.getElementById("result").innerHTML =
+"Estimated Weight: " + weight.toFixed(2) + " ct";
 
-// Cut Grade Logic
-if(depthPercent>=59&&depthPercent<=62.5&&
-table>=54&&table<=58&&
-crown>=34&&crown<=35&&
-pavilion>=40.6&&pavilion<=41){
-finalGrade="Excellent Cut";
-}
-else if(depthPercent<=63.5){
-finalGrade="Very Good Cut";
-}
-else if(depthPercent<=65){
-finalGrade="Good Cut";
-}
-else{
-finalGrade="Fair Cut";
-}
+// Advanced Cut Logic (GIA style approx)
 
-document.getElementById("cutGrade").innerHTML=finalGrade;
+let grade = "";
+let className = "";
 
-// Symmetry Check (Right-Left balance)
-let diff=Math.abs(min-max);
+if(depthPercent >= 59 && depthPercent <= 62.5 &&
+table >= 54 && table <= 58 &&
+crown >= 34 && crown <= 35 &&
+pavilion >= 40.6 && pavilion <= 41){
 
-if(diff<=0.10){
-finalSymmetry="Symmetry: Excellent (Perfect Right-Left Balance)";
+grade = "Excellent Cut";
+className = "excellent";
 }
-else if(diff<=0.20){
-finalSymmetry="Symmetry: Very Good";
+else if(depthPercent <= 63.5 &&
+table <= 60 &&
+crown >= 33 && crown <= 36 &&
+pavilion >= 40.4 && pavilion <= 41.2){
+
+grade = "Very Good Cut";
+className = "verygood";
+}
+else if(depthPercent <= 65){
+
+grade = "Good Cut";
+className = "good";
 }
 else{
-finalSymmetry="Symmetry: Needs Improvement";
+grade = "Fair Cut";
+className = "fair";
 }
 
-document.getElementById("symmetry").innerHTML=finalSymmetry;
+let cutElement = document.getElementById("cutGrade");
+cutElement.innerHTML = grade;
+cutElement.className = "grade " + className;
 
 }
-
-async function downloadPDF(){
-
-const { jsPDF } = window.jspdf;
-const doc = new jsPDF();
-
-doc.text("Diamond Report",20,20);
-doc.text("Estimated Weight: "+finalWeight.toFixed(2)+" ct",20,40);
-doc.text("Cut Grade: "+finalGrade,20,55);
-doc.text(finalSymmetry,20,70);
-
-doc.save("Diamond_Report.pdf");
-
-}
-
 </script>
 
 </body>
