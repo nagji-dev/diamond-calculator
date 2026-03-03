@@ -1,117 +1,43 @@
-
-<!DOCTYPE html>
-<html>
-<head>
-<title>Nagjibhai Diamond Calculator</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-body{
-    font-family: Arial;
-    background:#f2f2f2;
-    text-align:center;
-}
-.box{
-    background:white;
-    padding:20px;
-    margin:20px;
-    border-radius:10px;
-    box-shadow:0 0 10px rgba(0,0,0,0.1);
-}
-input, select, button{
-    width:90%;
-    padding:10px;
-    margin:10px;
-    font-size:16px;
-}
-button{
-    background:green;
-    color:white;
-    border:none;
-    border-radius:5px;
-}
-</style>
-</head>
-
-<body>
-
-<div class="box">
-<h2>Diamond Weight Calculator</h2>
-
-<select id="shape">
-<option value="Round">Round</option>
-<option value="Princess">Princess</option>
-<option value="Oval">Oval</option>
-<option value="Cushion">Cushion</option>
-<option value="Emerald">Emerald</option>
-</select>
-
-<select id="lab">
-<option value="GIA">GIA Cut</option>
-<option value="IGI">IGI Cut</option>
-</select>
-
-<input type="number" id="diameter" placeholder="Diameter / Length (mm)">
-<input type="number" id="width" placeholder="Width (Fancy only mm)">
-<input type="number" id="height" placeholder="Total Height (mm)">
-
-<button onclick="calculateWeight()">Calculate Weight</button>
-
-<h3 id="result">Estimated Weight: 0.000 Carat</h3>
-
-</div>
-
 <script>
-function calculateWeight(){
+function calculateWeight() {
 
-let shape = document.getElementById("shape").value;
-let lab = document.getElementById("lab").value;
+    let shape = document.getElementById("shape").value;
+    let length = parseFloat(document.getElementById("length").value);
+    let width = parseFloat(document.getElementById("width").value);
+    let depthPercent = parseFloat(document.getElementById("depth").value);
 
-let dia = parseFloat(document.getElementById("diameter").value) || 0;
-let width = parseFloat(document.getElementById("width").value) || dia;
-let height = parseFloat(document.getElementById("height").value) || 0;
+    if (!length || !width || !depthPercent) {
+        document.getElementById("result").innerText = "Please enter all values";
+        return;
+    }
 
-let weight = 0;
-let coeff = 0;
+    let carat = 0;
 
-// Lab difference (thodo farak)
-if(lab === "GIA"){
-    var labFactor = 1.00;
-}else{
-    var labFactor = 1.03; // IGI thodo heavy estimate
-}
+    // ROUND
+    if (shape === "Round") {
+        let depthMM = length * (depthPercent / 100);
+        carat = length * length * depthMM * 0.0061;
+    }
 
-if(shape === "Round"){
-    coeff = 0.0061;
-    weight = dia * dia * height * coeff;
-}
+    // FANCY SHAPES
+    else {
 
-else if(shape === "Princess"){
-    coeff = 0.0080;
-    weight = dia * width * height * coeff;
-}
+        let shapeFactor = 0.0062; // default
 
-else if(shape === "Oval"){
-    coeff = 0.0062;
-    weight = dia * width * height * coeff;
-}
+        if (shape === "Oval") shapeFactor = 0.0062;
+        if (shape === "Cushion") shapeFactor = 0.0061;
+        if (shape === "Princess") shapeFactor = 0.0061;
+        if (shape === "Emerald") shapeFactor = 0.0065;
+        if (shape === "Pear") shapeFactor = 0.00615;
+        if (shape === "Marquise") shapeFactor = 0.0059;
+        if (shape === "Radiant") shapeFactor = 0.00615;
+        if (shape === "Heart") shapeFactor = 0.0060;
 
-else if(shape === "Cushion"){
-    coeff = 0.0065;
-    weight = dia * width * height * coeff;
-}
+        let depthMM = length * (depthPercent / 100);
+        carat = length * width * depthMM * shapeFactor;
+    }
 
-else if(shape === "Emerald"){
-    coeff = 0.0090;
-    weight = dia * width * height * coeff;
-}
-
-weight = weight * labFactor;
-
-document.getElementById("result").innerHTML =
-"Estimated Weight: " + weight.toFixed(3) + " Carat";
-
+    document.getElementById("result").innerText =
+        "Estimated Weight: " + carat.toFixed(2) + " Carat";
 }
 </script>
-
-</body>
-</html>
