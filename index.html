@@ -1,62 +1,114 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Diamond Weight Calculator</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diamond Weight Calculator Pro</title>
 <style>
-body { font-family: Arial; text-align:center; background:#f2f2f2; }
-.box { background:white; padding:20px; width:320px; margin:auto; margin-top:40px; border-radius:10px; box-shadow:0 0 10px #ccc; }
-input, select, button { width:100%; padding:10px; margin:8px 0; font-size:16px; }
-button { background:green; color:white; border:none; cursor:pointer; }
-h2 { margin-bottom:20px; }
+body{
+  font-family:Arial;
+  background:#f2f2f2;
+  padding:20px;
+}
+.card{
+  background:white;
+  padding:20px;
+  border-radius:10px;
+  box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+input,select,button{
+  width:100%;
+  padding:10px;
+  margin-top:10px;
+  font-size:16px;
+}
+button{
+  background:green;
+  color:white;
+  border:none;
+}
+.result{
+  margin-top:20px;
+  font-size:20px;
+  font-weight:bold;
+}
 </style>
 </head>
-
 <body>
 
-<div class="box">
-<h2>Diamond Weight Calculator</h2>
+<div class="card">
+<h2>Diamond Weight Calculator (Pro)</h2>
 
 <select id="shape">
-<option value="round">Round Cut</option>
-<option value="fancy">Fancy (All Shape)</option>
-<option value="igi">IGI Cut</option>
+  <option value="round">Round Cut</option>
+  <option value="fancy">Fancy All Shape</option>
 </select>
 
-<input type="number" id="diameter" placeholder="Diameter / Length (mm)">
-<input type="number" id="depth" placeholder="Total Depth %">
+<select id="lab">
+  <option value="gia">GIA</option>
+  <option value="igi">IGI</option>
+</select>
+
+<input type="number" id="length" placeholder="Diameter / Length (mm)">
+<input type="number" id="width" placeholder="Width (Fancy Only)">
+<input type="number" id="depthPercent" placeholder="Total Height %">
 
 <button onclick="calculate()">Calculate Weight</button>
 
-<h3 id="result"></h3>
+<div class="result" id="result"></div>
 </div>
 
 <script>
-function calculate() {
+function calculate(){
 
-let shape = document.getElementById("shape").value;
-let dia = parseFloat(document.getElementById("diameter").value);
-let depthPercent = parseFloat(document.getElementById("depth").value);
+let shape=document.getElementById("shape").value;
+let lab=document.getElementById("lab").value;
 
-if(isNaN(dia) || isNaN(depthPercent)){
-document.getElementById("result").innerHTML = "Please enter valid values";
+let length=parseFloat(document.getElementById("length").value);
+let width=parseFloat(document.getElementById("width").value);
+let depthPercent=parseFloat(document.getElementById("depthPercent").value);
+
+if(!length || !depthPercent){
+document.getElementById("result").innerText="Fill required fields";
 return;
 }
 
-let depthMM = dia * (depthPercent / 100);
-let weight = 0;
+let factor=0.0061;   // GIA base
 
-if(shape === "round"){
-weight = dia * dia * depthMM * 0.0061;
-}
-else if(shape === "fancy"){
-weight = dia * dia * depthMM * 0.0059;
-}
-else if(shape === "igi"){
-weight = dia * dia * depthMM * 0.0060;
+if(lab==="igi"){
+factor=0.00615;
 }
 
-document.getElementById("result").innerHTML =
-"Estimated Weight: " + weight.toFixed(3) + " Carat";
+let weight=0;
+
+if(shape==="round"){
+
+let depthMM=(depthPercent/100)*length;
+weight=length*length*depthMM*factor;
+
+}
+
+if(shape==="fancy"){
+
+if(!width){
+document.getElementById("result").innerText="Enter Width for Fancy";
+return;
+}
+
+let depthMM=(depthPercent/100)*length;
+
+/* Fancy correction factor */
+let fancyFactor=1.05;   // trade average adjustment
+
+weight=length*width*depthMM*factor*fancyFactor;
+
+}
+
+let cent=weight*100;
+
+document.getElementById("result").innerHTML=
+"Carat: "+weight.toFixed(2)+" ct<br>"+
+"Cent: "+cent.toFixed(0)+" cent";
+
 }
 </script>
 
