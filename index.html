@@ -1,150 +1,153 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<title>Diamond Pro Calculator</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GIA + IGI Diamond Calculator</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <style>
-body {
-    font-family: Arial;
-    background: #f2f2f2;
-    text-align: center;
-    padding: 20px;
-}
-
-.container {
-    background: white;
-    padding: 20px;
-    border-radius: 15px;
-    max-width: 400px;
-    margin: auto;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
-
-h2 {
-    margin-bottom: 20px;
-}
-
-input, select, button {
-    width: 100%;
-    padding: 12px;
-    margin: 8px 0;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    font-size: 16px;
-}
-
-button {
-    border: none;
-    color: white;
-    font-weight: bold;
-}
-
-.calculate {
-    background: #007bff;
-}
-
-.share {
-    background: #28a745;
-}
-
-#result {
-    margin-top: 15px;
-    font-size: 18px;
-    font-weight: bold;
-}
+body{font-family:Arial;background:#f2f2f2;padding:15px;}
+.container{background:#fff;padding:20px;border-radius:12px;box-shadow:0 0 15px rgba(0,0,0,0.1);}
+h2{text-align:center;}
+input,select,button{width:100%;padding:10px;margin:6px 0;font-size:16px;}
+button{background:#000;color:#fff;border:none;border-radius:6px;}
+.result{margin-top:15px;font-size:20px;font-weight:bold;}
+.grade{font-size:18px;margin-top:5px;}
+.leftRight{margin-top:10px;font-size:15px;background:#fafafa;padding:10px;border-radius:6px;}
 </style>
 </head>
-
 <body>
 
 <div class="container">
+<h2>Diamond Pro Calculator</h2>
 
-<h2>GIA + IGI Diamond Calculator</h2>
-
+<label>Shape</label>
 <select id="shape">
-    <option value="Round">Round</option>
-    <option value="Oval">Oval</option>
-    <option value="Pear">Pear</option>
-    <option value="Emerald">Emerald</option>
-    <option value="Cushion">Cushion</option>
+<option value="round">Round</option>
+<option value="oval">Oval</option>
+<option value="cushion">Cushion</option>
+<option value="pear">Pear</option>
+<option value="marquise">Marquise</option>
+<option value="emerald">Emerald</option>
+<option value="princess">Princess</option>
 </select>
 
-<input type="number" id="diameter" placeholder="Diameter (mm)" step="0.01">
+<label>Min Diameter / Length (mm)</label>
+<input type="number" id="min">
 
-<input type="number" id="length" placeholder="Length (mm)" step="0.01" style="display:none;">
+<label>Max Diameter / Width (mm)</label>
+<input type="number" id="max">
 
-<input type="number" id="width" placeholder="Width (mm)" step="0.01" style="display:none;">
+<label>Total Depth (%)</label>
+<input type="number" id="depthPercent">
 
-<input type="number" id="depth" placeholder="Depth %" step="0.01">
+<label>Table (%)</label>
+<input type="number" id="table">
 
-<button class="calculate" onclick="calculateWeight()">Calculate</button>
+<label>Crown Angle (°)</label>
+<input type="number" id="crown">
 
-<button class="share" onclick="shareResult()">Share Result</button>
+<label>Pavilion Angle (°)</label>
+<input type="number" id="pavilion">
 
-<div id="result"></div>
+<button onclick="calculate()">Calculate</button>
+<button onclick="downloadPDF()">Download PDF Report</button>
+
+<div class="result" id="result"></div>
+<div class="grade" id="cutGrade"></div>
+<div class="leftRight" id="symmetry"></div>
 
 </div>
 
 <script>
+let finalWeight=0, finalGrade="", finalSymmetry="";
 
-const shapeSelect = document.getElementById("shape");
-const diameterInput = document.getElementById("diameter");
-const lengthInput = document.getElementById("length");
-const widthInput = document.getElementById("width");
+function calculate(){
 
-shapeSelect.addEventListener("change", function () {
+let shape=document.getElementById("shape").value;
+let min=parseFloat(document.getElementById("min").value);
+let max=parseFloat(document.getElementById("max").value);
+let depthPercent=parseFloat(document.getElementById("depthPercent").value);
+let table=parseFloat(document.getElementById("table").value);
+let crown=parseFloat(document.getElementById("crown").value);
+let pavilion=parseFloat(document.getElementById("pavilion").value);
 
-    if (this.value === "Round") {
-        diameterInput.style.display = "block";
-        lengthInput.style.display = "none";
-        widthInput.style.display = "none";
-    } else {
-        diameterInput.style.display = "none";
-        lengthInput.style.display = "block";
-        widthInput.style.display = "block";
-    }
-});
-
-function calculateWeight() {
-
-    const shape = shapeSelect.value;
-    const depthPercent = parseFloat(document.getElementById("depth").value);
-
-    let weight = 0;
-
-    if (shape === "Round") {
-
-        const diameter = parseFloat(diameterInput.value);
-        const depthMM = (diameter * depthPercent) / 100;
-        weight = diameter * diameter * depthMM * 0.0061;
-
-    } else {
-
-        const length = parseFloat(lengthInput.value);
-        const width = parseFloat(widthInput.value);
-        const depthMM = (width * depthPercent) / 100;
-        weight = length * width * depthMM * 0.0061;
-    }
-
-    document.getElementById("result").innerHTML =
-        "Estimated Weight: " + weight.toFixed(2) + " ct";
+if(!min||!max||!depthPercent||!table||!crown||!pavilion){
+document.getElementById("result").innerHTML="Enter all values";
+return;
 }
 
-function shareResult() {
+let avg=(min+max)/2;
+let depthMM=(avg*depthPercent)/100;
 
-    const text = document.getElementById("result").innerText;
+let constant=0.0061;
+let factor=1;
 
-    if (navigator.share) {
-        navigator.share({
-            title: "Diamond Weight Result",
-            text: text,
-            url: window.location.href
-        });
-    } else {
-        alert("Sharing not supported in this browser.");
-    }
+if(shape=="oval") factor=1.00;
+if(shape=="cushion") factor=0.97;
+if(shape=="pear") factor=1.05;
+if(shape=="marquise") factor=1.10;
+if(shape=="emerald") factor=0.95;
+if(shape=="princess") factor=1.00;
+
+if(shape=="round"){
+finalWeight=avg*avg*depthMM*constant;
+}else{
+finalWeight=min*max*depthMM*constant*factor;
+}
+
+document.getElementById("result").innerHTML=
+"Estimated Weight: "+finalWeight.toFixed(2)+" ct";
+
+// Cut Grade Logic
+if(depthPercent>=59&&depthPercent<=62.5&&
+table>=54&&table<=58&&
+crown>=34&&crown<=35&&
+pavilion>=40.6&&pavilion<=41){
+finalGrade="Excellent Cut";
+}
+else if(depthPercent<=63.5){
+finalGrade="Very Good Cut";
+}
+else if(depthPercent<=65){
+finalGrade="Good Cut";
+}
+else{
+finalGrade="Fair Cut";
+}
+
+document.getElementById("cutGrade").innerHTML=finalGrade;
+
+// Symmetry Check (Right-Left balance)
+let diff=Math.abs(min-max);
+
+if(diff<=0.10){
+finalSymmetry="Symmetry: Excellent (Perfect Right-Left Balance)";
+}
+else if(diff<=0.20){
+finalSymmetry="Symmetry: Very Good";
+}
+else{
+finalSymmetry="Symmetry: Needs Improvement";
+}
+
+document.getElementById("symmetry").innerHTML=finalSymmetry;
+
+}
+
+async function downloadPDF(){
+
+const { jsPDF } = window.jspdf;
+const doc = new jsPDF();
+
+doc.text("Diamond Report",20,20);
+doc.text("Estimated Weight: "+finalWeight.toFixed(2)+" ct",20,40);
+doc.text("Cut Grade: "+finalGrade,20,55);
+doc.text(finalSymmetry,20,70);
+
+doc.save("Diamond_Report.pdf");
+
 }
 
 </script>
