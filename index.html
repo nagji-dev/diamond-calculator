@@ -3,118 +3,171 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Diamond Weight Calculator</title>
+<title>GIA + IGI Diamond Calculator</title>
 
 <style>
-body{
-font-family:Arial;
-background:#f2f2f2;
-text-align:center;
-padding:20px;
+body {
+    font-family: Arial, sans-serif;
+    background: #f2f2f2;
+    text-align: center;
+    padding: 20px;
 }
-.box{
-background:white;
-padding:20px;
-border-radius:10px;
-box-shadow:0 0 10px #ccc;
-max-width:400px;
-margin:auto;
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    max-width: 400px;
+    margin: auto;
 }
-input,select{
-width:100%;
-padding:10px;
-margin:8px 0;
-border-radius:5px;
-border:1px solid #ccc;
+
+input, select {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 16px;
 }
-button{
-padding:10px;
-width:100%;
-background:#007bff;
-color:white;
-border:none;
-border-radius:5px;
-font-size:16px;
+
+button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    border-radius: 8px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
 }
-.result{
-margin-top:15px;
-font-size:18px;
-font-weight:bold;
-color:green;
+
+.calculate {
+    background: #1976d2;
+    color: white;
 }
-.share{
-margin-top:15px;
-background:#25D366;
+
+.share {
+    background: #00c853;
+    color: white;
+}
+
+.result-box {
+    margin-top: 15px;
+    font-size: 18px;
+    font-weight: bold;
 }
 </style>
 </head>
 
 <body>
 
-<div class="box">
+<div class="card">
 <h2>GIA + IGI Diamond Calculator</h2>
 
 <select id="shape">
-<option value="round">Round</option>
-<option value="oval">Oval</option>
-<option value="cushion">Cushion</option>
-<option value="pear">Pear</option>
-<option value="emerald">Emerald</option>
-<option value="marquise">Marquise</option>
-<option value="princess">Princess</option>
+<option value="Round">Round</option>
+<option value="Oval">Oval</option>
+<option value="Emerald">Emerald</option>
+<option value="Pear">Pear</option>
+<option value="Marquise">Marquise</option>
+<option value="Cushion">Cushion</option>
 </select>
 
 <input type="number" id="diameter" placeholder="Diameter (mm)">
-<input type="number" id="length" placeholder="Length (Fancy only)">
-<input type="number" id="width" placeholder="Width (Fancy only)">
-<input type="number" id="depthPercent" placeholder="Depth %">
+<input type="number" id="length" placeholder="Length (mm)" style="display:none;">
+<input type="number" id="width" placeholder="Width (mm)" style="display:none;">
+<input type="number" id="depth" placeholder="Depth %">
 
-<button onclick="calculate()">Calculate</button>
-
-<div class="result" id="result"></div>
-
+<button class="calculate" onclick="calculateDiamond()">Calculate</button>
 <button class="share" onclick="shareResult()">Share Result</button>
 
+<div id="result" class="result-box"></div>
 </div>
 
 <script>
+let finalText = "";
 
-function calculate(){
+document.getElementById("shape").addEventListener("change", function () {
+    if (this.value === "Round") {
+        diameter.style.display = "block";
+        length.style.display = "none";
+        width.style.display = "none";
+    } else {
+        diameter.style.display = "none";
+        length.style.display = "block";
+        width.style.display = "block";
+    }
+});
 
-let shape=document.getElementById("shape").value;
-let diameter=parseFloat(document.getElementById("diameter").value);
-let length=parseFloat(document.getElementById("length").value);
-let width=parseFloat(document.getElementById("width").value);
-let depthPercent=parseFloat(document.getElementById("depthPercent").value);
+function calculateDiamond() {
 
-let depth;
-let carat;
-let factor=1;
+    let shape = shape.value;
+    let dia = parseFloat(diameter.value);
+    let len = parseFloat(length.value);
+    let wid = parseFloat(width.value);
+    let depthPercent = parseFloat(depth.value);
 
-if(shape=="cushion"||shape=="emerald") factor=0.95;
-if(shape=="marquise") factor=1.05;
-if(shape=="princess") factor=0.90;
+    let weight = 0;
+    let cut = "";
 
-if(shape=="round"){
-depth=diameter*(depthPercent/100);
-carat=diameter*diameter*depth*0.0061;
-}else{
-depth=width*(depthPercent/100);
-carat=length*width*depth*0.0061*factor;
+    if (shape === "Round") {
+
+        if (!dia || !depthPercent) {
+            alert("Enter Diameter and Depth%");
+            return;
+        }
+
+        let depthMM = (dia * depthPercent) / 100;
+        weight = dia * dia * depthMM * 0.0061;
+
+        if (depthPercent >= 59 && depthPercent <= 62.5) cut = "Excellent";
+        else if (depthPercent <= 64) cut = "Very Good";
+        else if (depthPercent <= 66) cut = "Good";
+        else cut = "Fair";
+
+    } else {
+
+        if (!len || !wid || !depthPercent) {
+            alert("Enter Length, Width and Depth%");
+            return;
+        }
+
+        let avg = (len + wid) / 2;
+        let depthMM = (avg * depthPercent) / 100;
+
+        let factor = 0.0061;
+        if (shape === "Oval") factor = 0.0062;
+        if (shape === "Emerald") factor = 0.0065;
+        if (shape === "Pear") factor = 0.00615;
+        if (shape === "Marquise") factor = 0.0059;
+
+        weight = len * wid * depthMM * factor;
+        cut = "Fancy Cut";
+    }
+
+    finalText = 
+        "Shape: " + shape + "\n" +
+        "Weight: " + weight.toFixed(2) + " ct\n" +
+        "Cut Grade: " + cut;
+
+    result.innerHTML = finalText.replace(/\n/g,"<br>");
 }
 
-document.getElementById("result").innerHTML="Approx Weight: "+carat.toFixed(2)+" Carat";
+function shareResult() {
+    if (!finalText) {
+        alert("Calculate first!");
+        return;
+    }
 
+    if (navigator.share) {
+        navigator.share({
+            title: "Diamond Result",
+            text: finalText
+        });
+    } else {
+        alert("Sharing not supported in this browser");
+    }
 }
-
-function shareResult(){
-
-let text=document.getElementById("result").innerText;
-let url="https://wa.me/?text="+encodeURIComponent(text);
-window.open(url);
-
-}
-
 </script>
 
 </body>
