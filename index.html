@@ -1,147 +1,148 @@
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Diamond Weight Calculator Pro</title>
+<title>Diamond Weight Calculator (Pro)</title>
 
 <style>
-body {
-  font-family: Arial;
-  background:#f4f4f4;
-  padding:20px;
+body{
+font-family: Arial;
+background:#f2f2f2;
+margin:0;
+padding:20px;
 }
-.box{
-  background:#fff;
-  padding:20px;
-  border-radius:10px;
-  box-shadow:0 0 10px rgba(0,0,0,0.1);
+
+.container{
+background:white;
+padding:20px;
+border-radius:12px;
+max-width:400px;
+margin:auto;
+box-shadow:0 0 10px rgba(0,0,0,0.1);
 }
-input,select,button{
-  width:100%;
-  padding:10px;
-  margin:8px 0;
-  font-size:16px;
+
+h2{
+text-align:center;
 }
+
+select,input{
+width:100%;
+padding:12px;
+margin:8px 0;
+font-size:16px;
+border-radius:6px;
+border:1px solid #ccc;
+}
+
 button{
-  background:green;
-  color:#fff;
-  border:none;
+width:100%;
+padding:14px;
+background:green;
+color:white;
+font-size:18px;
+border:none;
+border-radius:8px;
+margin-top:10px;
 }
+
 .result{
-  margin-top:15px;
-  font-size:18px;
-  font-weight:bold;
+margin-top:15px;
+font-size:20px;
+font-weight:bold;
+text-align:center;
 }
 </style>
 </head>
 
 <body>
 
-<div class="box">
-
+<div class="container">
 <h2>Diamond Weight Calculator (Pro)</h2>
 
-<select id="shape" onchange="shapeChange()">
-  <option value="round">Round Cut</option>
-  <option value="fancy">Fancy Cut</option>
+<select id="shape">
+<option value="Round">Round Cut</option>
+<option value="Oval">Oval</option>
+<option value="Pear">Pear</option>
+<option value="Marquise">Marquise</option>
+<option value="Princess">Princess</option>
+<option value="Cushion">Cushion</option>
+<option value="Emerald">Emerald</option>
+<option value="Radiant">Radiant</option>
+<option value="Heart">Heart</option>
 </select>
 
-<select id="lab">
-  <option value="gia">GIA</option>
-  <option value="igi">IGI</option>
+<select id="lab" onchange="updateCut()">
+<option value="GIA">GIA</option>
+<option value="IGI">IGI</option>
 </select>
 
-<!-- ROUND INPUT -->
-<div id="roundInputs">
-  <input type="number" id="d1" placeholder="Diameter Min (mm)">
-  <input type="number" id="d2" placeholder="Diameter Max (mm)">
-  <input type="number" id="depthPercent" placeholder="Total Depth %">
-</div>
+<select id="cutType">
+<option>Excellent</option>
+<option>Very Good</option>
+<option>Good</option>
+</select>
 
-<!-- FANCY INPUT -->
-<div id="fancyInputs" style="display:none;">
-  <select id="fancyShape">
-    <option value="oval">Oval</option>
-    <option value="pear">Pear</option>
-    <option value="marquise">Marquise</option>
-    <option value="princess">Princess</option>
-    <option value="cushion">Cushion</option>
-    <option value="emerald">Emerald</option>
-  </select>
-
-  <input type="number" id="length" placeholder="Length (mm)">
-  <input type="number" id="width" placeholder="Width (mm)">
-  <input type="number" id="fDepth" placeholder="Total Depth %">
-</div>
+<input type="number" id="length" placeholder="Length / Diameter (mm)">
+<input type="number" id="width" placeholder="Width (mm)">
+<input type="number" id="depth" placeholder="Total Depth %">
 
 <button onclick="calculate()">Calculate Weight</button>
 
-<div class="result" id="result"></div>
+<div class="result" id="result">Weight: 0.00 ct</div>
 
 </div>
 
 <script>
 
-function shapeChange(){
-  let shape = document.getElementById("shape").value;
-  if(shape=="round"){
-    document.getElementById("roundInputs").style.display="block";
-    document.getElementById("fancyInputs").style.display="none";
-  }else{
-    document.getElementById("roundInputs").style.display="none";
-    document.getElementById("fancyInputs").style.display="block";
-  }
+function updateCut(){
+var lab=document.getElementById("lab").value;
+var cut=document.getElementById("cutType");
+cut.innerHTML="";
+
+if(lab=="GIA"){
+cut.innerHTML+="<option>Excellent</option>";
+cut.innerHTML+="<option>Very Good</option>";
+cut.innerHTML+="<option>Good</option>";
+}else{
+cut.innerHTML+="<option>Ideal</option>";
+cut.innerHTML+="<option>Very Good</option>";
+cut.innerHTML+="<option>Good</option>";
+}
 }
 
 function calculate(){
 
-  let shape = document.getElementById("shape").value;
-  let lab = document.getElementById("lab").value;
-  let weight = 0;
+var shape=document.getElementById("shape").value;
+var length=parseFloat(document.getElementById("length").value);
+var width=parseFloat(document.getElementById("width").value);
+var depth=parseFloat(document.getElementById("depth").value);
 
-  if(shape=="round"){
-    let d1 = parseFloat(document.getElementById("d1").value);
-    let d2 = parseFloat(document.getElementById("d2").value);
-    let depthPercent = parseFloat(document.getElementById("depthPercent").value);
+if(!length || !depth){
+alert("Please enter proper values");
+return;
+}
 
-    let avg = (d1 + d2) / 2;
-    let depth = avg * (depthPercent/100);
+if(shape=="Round"){
+width=length;
+}
 
-    weight = avg * avg * depth * 0.0061;
+var depthMM=(depth/100)*((length+width)/2);
 
-  }else{
+var weight=0;
 
-    let length = parseFloat(document.getElementById("length").value);
-    let width = parseFloat(document.getElementById("width").value);
-    let depthPercent = parseFloat(document.getElementById("fDepth").value);
-    let fancyShape = document.getElementById("fancyShape").value;
+if(shape=="Round"){
+weight=length*length*depthMM*0.0061;
+}else{
+weight=length*width*depthMM*0.0061;
+}
 
-    let depth = width * (depthPercent/100);
+document.getElementById("result").innerHTML=
+"Weight: "+weight.toFixed(2)+" ct";
 
-    let factor = 0.0061;
-
-    if(fancyShape=="princess"){ factor = 0.0080; }
-    if(fancyShape=="emerald"){ factor = 0.0078; }
-    if(fancyShape=="oval"){ factor = 0.0062; }
-    if(fancyShape=="pear"){ factor = 0.00615; }
-    if(fancyShape=="marquise"){ factor = 0.0059; }
-    if(fancyShape=="cushion"){ factor = 0.0065; }
-
-    weight = length * width * depth * factor;
-  }
-
-  // LAB difference
-  if(lab=="igi"){
-    weight = weight * 0.98;
-  }
-
-  weight = weight.toFixed(2);
-
-  document.getElementById("result").innerHTML =
-  "Weight: " + weight + " ct";
 }
 
 </script>
 
 </body>
-</html￼Enter
+</html>
