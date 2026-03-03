@@ -150,41 +150,7 @@ doc.save("Diamond_Report.pdf");
 
 }
 
-</script>let cert = document.getElementById("cert").value;
-
-let cutResult = "";
-
-if (cert === "IGI") {
-
-  if (
-    depth >= 59 && depth <= 62.3 &&
-    table >= 54 && table <= 58 &&
-    crown >= 33.5 && crown <= 35.5 &&
-    pavilion >= 40.6 && pavilion <= 41
-  ) {
-    cutResult = "IGI Ideal";
-  } else {
-    cutResult = "IGI Excellent";
-  }
-
-}
-
-if (cert === "GIA") {
-
-  if (
-    depth >= 59 && depth <= 62.3 &&
-    table >= 52 && table <= 60 &&
-    crown >= 33 && crown <= 35.5 &&
-    pavilion >= 40.6 && pavilion <= 41
-  ) {
-    cutResult = "GIA Excellent";
-  } else {
-    cutResult = "Very Good";
-  }
-
-}
-
-document.getElementById("cutGrade").innerText = cutResult;
+</script>
 
 </body>
 </html>
