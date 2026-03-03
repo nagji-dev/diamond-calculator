@@ -1,1 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diamond Weight Calculator</title>
 
+<style>
+body{
+font-family:Arial;
+background:#f2f2f2;
+text-align:center;
+padding:20px;
+}
+.box{
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 0 10px #ccc;
+max-width:400px;
+margin:auto;
+}
+input,select{
+width:100%;
+padding:10px;
+margin:8px 0;
+border-radius:5px;
+border:1px solid #ccc;
+}
+button{
+padding:10px;
+width:100%;
+background:#007bff;
+color:white;
+border:none;
+border-radius:5px;
+font-size:16px;
+}
+.result{
+margin-top:15px;
+font-size:18px;
+font-weight:bold;
+color:green;
+}
+.share{
+margin-top:15px;
+background:#25D366;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+<h2>GIA + IGI Diamond Calculator</h2>
+
+<select id="shape">
+<option value="round">Round</option>
+<option value="oval">Oval</option>
+<option value="cushion">Cushion</option>
+<option value="pear">Pear</option>
+<option value="emerald">Emerald</option>
+<option value="marquise">Marquise</option>
+<option value="princess">Princess</option>
+</select>
+
+<input type="number" id="diameter" placeholder="Diameter (mm)">
+<input type="number" id="length" placeholder="Length (Fancy only)">
+<input type="number" id="width" placeholder="Width (Fancy only)">
+<input type="number" id="depthPercent" placeholder="Depth %">
+
+<button onclick="calculate()">Calculate</button>
+
+<div class="result" id="result"></div>
+
+<button class="share" onclick="shareResult()">Share Result</button>
+
+</div>
+
+<script>
+
+function calculate(){
+
+let shape=document.getElementById("shape").value;
+let diameter=parseFloat(document.getElementById("diameter").value);
+let length=parseFloat(document.getElementById("length").value);
+let width=parseFloat(document.getElementById("width").value);
+let depthPercent=parseFloat(document.getElementById("depthPercent").value);
+
+let depth;
+let carat;
+let factor=1;
+
+if(shape=="cushion"||shape=="emerald") factor=0.95;
+if(shape=="marquise") factor=1.05;
+if(shape=="princess") factor=0.90;
+
+if(shape=="round"){
+depth=diameter*(depthPercent/100);
+carat=diameter*diameter*depth*0.0061;
+}else{
+depth=width*(depthPercent/100);
+carat=length*width*depth*0.0061*factor;
+}
+
+document.getElementById("result").innerHTML="Approx Weight: "+carat.toFixed(2)+" Carat";
+
+}
+
+function shareResult(){
+
+let text=document.getElementById("result").innerText;
+let url="https://wa.me/?text="+encodeURIComponent(text);
+window.open(url);
+
+}
+
+</script>
+
+</body>
+</html>
