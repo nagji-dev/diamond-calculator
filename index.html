@@ -1,1 +1,163 @@
+<!DOCTYPE html>
+<html>
 
+<head>
+
+<title>Diamond Calculator</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+
+body{
+font-family:Arial;
+background:#f4f4f4;
+padding:20px;
+}
+
+.container{
+
+max-width:420px;
+margin:auto;
+background:white;
+padding:20px;
+border-radius:12px;
+box-shadow:0 0 10px rgba(0,0,0,0.1);
+
+}
+
+h2{
+text-align:center;
+}
+
+input,select,button{
+
+width:100%;
+padding:12px;
+margin-top:10px;
+border-radius:6px;
+border:1px solid #ccc;
+
+}
+
+button{
+
+background:#1565c0;
+color:white;
+border:none;
+font-weight:bold;
+
+}
+
+.result{
+
+margin-top:20px;
+font-size:18px;
+font-weight:bold;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Diamond Calculator</h2>
+
+<h3>Round Diamond</h3>
+
+<input id="diameter" placeholder="Diameter mm">
+
+<input id="depth" placeholder="Total Depth %">
+
+<input id="table" placeholder="Table %">
+
+<input id="crown" placeholder="Crown Angle">
+
+<input id="pavilion" placeholder="Pavilion Angle">
+
+<button onclick="roundCalc()">Calculate Round</button>
+
+<hr>
+
+<h3>Fancy Shape</h3>
+
+<select id="shape">
+
+<option value="1">Oval</option>
+<option value="1.05">Cushion</option>
+<option value="1.02">Emerald</option>
+<option value="1">Princess</option>
+<option value="1.03">Pear</option>
+<option value="1.05">Marquise</option>
+
+</select>
+
+<input id="length" placeholder="Length mm">
+
+<input id="width" placeholder="Width mm">
+
+<input id="fdepth" placeholder="Total Depth %">
+
+<button onclick="fancyCalc()">Calculate Fancy</button>
+
+<div class="result" id="result"></div>
+
+</div>
+
+<script>
+
+function roundCalc(){
+
+let d=parseFloat(document.getElementById("diameter").value);
+let depthPercent=parseFloat(document.getElementById("depth").value);
+let table=parseFloat(document.getElementById("table").value);
+let crown=parseFloat(document.getElementById("crown").value);
+let pavilion=parseFloat(document.getElementById("pavilion").value);
+
+let depth=d*(depthPercent/100);
+
+let weight=d*d*depth*0.0061;
+
+let gia="GOOD";
+
+if(table>=53 && table<=58 && depthPercent>=60 && depthPercent<=62.5 && crown>=34 && crown<=35 && pavilion>=40.6 && pavilion<=41){
+gia="EXCELLENT";
+}
+
+let igi="VERY GOOD";
+
+if(table>=54 && table<=57 && depthPercent>=61 && depthPercent<=62.5){
+igi="IDEAL";
+}
+
+document.getElementById("result").innerHTML=
+"Weight : "+weight.toFixed(2)+" ct <br><br>"+
+"GIA Cut : "+gia+" <br><br>"+
+"IGI Cut : "+igi;
+
+}
+
+function fancyCalc(){
+
+let l=parseFloat(document.getElementById("length").value);
+let w=parseFloat(document.getElementById("width").value);
+let depthPercent=parseFloat(document.getElementById("fdepth").value);
+let factor=parseFloat(document.getElementById("shape").value);
+
+let depth=w*(depthPercent/100);
+
+let weight=l*w*depth*0.0061*factor;
+
+document.getElementById("result").innerHTML=
+"Weight : "+weight.toFixed(2)+" ct";
+
+}
+
+</script>
+
+</body>
+</html>
