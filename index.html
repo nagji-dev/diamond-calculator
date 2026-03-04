@@ -1,113 +1,85 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>Facetware Pro Diamond Tool</title>
+<meta charset="UTF-8">
+<title>Diamond Calculator PRO</title>
 
 <style>
 
 body{
 font-family:Arial;
-background:#f4f4f4;
-margin:0;
-text-align:center;
-}
-
-header{
-background:#c8a97e;
-color:white;
-padding:15px;
-font-size:22px;
+background:#f5f5f5;
+padding:20px;
 }
 
 .container{
+max-width:420px;
+margin:auto;
 background:white;
-margin:15px;
 padding:20px;
 border-radius:10px;
-box-shadow:0 0 10px rgba(0,0,0,0.1);
+box-shadow:0 0 10px rgba(0,0,0,0.2);
 }
 
-input,select{
-width:90%;
+h2{
+text-align:center;
+}
+
+input,select,button{
+width:100%;
 padding:10px;
-margin:8px;
-font-size:16px;
-}
-
-button{
-background:black;
-color:white;
-padding:12px 20px;
-border:none;
-border-radius:6px;
+margin-top:10px;
 font-size:16px;
 }
 
 .result{
-margin-top:20px;
+margin-top:15px;
 font-size:18px;
+font-weight:bold;
 }
 
 </style>
-
 </head>
 
 <body>
 
-<header>💎 Facetware Pro Diamond Tool</header>
-
 <div class="container">
 
-<h3>Shape</h3>
+<h2>Diamond Calculator PRO</h2>
 
+<label>Shape</label>
 <select id="shape">
-
 <option value="round">Round</option>
 <option value="oval">Oval</option>
 <option value="pear">Pear</option>
 <option value="marquise">Marquise</option>
-<option value="heart">Heart</option>
-<option value="emerald">Emerald</option>
-<option value="princess">Princess</option>
-<option value="radiant">Radiant</option>
 <option value="cushion">Cushion</option>
-
+<option value="princess">Princess</option>
 </select>
 
-<input type="number" id="diameter" placeholder="Diameter mm">
+<label>Diameter / Length (mm)</label>
+<input id="length" placeholder="Example 5.70">
 
-<input type="number" id="length" placeholder="Length mm (Fancy)">
+<label>Width (mm)</label>
+<input id="width" placeholder="Round માટે ખાલી રાખો">
 
-<input type="number" id="width" placeholder="Width mm (Fancy)">
+<label>Total Depth (%)</label>
+<input id="depth" placeholder="Example 62">
 
-<input type="number" id="depth" placeholder="Total Depth %">
+<label>Table (%)</label>
+<input id="table">
 
-<input type="number" id="table" placeholder="Table %">
+<label>Crown Angle</label>
+<input id="crown">
 
-<input type="number" id="crown" placeholder="Crown Angle">
-
-<input type="number" id="pavilion" placeholder="Pavilion Angle">
+<label>Pavilion Angle</label>
+<input id="pavilion">
 
 <button onclick="calculate()">Calculate</button>
 
-<div class="result">
-
-<p>Crown Height : <span id="ch">0</span>%</p>
-
-<p>Pavilion Depth : <span id="pd">0</span>%</p>
-
-<p>Total Depth : <span id="td">0</span>%</p>
-
-<p>Estimated Weight : <span id="wt">0</span> ct</p>
-
-<p>IGI Cut Grade : <span id="igi">-</span></p>
-
-<p>GIA Cut Grade : <span id="gia">-</span></p>
-
-</div>
+<div class="result" id="weight"></div>
+<div class="result" id="gia"></div>
+<div class="result" id="igi"></div>
 
 </div>
 
@@ -115,82 +87,98 @@ font-size:18px;
 
 function calculate(){
 
-let shape=document.getElementById("shape").value
+let shape=document.getElementById("shape").value;
 
-let diameter=parseFloat(document.getElementById("diameter").value)
+let L=parseFloat(document.getElementById("length").value);
+let W=parseFloat(document.getElementById("width").value);
 
-let length=parseFloat(document.getElementById("length").value)
+let depthPercent=parseFloat(document.getElementById("depth").value);
 
-let width=parseFloat(document.getElementById("width").value)
+let table=parseFloat(document.getElementById("table").value);
+let crown=parseFloat(document.getElementById("crown").value);
+let pavilion=parseFloat(document.getElementById("pavilion").value);
 
-let depth=parseFloat(document.getElementById("depth").value)
+if(!L || !depthPercent){
+alert("Enter required values");
+return;
+}
 
-let table=parseFloat(document.getElementById("table").value)
+if(!W){
+W=L;
+}
 
-let crown=parseFloat(document.getElementById("crown").value)
+let depthMM=L*(depthPercent/100);
 
-let pavilion=parseFloat(document.getElementById("pavilion").value)
-
-let crownHeight=(Math.tan(crown*Math.PI/180)*(50-table/2)).toFixed(2)
-
-let pavilionDepth=(Math.tan(pavilion*Math.PI/180)*50).toFixed(2)
-
-let totalDepth=(parseFloat(crownHeight)+parseFloat(pavilionDepth)).toFixed(2)
-
-document.getElementById("ch").innerText=crownHeight
-document.getElementById("pd").innerText=pavilionDepth
-document.getElementById("td").innerText=totalDepth
-
-let weight=0
+let carat=0;
 
 if(shape=="round"){
-
-weight=(diameter*diameter*depth*0.0061)
-
+carat=L*L*depthMM*0.0061;
 }
 
-else{
-
-let factor=0.0062
-
-if(shape=="oval")factor=0.0062
-if(shape=="pear")factor=0.0061
-if(shape=="marquise")factor=0.0059
-if(shape=="heart")factor=0.0061
-if(shape=="emerald")factor=0.0065
-if(shape=="princess")factor=0.0080
-if(shape=="radiant")factor=0.0067
-if(shape=="cushion")factor=0.0064
-
-weight=(length*width*depth*factor)
-
+if(shape=="oval"){
+carat=L*W*depthMM*0.0062;
 }
 
-document.getElementById("wt").innerText=weight.toFixed(2)
+if(shape=="pear"){
+carat=L*W*depthMM*0.0061;
+}
 
-let igi="GOOD"
+if(shape=="marquise"){
+carat=L*W*depthMM*0.0059;
+}
 
-if(table>=53 && table<=59.5 && crown>=33 && crown<=36 && pavilion>=40 && pavilion<=41.3 && depth>=58.5 && depth<=62.5)
-igi="IDEAL"
+if(shape=="cushion"){
+carat=L*W*depthMM*0.0065;
+}
 
-else if(table>=52 && table<=63 && crown>=31.5 && crown<=36.5 && pavilion>=40 && pavilion<=41.7 && depth>=58 && depth<=63.5)
-igi="EXCELLENT"
+if(shape=="princess"){
+carat=L*W*depthMM*0.008;
+}
 
-else if(table>=52 && table<=63 && crown>=28.5 && crown<=38 && pavilion>=39.7 && pavilion<=42.3 && depth>=55 && depth<=65.5)
-igi="VERY GOOD"
+document.getElementById("weight").innerHTML =
+"Estimated Weight : "+carat.toFixed(2)+" ct";
 
-document.getElementById("igi").innerText=igi
+let gia="Good";
 
+if(
+table>=54 && table<=58 &&
+depthPercent>=60 && depthPercent<=62.5 &&
+crown>=34 && crown<=35 &&
+pavilion>=40.6 && pavilion<=41
+){
+gia="Excellent";
+}
 
-let gia="GOOD"
+else if(
+table>=53 && table<=60 &&
+depthPercent>=59 && depthPercent<=63.5
+){
+gia="Very Good";
+}
 
-if(table>=54 && table<=58 && crown>=34 && crown<=35 && pavilion>=40.6 && pavilion<=41 && depth>=60 && depth<=62.3)
-gia="EXCELLENT"
+document.getElementById("gia").innerHTML =
+"GIA Cut Grade : "+gia;
 
-else if(table>=52 && table<=60 && crown>=33 && crown<=36 && pavilion>=40 && pavilion<=41.5)
-gia="VERY GOOD"
+let igi="Standard";
 
-document.getElementById("gia").innerText=gia
+if(
+table>=55 && table<=57 &&
+depthPercent>=60 && depthPercent<=62 &&
+crown>=34 && crown<=35 &&
+pavilion>=40.6 && pavilion<=40.9
+){
+igi="IGI IDEAL";
+}
+
+else if(
+table>=54 && table<=58 &&
+depthPercent>=59 && depthPercent<=63
+){
+igi="IGI EXCELLENT";
+}
+
+document.getElementById("igi").innerHTML =
+"IGI Result : "+igi;
 
 }
 
