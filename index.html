@@ -1,47 +1,64 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Diamond Calculator</title>
+
+<title>Diamond Calculator V2</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
 
 body{
 font-family:Arial;
-background:#f2f2f2;
+background:#f3f3f3;
 padding:20px;
 }
 
 .box{
+
+max-width:420px;
+margin:auto;
 background:white;
 padding:20px;
 border-radius:10px;
-max-width:420px;
-margin:auto;
+box-shadow:0 0 10px rgba(0,0,0,0.1);
+
 }
 
-input,select{
+h2{
+text-align:center;
+}
+
+input,select,button{
+
 width:100%;
-padding:10px;
+padding:12px;
 margin-top:10px;
+border-radius:6px;
+border:1px solid #ccc;
+font-size:16px;
+
 }
 
 button{
-width:100%;
-padding:12px;
-margin-top:15px;
-background:#007bff;
+
+background:#1976d2;
 color:white;
+font-weight:bold;
 border:none;
-border-radius:6px;
+
 }
 
 .result{
+
 margin-top:20px;
 font-size:18px;
+font-weight:bold;
+
 }
 
 </style>
+
 </head>
 
 <body>
@@ -53,9 +70,13 @@ font-size:18px;
 <h3>Round Diamond</h3>
 
 <input id="diameter" placeholder="Diameter mm">
+
 <input id="depth" placeholder="Total Depth %">
+
 <input id="table" placeholder="Table %">
+
 <input id="crown" placeholder="Crown Angle">
+
 <input id="pavilion" placeholder="Pavilion Angle">
 
 <button onclick="roundCalc()">Calculate Round</button>
@@ -66,30 +87,28 @@ font-size:18px;
 
 <select id="shape">
 
-<option value="0.0061">Oval</option>
-<option value="0.0061">Cushion</option>
-<option value="0.0061">Radiant</option>
-<option value="0.0061">Princess</option>
-<option value="0.0059">Emerald</option>
-<option value="0.0057">Pear</option>
-<option value="0.0057">Marquise</option>
-<option value="0.0059">Heart</option>
+<option value="1">Oval</option>
+<option value="1.05">Cushion</option>
+<option value="1.02">Emerald</option>
+<option value="1">Princess</option>
+<option value="1.03">Pear</option>
+<option value="1.05">Marquise</option>
+<option value="1.02">Radiant</option>
+<option value="1">Heart</option>
+<option value="1">Asscher</option>
+<option value="1.01">Trillion</option>
 
 </select>
 
 <input id="length" placeholder="Length mm">
+
 <input id="width" placeholder="Width mm">
+
 <input id="fdepth" placeholder="Total Depth %">
 
 <button onclick="fancyCalc()">Calculate Fancy</button>
 
-<div class="result">
-
-<p id="weight"></p>
-<p id="gia"></p>
-<p id="igi"></p>
-
-</div>
+<div class="result" id="result"></div>
 
 </div>
 
@@ -98,83 +117,164 @@ font-size:18px;
 function roundCalc(){
 
 let d=parseFloat(document.getElementById("diameter").value);
-let depth=parseFloat(document.getElementById("depth").value);
+
+let depthPercent=parseFloat(document.getElementById("depth").value);
+
 let table=parseFloat(document.getElementById("table").value);
+
 let crown=parseFloat(document.getElementById("crown").value);
+
 let pavilion=parseFloat(document.getElementById("pavilion").value);
 
-let weight=(d*d*depth*0.0061).toFixed(2);
+let depth=d*(depthPercent/100);
 
-document.getElementById("weight").innerText="Weight : "+weight+" ct";
+let weight=d*d*depth*0.0061;
 
-document.getElementById("igi").innerText="IGI Cut : "+igi(table,depth,crown,pavilion);
-document.getElementById("gia").innerText="GIA Cut : "+gia(table,crown,pavilion);
+let gia="GOOD";
+
+if(table>=53 && table<=58 && depthPercent>=60 && depthPercent<=62.5 && crown>=33.5 && crown<=35.5 && pavilion>=40.4 && pavilion<=41.2){
+
+gia="EXCELLENT";
+
+}
+
+else if(depthPercent>=59 && depthPercent<=63){
+
+gia="VERY GOOD";
+
+}
+
+else{
+
+gia="GOOD";
+
+}
+
+let igi="VERY GOOD";
+
+if(table>=54 && table<=57 && depthPercent>=61 && depthPercent<=62.5){
+
+igi="IDEAL";
+
+}
+
+document.getElementById("result").innerHTML=
+
+"Weight : "+weight.toFixed(2)+" ct <br><br>"+
+
+"GIA Cut : "+gia+" <br><br>"+
+
+"IGI Cut : "+igi;
 
 }
 
 function fancyCalc(){
 
-let L=parseFloat(document.getElementById("length").value);
-let W=parseFloat(document.getElementById("width").value);
-let depth=parseFloat(document.getElementById("fdepth").value);
-let k=parseFloat(document.getElementById("shape").value);
+let l=parseFloat(document.getElementById("length").value);
 
-let weight=(L*W*depth*k).toFixed(2);
+let w=parseFloat(document.getElementById("width").value);
 
-document.getElementById("weight").innerText="Weight : "+weight+" ct";
+let depthPercent=parseFloat(document.getElementById("fdepth").value);
 
-document.getElementById("gia").innerText="";
-document.getElementById("igi").innerText="";
+let factor=parseFloat(document.getElementById("shape").value);
 
-}
+let depth=w*(depthPercent/100);
 
-function igi(table,depth,crown,pavilion){
+let weight=l*w*depth*0.0061*factor;
 
-if(
-table>=53 && table<=59.5 &&
-depth>=58.5 && depth<=62.5 &&
-crown>=33 && crown<=36 &&
-pavilion>=40 && pavilion<=41.3
-){
-return "IDEAL";
-}
+document.getElementById("result").innerHTML=
 
-if(
-table>=52 && table<=63 &&
-depth>=58 && depth<=63.5 &&
-crown>=31.5 && crown<=36.5 &&
-pavilion>=40 && pavilion<=41.7
-){
-return "EXCELLENT";
-}
-
-return "VERY GOOD";
-
-}
-
-function gia(table,crown,pavilion){
-
-if(
-table>=53 && table<=58 &&
-crown>=34 && crown<=35 &&
-pavilion>=40.6 && pavilion<=41
-){
-return "EXCELLENT";
-}
-
-if(
-table>=52 && table<=60 &&
-crown>=33 && crown<=36 &&
-pavilion>=40.4 && pavilion<=41.2
-){
-return "VERY GOOD";
-}
-
-return "GOOD";
+"Weight : "+weight.toFixed(2)+" ct";
 
 }
 
 </script>
 
 </body>
-</html>￼Enter
+
+</html>￼EnterYPE html>
+<html>
+<head>
+
+<title>Diamond Calculator V2</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+
+body{
+font-family:Arial;
+background:#f3f3f3;
+padding:20px;
+}
+
+.box{
+
+max-width:420px;
+margin:auto;
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 0 10px rgba(0,0,0,0.1);
+
+}
+
+h2{
+text-align:center;
+}
+
+input,select,button{
+
+width:100%;
+padding:12px;
+margin-top:10px;
+border-radius:6px;
+border:1px solid #ccc;
+font-size:16px;
+
+}
+
+button{
+
+background:#1976d2;
+color:white;
+font-weight:bold;
+border:none;
+
+}
+
+.result{
+
+margin-top:20px;
+font-size:18px;
+font-weight:bold;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="box">
+
+<h2>Diamond Calculator</h2>
+
+<h3>Round Diamond</h3>
+
+<input id="diameter" placeholder="Diameter mm">
+
+<input id="depth" placeholder="Total Depth %">
+
+<input id="table" placeholder="Table %">
+
+<input id="crown" placeholder="Crown Angle">
+
+<input id="pavilion" placeholder="Pavilion Angle">
+
+<button onclick="roundCalc()">Calculate Round</button>
+
+<hr>
+
+<h3>Fancy Shape</h3>
