@@ -1,77 +1,166 @@
-function calculateWeight() {
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Diamond Calculator</title>
 
-let shape = document.getElementById("shape").value;
-let L = parseFloat(document.getElementById("length").value);
-let W = parseFloat(document.getElementById("width").value);
-let depthPercent = parseFloat(document.getElementById("depth").value);
+<style>
+body{
+font-family: Arial;
+background:#f4f4f4;
+text-align:center;
+}
 
-let weight = 0;
-let depthMM = 0;
+.box{
+background:white;
+padding:20px;
+margin:40px auto;
+width:330px;
+border-radius:10px;
+box-shadow:0 0 10px rgba(0,0,0,0.2);
+}
 
+input,select{
+width:90%;
+padding:8px;
+margin:6px;
+font-size:16px;
+}
 
-// ROUND (NO CHANGE)
-if(shape === "round"){
+button{
+padding:10px 20px;
+font-size:16px;
+background:#007bff;
+color:white;
+border:none;
+border-radius:5px;
+}
 
-depthMM = (L * depthPercent) / 100;
-weight = L * L * depthMM * 0.0061;
+.result{
+margin-top:12px;
+font-size:18px;
+font-weight:bold;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="box">
+
+<h2>Diamond Calculator</h2>
+
+<select id="shape">
+<option value="round">Round</option>
+<option value="oval">Oval</option>
+<option value="pear">Pear</option>
+<option value="marquise">Marquise</option>
+<option value="emerald">Emerald</option>
+<option value="radiant">Radiant</option>
+</select>
+
+<input type="number" id="length" placeholder="Length (mm)">
+<input type="number" id="width" placeholder="Width (mm)">
+<input type="number" id="depth" placeholder="Total Depth %">
+
+<button onclick="calculate()">Calculate</button>
+
+<div class="result" id="weight"></div>
+<div class="result" id="ratio"></div>
+<div class="result" id="cut"></div>
+
+</div>
+
+<script>
+
+function calculate(){
+
+let shape=document.getElementById("shape").value
+
+let L=parseFloat(document.getElementById("length").value)
+
+let W=parseFloat(document.getElementById("width").value)
+
+let depth=parseFloat(document.getElementById("depth").value)
+
+let depthMM
+
+let weight
+
+if(shape=="round"){
+
+depthMM=(W*depth)/100
+
+weight=W*W*depthMM*0.0061
 
 }
 
+else if(shape=="oval"){
 
-// OVAL
-else if(shape === "oval"){
+depthMM=(L*depth)/100
 
-depthMM = (L * depthPercent) / 100;
-weight = L * W * depthMM * 0.0068;
-
-}
-
-
-// PEAR
-else if(shape === "pear"){
-
-depthMM = (L * depthPercent) / 100;
-weight = L * W * depthMM * 0.0069;
+weight=L*W*depthMM*0.0062
 
 }
 
+else if(shape=="pear"){
 
-// MARQUISE
-else if(shape === "marquise"){
+depthMM=(L*depth)/100
 
-depthMM = (L * depthPercent) / 100;
-weight = L * W * depthMM * 0.0059;
-
-}
-
-
-// CUSHION
-else if(shape === "cushion"){
-
-depthMM = (L * depthPercent) / 100;
-weight = L * W * depthMM * 0.0067;
+weight=L*W*depthMM*0.00615
 
 }
 
+else if(shape=="marquise"){
 
-// EMERALD
-else if(shape === "emerald"){
+depthMM=(L*depth)/100
 
-depthMM = (L * depthPercent) / 100;
-weight = L * W * depthMM * 0.0065;
+weight=L*W*depthMM*0.0059
 
 }
 
+else if(shape=="emerald"){
 
-// Ratio
-let ratio = (L / W).toFixed(2);
+depthMM=(L*depth)/100
 
+weight=L*W*depthMM*0.0067
 
-// RESULT
-document.getElementById("weightResult").innerHTML =
-"Weight : " + weight.toFixed(2) + " ct";
+}
 
-document.getElementById("ratioResult").innerHTML =
-"Ratio : " + ratio;
+else if(shape=="radiant"){
 
-}￼Enter
+depthMM=(L*depth)/100
+
+weight=L*W*depthMM*0.0066
+
+}
+
+let ratio=(L/W).toFixed(2)
+
+let cut="GOOD"
+
+if(depth>=59 && depth<=62){
+
+cut="EXCELLENT"
+
+}
+
+else if(depth>=57 && depth<=64){
+
+cut="VERY GOOD"
+
+}
+
+document.getElementById("weight").innerHTML="Weight : "+weight.toFixed(2)+" ct"
+
+document.getElementById("ratio").innerHTML="Ratio : "+ratio
+
+document.getElementById("cut").innerHTML="Cut : "+cut
+
+}
+
+</script>
+
+</body>
+</html>
