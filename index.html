@@ -2,7 +2,7 @@
 <html>
 <head>
 
-<title>Diamond Calculator V2</title>
+<title>Diamond Calculator Pro</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -10,17 +10,17 @@
 
 body{
 font-family:Arial;
-background:#f3f3f3;
+background:#f4f4f4;
 padding:20px;
 }
 
-.box{
+.container{
 
 max-width:420px;
 margin:auto;
 background:white;
 padding:20px;
-border-radius:10px;
+border-radius:12px;
 box-shadow:0 0 10px rgba(0,0,0,0.1);
 
 }
@@ -42,10 +42,10 @@ font-size:16px;
 
 button{
 
-background:#1976d2;
+background:#1565c0;
 color:white;
-font-weight:bold;
 border:none;
+font-weight:bold;
 
 }
 
@@ -63,7 +63,7 @@ font-weight:bold;
 
 <body>
 
-<div class="box">
+<div class="container">
 
 <h2>Diamond Calculator</h2>
 
@@ -97,6 +97,8 @@ font-weight:bold;
 <option value="1">Heart</option>
 <option value="1">Asscher</option>
 <option value="1.01">Trillion</option>
+<option value="1.02">Baguette</option>
+<option value="1.04">Old Mine</option>
 
 </select>
 
@@ -132,7 +134,7 @@ let weight=d*d*depth*0.0061;
 
 let gia="GOOD";
 
-if(table>=53 && table<=58 && depthPercent>=60 && depthPercent<=62.5 && crown>=33.5 && crown<=35.5 && pavilion>=40.4 && pavilion<=41.2){
+if(table>=53 && table<=58 && depthPercent>=60 && depthPercent<=62.5 && crown>=34 && crown<=35 && pavilion>=40.6 && pavilion<=41){
 
 gia="EXCELLENT";
 
@@ -168,6 +170,7 @@ document.getElementById("result").innerHTML=
 
 }
 
+
 function fancyCalc(){
 
 let l=parseFloat(document.getElementById("length").value);
@@ -191,12 +194,11 @@ document.getElementById("result").innerHTML=
 </script>
 
 </body>
-
 </html>￼EnterYPE html>
 <html>
 <head>
 
-<title>Diamond Calculator V2</title>
+<title>Diamond Calculator Pro</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -204,17 +206,17 @@ document.getElementById("result").innerHTML=
 
 body{
 font-family:Arial;
-background:#f3f3f3;
+background:#f4f4f4;
 padding:20px;
 }
 
-.box{
+.container{
 
 max-width:420px;
 margin:auto;
 background:white;
 padding:20px;
-border-radius:10px;
+border-radius:12px;
 box-shadow:0 0 10px rgba(0,0,0,0.1);
 
 }
@@ -236,10 +238,10 @@ font-size:16px;
 
 button{
 
-background:#1976d2;
+background:#1565c0;
 color:white;
-font-weight:bold;
 border:none;
+font-weight:bold;
 
 }
 
@@ -257,7 +259,7 @@ font-weight:bold;
 
 <body>
 
-<div class="box">
+<div class="container">
 
 <h2>Diamond Calculator</h2>
 
@@ -278,3 +280,5 @@ font-weight:bold;
 <hr>
 
 <h3>Fancy Shape</h3>
+
+<select id="shape">
