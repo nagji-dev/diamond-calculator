@@ -1,46 +1,46 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Diamond Calculator</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
+<title>Round Diamond Calculator</title>
 <style>
 
 body{
-font-family: Arial;
-background:#f4f4f4;
+font-family:Arial;
+background:#f2f2f2;
 padding:20px;
 }
 
 .box{
 background:white;
-padding:20px;
-border-radius:10px;
+padding:25px;
 max-width:400px;
 margin:auto;
-box-shadow:0 0 10px rgba(0,0,0,0.1);
+border-radius:10px;
+box-shadow:0 0 10px #ccc;
 }
 
 input{
 width:100%;
 padding:10px;
-margin:10px 0;
+margin-top:10px;
+margin-bottom:15px;
 font-size:16px;
 }
 
 button{
 width:100%;
 padding:12px;
-background:#2e7d32;
+font-size:18px;
+background:#0a8f2a;
 color:white;
 border:none;
-font-size:18px;
 border-radius:6px;
 }
 
 .result{
 margin-top:20px;
-font-size:20px;
+font-size:22px;
+font-weight:bold;
 }
 
 </style>
@@ -50,49 +50,43 @@ font-size:20px;
 
 <div class="box">
 
-<h2>Diamond Calculator</h2>
+<h2>Round Diamond Calculator</h2>
 
 <label>Diameter (mm)</label>
 <input id="diameter" type="number" step="0.01">
 
 <label>Total Depth %</label>
-<input id="depth" type="number" step="0.01">
+<input id="depth" type="number" step="0.1">
 
-<button onclick="calculate()">Calculate</button>
+<button onclick="calc()">Calculate</button>
 
-<div class="result">
-
-<p>Weight: <span id="weight">0</span> ct</p>
-<p>Cut: <span id="cut">-</span></p>
-
-</div>
+<div class="result" id="result"></div>
 
 </div>
 
 <script>
 
-function calculate(){
+function calc(){
 
 let d = parseFloat(document.getElementById("diameter").value);
-let depth = parseFloat(document.getElementById("depth").value);
+let depthPercent = parseFloat(document.getElementById("depth").value);
 
-let weight = Math.pow(d,3) * (depth/100) * 0.00366;
+if(!d || !depthPercent){
+alert("Value enter karo");
+return;
+}
 
-let cut="";
+// depth mm
+let depthMM = d * depthPercent / 100;
 
-if(depth>=58.5 && depth<=59.2) cut="EX H59";
-else if(depth<=59.7) cut="EX H59.5";
-else if(depth<=60.2) cut="EX H60";
-else if(depth<=60.7) cut="EX H60.5";
-else if(depth<=61.2) cut="EX H61";
-else if(depth<=61.7) cut="EX H61.5";
-else if(depth<=62.3) cut="EX H62";
-else if(depth<=63) cut="EX H62.7";
-else if(depth<=64.5) cut="VG";
-else cut="GD";
+// points
+let points = (d*d*(depthMM*100))/164;
 
-document.getElementById("weight").innerText = weight.toFixed(3);
-document.getElementById("cut").innerText = cut;
+// carat
+let carat = points/100;
+
+document.getElementById("result").innerHTML =
+"Weight : " + carat.toFixed(2) + " ct";
 
 }
 
