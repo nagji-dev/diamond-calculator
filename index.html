@@ -1,159 +1,98 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-
 <title>Diamond Calculator</title>
-
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
 
 body{
-font-family:Arial;
+font-family: Arial;
 background:#f4f4f4;
 padding:20px;
 }
 
-.container{
-
-max-width:420px;
-margin:auto;
+.box{
 background:white;
 padding:20px;
-border-radius:12px;
+border-radius:10px;
+max-width:400px;
+margin:auto;
 box-shadow:0 0 10px rgba(0,0,0,0.1);
-
 }
 
-h2{
-text-align:center;
-}
-
-input,select,button{
-
+input{
 width:100%;
-padding:12px;
-margin-top:10px;
-border-radius:6px;
-border:1px solid #ccc;
-
+padding:10px;
+margin:10px 0;
+font-size:16px;
 }
 
 button{
-
-background:#1565c0;
+width:100%;
+padding:12px;
+background:#2e7d32;
 color:white;
 border:none;
-font-weight:bold;
-
+font-size:18px;
+border-radius:6px;
 }
 
 .result{
-
 margin-top:20px;
-font-size:18px;
-font-weight:bold;
-
+font-size:20px;
 }
 
 </style>
-
 </head>
 
 <body>
 
-<div class="container">
+<div class="box">
 
 <h2>Diamond Calculator</h2>
 
-<h3>Round Diamond</h3>
+<label>Diameter (mm)</label>
+<input id="diameter" type="number" step="0.01">
 
-<input id="diameter" placeholder="Diameter mm">
+<label>Total Depth %</label>
+<input id="depth" type="number" step="0.01">
 
-<input id="depth" placeholder="Total Depth %">
+<button onclick="calculate()">Calculate</button>
 
-<input id="table" placeholder="Table %">
+<div class="result">
 
-<input id="crown" placeholder="Crown Angle">
+<p>Weight: <span id="weight">0</span> ct</p>
+<p>Cut: <span id="cut">-</span></p>
 
-<input id="pavilion" placeholder="Pavilion Angle">
-
-<button onclick="roundCalc()">Calculate Round</button>
-
-<hr>
-
-<h3>Fancy Shape</h3>
-
-<select id="shape">
-
-<option value="1">Oval</option>
-<option value="1.05">Cushion</option>
-<option value="1.02">Emerald</option>
-<option value="1">Princess</option>
-<option value="1.03">Pear</option>
-<option value="1.05">Marquise</option>
-
-</select>
-
-<input id="length" placeholder="Length mm">
-
-<input id="width" placeholder="Width mm">
-
-<input id="fdepth" placeholder="Total Depth %">
-
-<button onclick="fancyCalc()">Calculate Fancy</button>
-
-<div class="result" id="result"></div>
+</div>
 
 </div>
 
 <script>
 
-function roundCalc(){
+function calculate(){
 
-let d=parseFloat(document.getElementById("diameter").value);
-let depthPercent=parseFloat(document.getElementById("depth").value);
-let table=parseFloat(document.getElementById("table").value);
-let crown=parseFloat(document.getElementById("crown").value);
-let pavilion=parseFloat(document.getElementById("pavilion").value);
+let d = parseFloat(document.getElementById("diameter").value);
+let depth = parseFloat(document.getElementById("depth").value);
 
-let depth=d*(depthPercent/100);
+let weight = Math.pow(d,3) * (depth/100) * 0.00366;
 
-let weight=d*d*depth*0.0061;
+let cut="";
 
-let gia="GOOD";
+if(depth>=58.5 && depth<=59.2) cut="EX H59";
+else if(depth<=59.7) cut="EX H59.5";
+else if(depth<=60.2) cut="EX H60";
+else if(depth<=60.7) cut="EX H60.5";
+else if(depth<=61.2) cut="EX H61";
+else if(depth<=61.7) cut="EX H61.5";
+else if(depth<=62.3) cut="EX H62";
+else if(depth<=63) cut="EX H62.7";
+else if(depth<=64.5) cut="VG";
+else cut="GD";
 
-if(table>=53 && table<=58 && depthPercent>=60 && depthPercent<=62.5 && crown>=34 && crown<=35 && pavilion>=40.6 && pavilion<=41){
-gia="EXCELLENT";
-}
-
-let igi="VERY GOOD";
-
-if(table>=54 && table<=57 && depthPercent>=61 && depthPercent<=62.5){
-igi="IDEAL";
-}
-
-document.getElementById("result").innerHTML=
-"Weight : "+weight.toFixed(2)+" ct <br><br>"+
-"GIA Cut : "+gia+" <br><br>"+
-"IGI Cut : "+igi;
-
-}
-
-function fancyCalc(){
-
-let l=parseFloat(document.getElementById("length").value);
-let w=parseFloat(document.getElementById("width").value);
-let depthPercent=parseFloat(document.getElementById("fdepth").value);
-let factor=parseFloat(document.getElementById("shape").value);
-
-let depth=w*(depthPercent/100);
-
-let weight=l*w*depth*0.0061*factor;
-
-document.getElementById("result").innerHTML=
-"Weight : "+weight.toFixed(2)+" ct";
+document.getElementById("weight").innerText = weight.toFixed(3);
+document.getElementById("cut").innerText = cut;
 
 }
 
