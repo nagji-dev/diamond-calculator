@@ -4,7 +4,6 @@
 <title>Diamond Calculator</title>
 
 <style>
-
 body{
 font-family:Arial;
 background:#f5f5f5;
@@ -41,7 +40,6 @@ border-radius:5px;
 margin-top:15px;
 font-size:18px;
 }
-
 </style>
 </head>
 
@@ -73,6 +71,7 @@ font-size:18px;
 function calculate(){
 
 let shape=document.getElementById("shape").value;
+
 let L=parseFloat(document.getElementById("length").value);
 let W=parseFloat(document.getElementById("width").value);
 let D=parseFloat(document.getElementById("depth").value);
@@ -83,13 +82,13 @@ if(shape=="round"){
 
 let dia=(L+W)/2;
 
-weight = dia * dia * D * 0.00481 / 100;
+weight = dia * dia * D * 0.00482 / 100;
 
 }
 
 if(shape=="oval"){
 
-weight = L * W * W * D * 0.00650 / 100;
+weight = L * W * W * D * 0.00656 / 100;
 
 }
 
@@ -97,7 +96,7 @@ weight = weight.toFixed(2);
 
 let ratio=(L/W).toFixed(2);
 
-document.getElementById("result").innerHTML =
+document.getElementById("result").innerHTML=
 "Weight : "+weight+" ct<br>"+
 "Ratio : "+ratio+"<br>"+
 "Depth : "+D+" %";
