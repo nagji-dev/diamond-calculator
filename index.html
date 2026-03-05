@@ -7,18 +7,18 @@
 
 body{
 font-family:Arial;
-background:#f5f5f5;
+background:#f4f4f4;
 text-align:center;
 }
 
 .box{
 background:white;
-padding:20px;
-width:320px;
+padding:25px;
+width:340px;
 margin:auto;
 margin-top:40px;
-border-radius:10px;
-box-shadow:0 0 10px rgba(0,0,0,0.2);
+border-radius:12px;
+box-shadow:0 0 12px rgba(0,0,0,0.2);
 }
 
 input,select,button{
@@ -29,10 +29,11 @@ font-size:16px;
 }
 
 button{
-background:#2c7be5;
+background:#007bff;
 color:white;
 border:none;
 cursor:pointer;
+border-radius:6px;
 }
 
 .result{
@@ -50,12 +51,14 @@ font-size:18px;
 <h2>Diamond Calculator</h2>
 
 <select id="shape">
+
 <option value="round">Round</option>
 <option value="oval">Oval</option>
 <option value="cushion">Cushion</option>
 <option value="emerald">Emerald</option>
 <option value="pear">Pear</option>
 <option value="marquise">Marquise</option>
+
 </select>
 
 <input id="length" placeholder="Length (mm)">
@@ -84,13 +87,15 @@ let depthPercent=parseFloat(document.getElementById("depth").value);
 
 let factor=0.0061;
 
-if(shape=="oval")factor=0.0062;
-if(shape=="cushion")factor=0.0064;
-if(shape=="emerald")factor=0.0065;
-if(shape=="pear")factor=0.00615;
-if(shape=="marquise")factor=0.0059;
+if(shape=="oval")factor=0.00655;
+if(shape=="cushion")factor=0.00645;
+if(shape=="emerald")factor=0.0066;
+if(shape=="pear")factor=0.0065;
+if(shape=="marquise")factor=0.0062;
 
-let depth=(depthPercent/100)*W;
+let avg=(L+W)/2;
+
+let depth=(depthPercent/100)*avg;
 
 let weight=(L*W*depth*factor).toFixed(2);
 
@@ -98,9 +103,12 @@ let ratio=(L/W).toFixed(2);
 
 let cut="Fair";
 
-if(depthPercent>=58 && depthPercent<=62)cut="Excellent";
-else if(depthPercent<=65)cut="Very Good";
-else if(depthPercent<=69)cut="Good";
+if(depthPercent>=58 && depthPercent<=62)
+cut="Excellent";
+else if(depthPercent>62 && depthPercent<=65)
+cut="Very Good";
+else if(depthPercent>65 && depthPercent<=69)
+cut="Good";
 
 document.getElementById("result").innerHTML=
 
