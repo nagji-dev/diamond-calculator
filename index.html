@@ -1,48 +1,43 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Diamond Calculator</title>
 
 <style>
 
 body{
-font-family: Arial;
-background:#f2f2f2;
-display:flex;
-justify-content:center;
-padding-top:40px;
+font-family:Arial;
+background:#f5f5f5;
+text-align:center;
 }
 
 .box{
 background:white;
 padding:20px;
 width:320px;
+margin:auto;
+margin-top:40px;
 border-radius:10px;
-box-shadow:0 0 10px rgba(0,0,0,0.1);
-}
-
-h2{
-text-align:center;
+box-shadow:0 0 10px rgba(0,0,0,0.2);
 }
 
 input,select,button{
-width:100%;
+width:90%;
 padding:10px;
-margin-top:10px;
+margin:8px;
 font-size:16px;
 }
 
 button{
-background:#1976d2;
+background:#2c7be5;
 color:white;
 border:none;
+cursor:pointer;
 }
 
 .result{
 margin-top:15px;
 font-size:18px;
-font-weight:bold;
 }
 
 </style>
@@ -57,21 +52,21 @@ font-weight:bold;
 <select id="shape">
 <option value="round">Round</option>
 <option value="oval">Oval</option>
-<option value="pear">Pear</option>
-<option value="marquise">Marquise</option>
 <option value="cushion">Cushion</option>
 <option value="emerald">Emerald</option>
+<option value="pear">Pear</option>
+<option value="marquise">Marquise</option>
 </select>
 
-<input id="l" placeholder="Length / Diameter (mm)">
-<input id="w" placeholder="Width (mm)">
-<input id="d" placeholder="Total Depth %">
+<input id="length" placeholder="Length (mm)">
+
+<input id="width" placeholder="Width (mm)">
+
+<input id="depth" placeholder="Depth %">
 
 <button onclick="calc()">Calculate</button>
 
-<div class="result" id="weight"></div>
-<div class="result" id="ratio"></div>
-<div class="result" id="cut"></div>
+<div class="result" id="result"></div>
 
 </div>
 
@@ -79,57 +74,40 @@ font-weight:bold;
 
 function calc(){
 
-let shape=document.getElementById("shape").value
+let shape=document.getElementById("shape").value;
 
-let l=parseFloat(document.getElementById("l").value)
-let w=parseFloat(document.getElementById("w").value)
-let d=parseFloat(document.getElementById("d").value)/100
+let L=parseFloat(document.getElementById("length").value);
 
-let weight=0
+let W=parseFloat(document.getElementById("width").value);
 
-if(shape=="round"){
-weight=l*l*d*0.0061
-}
+let depthPercent=parseFloat(document.getElementById("depth").value);
 
-if(shape=="oval"){
-weight=l*w*w*d*0.00605
-}
+let factor=0.0061;
 
-if(shape=="pear"){
-weight=l*w*w*d*0.006
-}
+if(shape=="oval")factor=0.0062;
+if(shape=="cushion")factor=0.0064;
+if(shape=="emerald")factor=0.0065;
+if(shape=="pear")factor=0.00615;
+if(shape=="marquise")factor=0.0059;
 
-if(shape=="marquise"){
-weight=l*w*w*d*0.0059
-}
+let depth=(depthPercent/100)*W;
 
-if(shape=="cushion"){
-weight=l*w*w*d*0.0061
-}
+let weight=(L*W*depth*factor).toFixed(2);
 
-if(shape=="emerald"){
-weight=l*w*w*d*0.0062
-}
+let ratio=(L/W).toFixed(2);
 
-weight=weight.toFixed(2)
+let cut="Fair";
 
-document.getElementById("weight").innerHTML="Estimated Weight : "+weight+" ct"
+if(depthPercent>=58 && depthPercent<=62)cut="Excellent";
+else if(depthPercent<=65)cut="Very Good";
+else if(depthPercent<=69)cut="Good";
 
-let ratio=(l/w).toFixed(2)
+document.getElementById("result").innerHTML=
 
-document.getElementById("ratio").innerHTML="Ratio : "+ratio
-
-let cut="GOOD"
-
-if(d>=0.59 && d<=0.62){
-cut="EXCELLENT"
-}
-
-else if(d>=0.57 && d<=0.64){
-cut="VERY GOOD"
-}
-
-document.getElementById("cut").innerHTML="Cut : "+cut
+"Weight : "+weight+" ct <br>"+
+"Ratio : "+ratio+" <br>"+
+"Depth : "+depthPercent+" % <br>"+
+"Cut : "+cut;
 
 }
 
