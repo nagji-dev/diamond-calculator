@@ -54,11 +54,6 @@ font-size:18px;
 <select id="shape">
 <option value="round">Round</option>
 <option value="oval">Oval</option>
-<option value="pear">Pear</option>
-<option value="cushion">Cushion</option>
-<option value="emerald">Emerald</option>
-<option value="marquise">Marquise</option>
-<option value="heart">Heart</option>
 </select>
 
 <input type="number" id="length" placeholder="Length">
@@ -85,51 +80,27 @@ let D=parseFloat(document.getElementById("depth").value);
 let weight=0;
 
 if(shape=="round"){
-weight = W * W * D * 0.0061;
+
+let dia=(L+W)/2;
+
+weight = dia * dia * D * 0.00481 / 100;
+
 }
 
 if(shape=="oval"){
-weight = L * W * W * D * 0.0065 / 100;
-}
 
-if(shape=="pear"){
-weight = L * W * W * D * 0.0062 / 100;
-}
+weight = L * W * W * D * 0.00650 / 100;
 
-if(shape=="cushion"){
-weight = L * W * W * D * 0.0064 / 100;
-}
-
-if(shape=="emerald"){
-weight = L * W * W * D * 0.0060 / 100;
-}
-
-if(shape=="marquise"){
-weight = L * W * W * D * 0.0061 / 100;
-}
-
-if(shape=="heart"){
-weight = L * W * W * D * 0.0062 / 100;
 }
 
 weight = weight.toFixed(2);
 
 let ratio=(L/W).toFixed(2);
 
-let cut="Good";
-
-if(D>=59 && D<=62){
-cut="Excellent";
-}
-else if(D>=57 && D<=64){
-cut="Very Good";
-}
-
-document.getElementById("result").innerHTML=
+document.getElementById("result").innerHTML =
 "Weight : "+weight+" ct<br>"+
 "Ratio : "+ratio+"<br>"+
-"Depth : "+D+" %<br>"+
-"Cut : "+cut;
+"Depth : "+D+" %";
 
 }
 
