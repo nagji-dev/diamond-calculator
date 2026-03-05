@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Diamond Calculator</title>
+<title>Diamond Calculator Pro</title>
 
 <style>
 
 body{
 font-family:Arial;
-background:#f5f5f5;
+background:#f4f4f4;
 text-align:center;
 }
 
 .box{
 background:white;
-width:330px;
+width:350px;
 margin:auto;
-margin-top:60px;
+margin-top:30px;
 padding:20px;
 border-radius:10px;
-box-shadow:0 0 10px rgba(0,0,0,0.1);
+box-shadow:0 0 10px rgba(0,0,0,0.2);
 }
 
 input,select,button{
@@ -35,7 +35,7 @@ border:none;
 }
 
 .result{
-margin-top:15px;
+margin-top:12px;
 font-size:18px;
 font-weight:bold;
 }
@@ -50,10 +50,15 @@ font-weight:bold;
 <h2>Diamond Calculator</h2>
 
 <select id="shape">
+
 <option value="round">Round</option>
 <option value="oval">Oval</option>
 <option value="pear">Pear</option>
 <option value="marquise">Marquise</option>
+<option value="cushion">Cushion</option>
+<option value="emerald">Emerald</option>
+<option value="princess">Princess</option>
+
 </select>
 
 <input type="number" id="length" placeholder="Length">
@@ -66,6 +71,7 @@ font-weight:bold;
 
 <div class="result" id="weight"></div>
 <div class="result" id="ratio"></div>
+<div class="result" id="cut"></div>
 
 </div>
 
@@ -74,8 +80,11 @@ font-weight:bold;
 function calculate(){
 
 let shape=document.getElementById("shape").value;
+
 let L=parseFloat(document.getElementById("length").value);
+
 let W=parseFloat(document.getElementById("width").value);
+
 let D=parseFloat(document.getElementById("depth").value);
 
 let depth=(D/100)*W;
@@ -83,9 +92,12 @@ let depth=(D/100)*W;
 let constant=0;
 
 if(shape=="round") constant=0.0061;
-if(shape=="oval") constant=0.0062;
-if(shape=="pear") constant=0.00615;
+if(shape=="oval") constant=0.0066;
+if(shape=="pear") constant=0.0064;
 if(shape=="marquise") constant=0.0059;
+if(shape=="cushion") constant=0.0061;
+if(shape=="emerald") constant=0.0065;
+if(shape=="princess") constant=0.0061;
 
 let weight;
 
@@ -97,9 +109,26 @@ weight=L*W*depth*constant;
 
 let ratio=(L/W).toFixed(2);
 
+let cut="";
+
+if(D>=59 && D<=62){
+cut="EXCELLENT";
+}
+else if(D>=57 && D<=64){
+cut="VERY GOOD";
+}
+else if(D>=55 && D<=66){
+cut="GOOD";
+}
+else{
+cut="FAIR";
+}
+
 document.getElementById("weight").innerHTML="Weight : "+weight.toFixed(2)+" ct";
 
 document.getElementById("ratio").innerHTML="Ratio : "+ratio;
+
+document.getElementById("cut").innerHTML="Cut : "+cut;
 
 }
 
