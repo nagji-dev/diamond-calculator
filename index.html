@@ -33,7 +33,6 @@ background:#1976d2;
 color:white;
 border:none;
 font-size:16px;
-border-radius:5px;
 }
 
 .result{
@@ -60,15 +59,15 @@ font-size:18px;
 
 <input type="number" id="depth" placeholder="Depth %">
 
-<button onclick="calculate()">Calculate</button>
+<button onclick="calc()">Calculate</button>
 
-<div class="result" id="result"></div>
+<div class="result" id="res"></div>
 
 </div>
 
 <script>
 
-function calculate(){
+function calc(){
 
 let shape=document.getElementById("shape").value;
 
@@ -82,21 +81,21 @@ if(shape=="round"){
 
 let dia=(L+W)/2;
 
-weight = dia * dia * D * 0.00482 / 100;
+weight=(dia*dia*D*0.00482)/100;
 
 }
 
 if(shape=="oval"){
 
-weight = L * W * W * D * 0.00656 / 100;
+weight=(L*W*W*D*0.00656)/100;
 
 }
 
-weight = weight.toFixed(2);
+weight=weight.toFixed(2);
 
 let ratio=(L/W).toFixed(2);
 
-document.getElementById("result").innerHTML=
+document.getElementById("res").innerHTML=
 "Weight : "+weight+" ct<br>"+
 "Ratio : "+ratio+"<br>"+
 "Depth : "+D+" %";
