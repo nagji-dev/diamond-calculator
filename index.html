@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Diamond Calculator Pro</title>
+
+<title>Diamond Calculator</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="icon" href="https://cdn-icons-png.flaticon.com/512/190/190411.png">
 
 <style>
 
@@ -9,23 +14,37 @@ body{
 font-family:Arial;
 background:#f4f4f4;
 text-align:center;
+margin:0;
+padding:10px;
 }
 
 .box{
 background:white;
-width:350px;
+width:95%;
+max-width:420px;
 margin:auto;
-margin-top:30px;
+margin-top:20px;
 padding:20px;
-border-radius:10px;
+border-radius:12px;
 box-shadow:0 0 10px rgba(0,0,0,0.2);
+}
+
+.logo{
+width:70px;
+margin-bottom:5px;
+}
+
+h2{
+margin-top:5px;
 }
 
 input,select,button{
 width:100%;
-padding:10px;
-margin-top:10px;
-font-size:16px;
+padding:14px;
+margin-top:12px;
+font-size:18px;
+border-radius:6px;
+border:1px solid #ccc;
 }
 
 button{
@@ -35,8 +54,8 @@ border:none;
 }
 
 .result{
-margin-top:12px;
-font-size:18px;
+margin-top:15px;
+font-size:20px;
 font-weight:bold;
 }
 
@@ -47,9 +66,11 @@ font-weight:bold;
 
 <div class="box">
 
+<img class="logo" src="https://cdn-icons-png.flaticon.com/512/190/190411.png">
+
 <h2>Diamond Calculator</h2>
 
-<select id="shape">
+<select id="shape" onchange="shapeChange()">
 
 <option value="round">Round</option>
 <option value="oval">Oval</option>
@@ -76,6 +97,20 @@ font-weight:bold;
 </div>
 
 <script>
+
+function shapeChange(){
+
+let shape=document.getElementById("shape").value;
+
+let lengthBox=document.getElementById("length");
+
+if(shape=="round"){
+lengthBox.style.display="none";
+}else{
+lengthBox.style.display="block";
+}
+
+}
 
 function calculate(){
 
@@ -107,7 +142,13 @@ weight=W*W*depth*constant;
 weight=L*W*depth*constant;
 }
 
-let ratio=(L/W).toFixed(2);
+let ratio;
+
+if(shape=="round"){
+ratio="1.00";
+}else{
+ratio=(L/W).toFixed(2);
+}
 
 let cut="";
 
@@ -131,6 +172,8 @@ document.getElementById("ratio").innerHTML="Ratio : "+ratio;
 document.getElementById("cut").innerHTML="Cut : "+cut;
 
 }
+
+shapeChange();
 
 </script>
 
