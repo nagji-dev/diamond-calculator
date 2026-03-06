@@ -1,14 +1,7 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html><html>
 <head>
-
 <title>Diamond Calculator Pro</title>
-
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<link rel="icon" href="https://cdn-icons-png.flaticon.com/512/190/190411.png">
-
-<style>
+<meta name="viewport" content="width=device-width, initial-scale=1"><style>
 
 body{
 font-family:Arial;
@@ -34,236 +27,69 @@ margin:auto;
 
 h2{
 text-align:center;
+margin-bottom:20px;
 }
 
 .row{
 display:flex;
 justify-content:space-between;
 align-items:center;
-margin-top:12px;
+margin-bottom:10px;
+}
+
+label{
+font-size:14px;
 }
 
 input,select{
-width:160px;
+width:170px;
 padding:10px;
-font-size:16px;
+border:1px solid #ccc;
+border-radius:6px;
 }
 
 button{
 width:100%;
-padding:14px;
-margin-top:16px;
-font-size:18px;
-background:#1976d2;
+padding:12px;
+margin-top:15px;
+background:#007bff;
 color:white;
 border:none;
 border-radius:6px;
+font-size:16px;
 }
 
 .result{
-margin-top:12px;
-font-size:19px;
-font-weight:bold;
 text-align:center;
-}
-
-.settings{
+font-size:18px;
 margin-top:15px;
-padding:10px;
-border-top:1px solid #ddd;
-display:none;
+font-weight:bold;
 }
 
-</style>
-</head>
-
-<body>
-
-<div class="box">
-
-<img class="logo" src="https://cdn-icons-png.flaticon.com/512/190/190411.png">
-
-<h2>Diamond Calculator</h2>
-
-<div class="row">
-<label>Shape</label>
-<select id="shape">
-<option value="round">Round</option>
-<option value="oval">Oval</option>
-<option value="pear">Pear</option>
-<option value="marquise">Marquise</option>
-<option value="cushion">Cushion</option>
-<option value="emerald">Emerald</option>
-<option value="princess">Princess</option>
-</select>
-</div>
-
-<div class="row">
-<label>Mode</label>
-<select id="mode" onchange="modeChange()">
-<option value="normal">Normal</option>
-<option value="helium">Helium</option>
-</select>
-</div>
-
-<div class="row">
-<label>Diameter / Length</label>
-<input type="number" id="d1">
-</div>
-
-<div class="row">
-<label>Diameter / Width</label>
-<input type="number" id="d2">
-</div>
-
-<div class="row" id="depthRow">
-<label>Total Depth %</label>
+</style></head><body><div class="box"><h2>Diamond Calculator Pro</h2><div class="row">
+<label>Length</label>
+<input type="number" id="length">
+</div><div class="row">
+<label>Width</label>
+<input type="number" id="width">
+</div><div class="row">
+<label>Depth</label>
 <input type="number" id="depth">
-</div>
+</div><button onclick="calc()">Calculate Weight</button>
 
-<div class="row" id="heightRow" style="display:none;">
-<label>Height (mm)</label>
-<input type="number" id="height">
-</div>
+<div class="result" id="result">Weight: 0</div></div><script>
 
-<button onclick="calculate()">Calculate</button>
+function calc(){
 
-<div class="result" id="weight"></div>
-<div class="result" id="ratio"></div>
-<div class="result" id="guide"></div>
-<div class="result" id="cut"></div>
+var l=document.getElementById("length").value;
+var w=document.getElementById("width").value;
+var d=document.getElementById("depth").value;
 
-<button onclick="toggleSettings()">⚙️ Cut Settings</button>
+var weight=(l*w*d*0.0061).toFixed(2);
 
-<div class="settings" id="settingsPanel">
-
-<div class="row">
-<label>GIA EX Depth Max</label>
-<input type="number" id="giaMax" value="62.8">
-</div>
-
-<div class="row">
-<label>IGI EX Depth Max</label>
-<input type="number" id="igiMax" value="63.3">
-</div>
-
-</div>
-
-</div>
-
-<script>
-
-function modeChange(){
-
-let mode=document.getElementById("mode").value;
-
-if(mode=="helium"){
-document.getElementById("depthRow").style.display="none";
-document.getElementById("heightRow").style.display="flex";
-}
-else{
-document.getElementById("depthRow").style.display="flex";
-document.getElementById("heightRow").style.display="none";
-}
+document.getElementById("result").innerHTML="Weight: "+weight+" ct";
 
 }
 
-function toggleSettings(){
-
-let panel=document.getElementById("settingsPanel");
-
-if(panel.style.display=="none"){
-panel.style.display="block";
-}else{
-panel.style.display="none";
-}
-
-}
-
-function calculate(){
-
-let shape=document.getElementById("shape").value;
-
-let d1=parseFloat(document.getElementById("d1").value);
-let d2=parseFloat(document.getElementById("d2").value);
-
-let avg=(d1+d2)/2;
-
-let depthPercent;
-
-if(document.getElementById("mode").value=="helium"){
-
-let h=parseFloat(document.getElementById("height").value);
-
-depthPercent=(h/avg)*100;
-
-}
-else{
-
-depthPercent=parseFloat(document.getElementById("depth").value);
-
-}
-
-let depth=(depthPercent/100)*avg;
-
-let constant=0;
-
-if(shape=="round") constant=0.0061;
-if(shape=="oval") constant=0.0066;
-if(shape=="pear") constant=0.0064;
-if(shape=="marquise") constant=0.0059;
-if(shape=="cushion") constant=0.0061;
-if(shape=="emerald") constant=0.0065;
-if(shape=="princess") constant=0.0061;
-
-let weight;
-
-if(shape=="round"){
-weight=avg*avg*depth*constant;
-}else{
-weight=d1*d2*depth*constant;
-}
-
-let ratio=(d1/d2).toFixed(2);
-
-document.getElementById("weight").innerHTML="Weight : "+weight.toFixed(2)+" ct";
-
-document.getElementById("ratio").innerHTML="Ratio : "+ratio;
-
-let guide="";
-
-if(shape=="oval") guide="Best Ratio 1.30 – 1.45";
-if(shape=="pear") guide="Best Ratio 1.45 – 1.60";
-if(shape=="marquise") guide="Best Ratio 1.75 – 2.20";
-if(shape=="emerald") guide="Best Ratio 1.30 – 1.50";
-if(shape=="cushion") guide="Best Ratio 1.00 – 1.20";
-if(shape=="princess") guide="Best Ratio 1.00 – 1.05";
-
-document.getElementById("guide").innerHTML=guide;
-
-let giaMax=parseFloat(document.getElementById("giaMax").value);
-let igiMax=parseFloat(document.getElementById("igiMax").value);
-
-let giaCut="";
-let igiCut="";
-
-if(depthPercent<=giaMax){
-giaCut="GIA Cut : EXCELLENT";
-}else{
-giaCut="GIA Cut : VERY GOOD";
-}
-
-if(depthPercent<=igiMax){
-igiCut="IGI Cut : EXCELLENT";
-}else{
-igiCut="IGI Cut : VERY GOOD";
-}
-
-document.getElementById("cut").innerHTML=giaCut+" | "+igiCut;
-
-}
-
-</script>
-
-</body>
+</script></body>
 </html>
