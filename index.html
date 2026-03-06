@@ -1,7 +1,12 @@
-<!DOCTYPE html><html>
+<!DOCTYPE html>
+<html>
 <head>
-<title>Diamond Calculator Pro</title>
-<meta name="viewport" content="width=device-width, initial-scale=1"><style>
+
+<title>Diamond Office Calculator</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
 
 body{
 font-family:Arial;
@@ -10,86 +15,226 @@ margin:0;
 padding:15px;
 }
 
-.box{
+.container{
+max-width:500px;
+margin:auto;
 background:white;
-max-width:430px;
-margin:auto;
 padding:20px;
-border-radius:12px;
-box-shadow:0 0 10px rgba(0,0,0,0.2);
-}
-
-.logo{
-width:70px;
-display:block;
-margin:auto;
+border-radius:10px;
+box-shadow:0 0 10px rgba(0,0,0,0.1);
 }
 
 h2{
 text-align:center;
-margin-bottom:20px;
 }
 
-.row{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:10px;
-}
-
-label{
-font-size:14px;
+h3{
+margin-top:15px;
 }
 
 input,select{
-width:170px;
+width:100%;
 padding:10px;
+margin:5px 0;
 border:1px solid #ccc;
 border-radius:6px;
+font-size:16px;
 }
 
 button{
 width:100%;
 padding:12px;
-margin-top:15px;
-background:#007bff;
+background:#1976d2;
 color:white;
 border:none;
-border-radius:6px;
-font-size:16px;
+border-radius:8px;
+font-size:18px;
+margin-top:10px;
 }
 
 .result{
 text-align:center;
-font-size:18px;
-margin-top:15px;
+font-size:22px;
+margin-top:12px;
 font-weight:bold;
 }
 
-</style></head><body><div class="box"><h2>Diamond Calculator Pro</h2><div class="row">
-<label>Length</label>
-<input type="number" id="length">
-</div><div class="row">
-<label>Width</label>
-<input type="number" id="width">
-</div><div class="row">
-<label>Depth</label>
-<input type="number" id="depth">
-</div><button onclick="calc()">Calculate Weight</button>
+.cut{
+text-align:center;
+font-size:18px;
+margin-top:5px;
+}
 
-<div class="result" id="result">Weight: 0</div></div><script>
+.analyzer{
+text-align:center;
+font-size:18px;
+margin-top:5px;
+}
 
-function calc(){
+.diagram{
+text-align:center;
+margin-top:15px;
+}
 
-var l=document.getElementById("length").value;
-var w=document.getElementById("width").value;
-var d=document.getElementById("depth").value;
+</style>
 
-var weight=(l*w*d*0.0061).toFixed(2);
+</head>
 
-document.getElementById("result").innerHTML="Weight: "+weight+" ct";
+<body>
+
+<div class="container">
+
+<h2>Diamond Office Calculator</h2>
+
+<h3>Shape</h3>
+
+<select id="shape">
+
+<option value="round">Round</option>
+<option value="oval">Oval</option>
+<option value="pear">Pear</option>
+<option value="princess">Princess</option>
+
+</select>
+
+<h3>Size</h3>
+
+<input type="number" id="length" placeholder="Length (mm)">
+
+<input type="number" id="width" placeholder="Width (mm)">
+
+<input type="number" id="depth" placeholder="Depth %">
+
+<h3>Cut Parameters</h3>
+
+<input type="number" id="table" placeholder="Table %">
+
+<input type="number" id="crown" placeholder="Crown Angle">
+
+<input type="number" id="pavilion" placeholder="Pavilion Angle">
+
+<button onclick="calculate()">Calculate</button>
+
+<div class="result" id="weight"></div>
+
+<div class="cut" id="cut"></div>
+
+<div class="analyzer" id="analyzer"></div>
+
+<div class="diagram">
+
+<svg width="220" height="130">
+
+<polygon points="20,40 200,40 150,85 70,85" fill="#e0e0e0"/>
+
+<polygon points="70,85 150,85 110,120" fill="#cfcfcf"/>
+
+</svg>
+
+</div>
+
+</div>
+
+<script>
+
+function calculate(){
+
+let shape=document.getElementById("shape").value;
+
+let l=parseFloat(document.getElementById("length").value);
+
+let w=parseFloat(document.getElementById("width").value);
+
+let d=parseFloat(document.getElementById("depth").value);
+
+let table=parseFloat(document.getElementById("table").value);
+
+let crown=parseFloat(document.getElementById("crown").value);
+
+let pavilion=parseFloat(document.getElementById("pavilion").value);
+
+let weight=0;
+
+if(shape=="round"){
+
+weight=(l*w*d*0.0061)/100;
 
 }
 
-</script></body>
+if(shape=="oval"){
+
+weight=(l*w*d*0.0062)/100;
+
+}
+
+if(shape=="pear"){
+
+weight=(l*w*d*0.00615)/100;
+
+}
+
+if(shape=="princess"){
+
+weight=(l*w*d*0.008)/100;
+
+}
+
+document.getElementById("weight").innerHTML="Weight: "+weight.toFixed(2)+" ct";
+
+let cut="";
+
+if(table>=54 && table<=57 && d>=60 && d<=62.5 && crown>=34 && crown<=35 && pavilion>=40.6 && pavilion<=41){
+
+cut="Cut Grade: Excellent";
+
+}
+
+else if(table>=53 && table<=58){
+
+cut="Cut Grade: Very Good";
+
+}
+
+else if(table>=52 && table<=60){
+
+cut="Cut Grade: Good";
+
+}
+
+else{
+
+cut="Cut Grade: Fair";
+
+}
+
+document.getElementById("cut").innerHTML=cut;
+
+let analyzer="";
+
+if(d>=60 && d<=62.5 && table>=54 && table<=57){
+
+analyzer="Proportion: Ideal Cut";
+
+}
+
+else if(d>=59 && d<=63){
+
+analyzer="Proportion: Excellent";
+
+}
+
+else{
+
+analyzer="Proportion: Average";
+
+}
+
+document.getElementById("analyzer").innerHTML=analyzer;
+
+}
+
+</script>
+
+</body>
+
 </html>
