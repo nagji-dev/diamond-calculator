@@ -1,11 +1,12 @@
-
 <!DOCTYPE html>
 <html>
 <head>
 
-<title>Diamond Office Calculator</title>
+<title>Diamond Calculator Pro</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="icon" href="https://cdn-icons-png.flaticon.com/512/190/190411.png">
 
 <style>
 
@@ -17,113 +18,134 @@ padding:15px;
 }
 
 .box{
-max-width:480px;
-margin:auto;
 background:white;
+max-width:430px;
+margin:auto;
 padding:20px;
-border-radius:10px;
-box-shadow:0 0 10px rgba(0,0,0,0.1);
+border-radius:12px;
+box-shadow:0 0 10px rgba(0,0,0,0.2);
+}
+
+.logo{
+width:70px;
+display:block;
+margin:auto;
 }
 
 h2{
 text-align:center;
 }
 
-h3{
-margin-top:15px;
+.row{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-top:12px;
 }
 
 input,select{
-width:100%;
+width:160px;
 padding:10px;
-margin:5px 0;
-border:1px solid #ccc;
-border-radius:6px;
-font-size:15px;
+font-size:16px;
 }
 
 button{
 width:100%;
-padding:12px;
+padding:14px;
+margin-top:16px;
+font-size:18px;
 background:#1976d2;
 color:white;
 border:none;
-border-radius:8px;
-font-size:18px;
-margin-top:10px;
+border-radius:6px;
 }
 
 .result{
-text-align:center;
-font-size:22px;
-margin-top:10px;
+margin-top:12px;
+font-size:19px;
 font-weight:bold;
+text-align:center;
 }
 
-.cut{
-text-align:center;
-font-size:18px;
-margin-top:5px;
-}
-
-.analyzer{
-text-align:center;
-font-size:18px;
-margin-top:5px;
-color:#333;
-}
-
-.diagram{
-text-align:center;
+.settings{
 margin-top:15px;
+padding:10px;
+border-top:1px solid #ddd;
+display:none;
 }
 
 </style>
-
 </head>
 
 <body>
 
 <div class="box">
 
-<h2>Diamond Office Calculator</h2>
+<img class="logo" src="https://cdn-icons-png.flaticon.com/512/190/190411.png">
 
-<h3>Shape</h3>
+<h2>Diamond Calculator</h2>
 
+<div class="row">
+<label>Shape</label>
 <select id="shape">
 <option value="round">Round</option>
 <option value="oval">Oval</option>
 <option value="pear">Pear</option>
+<option value="marquise">Marquise</option>
+<option value="cushion">Cushion</option>
+<option value="emerald">Emerald</option>
 <option value="princess">Princess</option>
 </select>
+</div>
 
-<h3>Size</h3>
+<div class="row">
+<label>Mode</label>
+<select id="mode" onchange="modeChange()">
+<option value="normal">Normal</option>
+<option value="helium">Helium</option>
+</select>
+</div>
 
-<input type="number" id="length" placeholder="Length (mm)">
-<input type="number" id="width" placeholder="Width (mm)">
-<input type="number" id="depth" placeholder="Depth %">
+<div class="row">
+<label>Diameter / Length</label>
+<input type="number" id="d1">
+</div>
 
-<h3>Cut Parameters</h3>
+<div class="row">
+<label>Diameter / Width</label>
+<input type="number" id="d2">
+</div>
 
-<input type="number" id="table" placeholder="Table %">
-<input type="number" id="crown" placeholder="Crown Angle">
-<input type="number" id="pavilion" placeholder="Pavilion Angle">
+<div class="row" id="depthRow">
+<label>Total Depth %</label>
+<input type="number" id="depth">
+</div>
+
+<div class="row" id="heightRow" style="display:none;">
+<label>Height (mm)</label>
+<input type="number" id="height">
+</div>
 
 <button onclick="calculate()">Calculate</button>
 
 <div class="result" id="weight"></div>
-<div class="cut" id="cut"></div>
-<div class="analyzer" id="analyzer"></div>
+<div class="result" id="ratio"></div>
+<div class="result" id="guide"></div>
+<div class="result" id="cut"></div>
 
-<div class="diagram">
+<button onclick="toggleSettings()">⚙️ Cut Settings</button>
 
-<svg width="200" height="120">
+<div class="settings" id="settingsPanel">
 
-<polygon points="20,40 180,40 140,80 60,80" fill="#e0e0e0"/>
+<div class="row">
+<label>GIA EX Depth Max</label>
+<input type="number" id="giaMax" value="62.8">
+</div>
 
-<polygon points="60,80 140,80 100,110" fill="#cfcfcf"/>
-
-</svg>
+<div class="row">
+<label>IGI EX Depth Max</label>
+<input type="number" id="igiMax" value="63.3">
+</div>
 
 </div>
 
@@ -131,89 +153,117 @@ margin-top:15px;
 
 <script>
 
+function modeChange(){
+
+let mode=document.getElementById("mode").value;
+
+if(mode=="helium"){
+document.getElementById("depthRow").style.display="none";
+document.getElementById("heightRow").style.display="flex";
+}
+else{
+document.getElementById("depthRow").style.display="flex";
+document.getElementById("heightRow").style.display="none";
+}
+
+}
+
+function toggleSettings(){
+
+let panel=document.getElementById("settingsPanel");
+
+if(panel.style.display=="none"){
+panel.style.display="block";
+}else{
+panel.style.display="none";
+}
+
+}
+
 function calculate(){
 
 let shape=document.getElementById("shape").value;
 
-let l=parseFloat(document.getElementById("length").value);
-let w=parseFloat(document.getElementById("width").value);
-let d=parseFloat(document.getElementById("depth").value);
+let d1=parseFloat(document.getElementById("d1").value);
+let d2=parseFloat(document.getElementById("d2").value);
 
-let table=parseFloat(document.getElementById("table").value);
-let crown=parseFloat(document.getElementById("crown").value);
-let pavilion=parseFloat(document.getElementById("pavilion").value);
+let avg=(d1+d2)/2;
 
-let weight=0;
+let depthPercent;
+
+if(document.getElementById("mode").value=="helium"){
+
+let h=parseFloat(document.getElementById("height").value);
+
+depthPercent=(h/avg)*100;
+
+}
+else{
+
+depthPercent=parseFloat(document.getElementById("depth").value);
+
+}
+
+let depth=(depthPercent/100)*avg;
+
+let constant=0;
+
+if(shape=="round") constant=0.0061;
+if(shape=="oval") constant=0.0066;
+if(shape=="pear") constant=0.0064;
+if(shape=="marquise") constant=0.0059;
+if(shape=="cushion") constant=0.0061;
+if(shape=="emerald") constant=0.0065;
+if(shape=="princess") constant=0.0061;
+
+let weight;
 
 if(shape=="round"){
-weight=(l*w*d*0.0061)/100;
+weight=avg*avg*depth*constant;
+}else{
+weight=d1*d2*depth*constant;
 }
 
-if(shape=="oval"){
-weight=(l*w*d*0.0062)/100;
+let ratio=(d1/d2).toFixed(2);
+
+document.getElementById("weight").innerHTML="Weight : "+weight.toFixed(2)+" ct";
+
+document.getElementById("ratio").innerHTML="Ratio : "+ratio;
+
+let guide="";
+
+if(shape=="oval") guide="Best Ratio 1.30 – 1.45";
+if(shape=="pear") guide="Best Ratio 1.45 – 1.60";
+if(shape=="marquise") guide="Best Ratio 1.75 – 2.20";
+if(shape=="emerald") guide="Best Ratio 1.30 – 1.50";
+if(shape=="cushion") guide="Best Ratio 1.00 – 1.20";
+if(shape=="princess") guide="Best Ratio 1.00 – 1.05";
+
+document.getElementById("guide").innerHTML=guide;
+
+let giaMax=parseFloat(document.getElementById("giaMax").value);
+let igiMax=parseFloat(document.getElementById("igiMax").value);
+
+let giaCut="";
+let igiCut="";
+
+if(depthPercent<=giaMax){
+giaCut="GIA Cut : EXCELLENT";
+}else{
+giaCut="GIA Cut : VERY GOOD";
 }
 
-if(shape=="pear"){
-weight=(l*w*d*0.00615)/100;
+if(depthPercent<=igiMax){
+igiCut="IGI Cut : EXCELLENT";
+}else{
+igiCut="IGI Cut : VERY GOOD";
 }
 
-if(shape=="princess"){
-weight=(l*w*d*0.008)/100;
-}
-
-document.getElementById("weight").innerHTML="Weight: "+weight.toFixed(2)+" ct";
-
-
-let cut="";
-
-if(table>=54 && table<=57 && d>=60 && d<=62.5 && crown>=34 && crown<=35 && pavilion>=40.6 && pavilion<=41){
-
-cut="Cut Grade: Excellent";
-
-}
-else if(table>=53 && table<=58){
-
-cut="Cut Grade: Very Good";
-
-}
-else if(table>=52 && table<=60){
-
-cut="Cut Grade: Good";
-
-}
-else{
-
-cut="Cut Grade: Fair";
-
-}
-
-document.getElementById("cut").innerHTML=cut;
-
-
-let analyzer="";
-
-if(d>=60 && d<=62.5 && table>=54 && table<=57){
-
-analyzer="Proportion: Ideal Cut";
-
-}
-else if(d>=59 && d<=63){
-
-analyzer="Proportion: Excellent";
-
-}
-else{
-
-analyzer="Proportion: Average";
-
-}
-
-document.getElementById("analyzer").innerHTML=analyzer;
+document.getElementById("cut").innerHTML=giaCut+" | "+igiCut;
 
 }
 
 </script>
 
 </body>
-
 </html>
