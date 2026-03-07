@@ -67,7 +67,7 @@ font-weight:bold;
 text-align:center;
 }
 
-.settings{
+.panel{
 margin-top:15px;
 padding:10px;
 border-top:1px solid #ddd;
@@ -107,12 +107,12 @@ display:none;
 </div>
 
 <div class="row">
-<label>Diameter / Length</label>
+<label>Length / Diameter</label>
 <input type="number" id="d1">
 </div>
 
 <div class="row">
-<label>Diameter / Width</label>
+<label>Width</label>
 <input type="number" id="d2">
 </div>
 
@@ -130,6 +130,19 @@ display:none;
 
 <div class="result" id="weight"></div>
 <div class="result" id="ratio"></div>
+
+<button onclick="toggleCalibration()">⚙ Calibration</button>
+
+<div class="panel" id="calibrationPanel">
+
+<div class="row">
+<label>Helium Weight</label>
+<input type="number" id="heliumWeight">
+</div>
+
+<button onclick="calibrate()">Calibrate</button>
+
+</div>
 
 </div>
 
@@ -150,14 +163,26 @@ document.getElementById("heightRow").style.display="none";
 
 }
 
+function toggleCalibration(){
+
+let panel=document.getElementById("calibrationPanel");
+
+if(panel.style.display=="none"){
+panel.style.display="block";
+}else{
+panel.style.display="none";
+}
+
+}
+
 function calculate(){
 
 let shape=document.getElementById("shape").value;
 
-let d1=parseFloat(document.getElementById("d1").value);
-let d2=parseFloat(document.getElementById("d2").value);
+let L=parseFloat(document.getElementById("d1").value);
+let W=parseFloat(document.getElementById("d2").value);
 
-let avg=(d1+d2)/2;
+let avg=(L+W)/2;
 
 let height;
 
@@ -172,34 +197,53 @@ let depthPercent=parseFloat(document.getElementById("depth").value);
 if(shape=="round"){
 height=avg*(depthPercent/100);
 }else{
-height=d2*(depthPercent/100);
+height=W*(depthPercent/100);
 }
 
 }
 
-let constant=0;
+let constant=localStorage.getItem("diamondConstant");
 
-if(shape=="round") constant=0.0061;
-if(shape=="oval") constant=0.0062;
-if(shape=="pear") constant=0.00615;
+if(!constant){
+
+if(shape=="round") constant=0.00615;
+if(shape=="oval") constant=0.00625;
+if(shape=="pear") constant=0.00605;
 if(shape=="marquise") constant=0.0057;
 if(shape=="cushion") constant=0.0061;
 if(shape=="emerald") constant=0.0063;
 if(shape=="princess") constant=0.0061;
+
+}
 
 let weight;
 
 if(shape=="round"){
 weight=avg*avg*height*constant;
 }else{
-weight=d1*d2*height*constant;
+weight=L*W*height*constant;
 }
 
-let ratio=(d1/d2).toFixed(2);
+let ratio=(L/W).toFixed(2);
 
 document.getElementById("weight").innerHTML="Weight : "+weight.toFixed(2)+" ct";
 
 document.getElementById("ratio").innerHTML="Ratio : "+ratio;
+
+}
+
+function calibrate(){
+
+let L=parseFloat(document.getElementById("d1").value);
+let W=parseFloat(document.getElementById("d2").value);
+let H=parseFloat(document.getElementById("height").value);
+let heliumWeight=parseFloat(document.getElementById("heliumWeight").value);
+
+let constant=heliumWeight/(L*W*H);
+
+localStorage.setItem("diamondConstant",constant);
+
+alert("Calibration Saved : "+constant.toFixed(6));
 
 }
 
