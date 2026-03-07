@@ -2,11 +2,9 @@
 <html>
 <head>
 
-<title>Diamond Calculator Pro</title>
+<title>Diamond Calculator</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
-<link rel="icon" href="https://cdn-icons-png.flaticon.com/512/190/190411.png">
 
 <style>
 
@@ -19,17 +17,11 @@ padding:15px;
 
 .box{
 background:white;
-max-width:430px;
+max-width:420px;
 margin:auto;
 padding:20px;
-border-radius:12px;
+border-radius:10px;
 box-shadow:0 0 10px rgba(0,0,0,0.2);
-}
-
-.logo{
-width:70px;
-display:block;
-margin:auto;
 }
 
 h2{
@@ -39,8 +31,8 @@ text-align:center;
 .row{
 display:flex;
 justify-content:space-between;
-align-items:center;
 margin-top:12px;
+align-items:center;
 }
 
 input,select{
@@ -52,26 +44,18 @@ font-size:16px;
 button{
 width:100%;
 padding:14px;
-margin-top:16px;
+margin-top:18px;
 font-size:18px;
 background:#1976d2;
 color:white;
 border:none;
-border-radius:6px;
 }
 
 .result{
-margin-top:12px;
+margin-top:14px;
 font-size:19px;
 font-weight:bold;
 text-align:center;
-}
-
-.panel{
-margin-top:15px;
-padding:10px;
-border-top:1px solid #ddd;
-display:none;
 }
 
 </style>
@@ -80,8 +64,6 @@ display:none;
 <body>
 
 <div class="box">
-
-<img class="logo" src="https://cdn-icons-png.flaticon.com/512/190/190411.png">
 
 <h2>Diamond Calculator</h2>
 
@@ -108,12 +90,12 @@ display:none;
 
 <div class="row">
 <label>Length / Diameter</label>
-<input type="number" id="d1">
+<input type="number" id="l">
 </div>
 
 <div class="row">
 <label>Width</label>
-<input type="number" id="d2">
+<input type="number" id="w">
 </div>
 
 <div class="row" id="depthRow">
@@ -130,19 +112,7 @@ display:none;
 
 <div class="result" id="weight"></div>
 <div class="result" id="ratio"></div>
-
-<button onclick="toggleCalibration()">⚙ Calibration</button>
-
-<div class="panel" id="calibrationPanel">
-
-<div class="row">
-<label>Helium Weight</label>
-<input type="number" id="heliumWeight">
-</div>
-
-<button onclick="calibrate()">Calibrate</button>
-
-</div>
+<div class="result" id="guide"></div>
 
 </div>
 
@@ -155,22 +125,9 @@ let mode=document.getElementById("mode").value;
 if(mode=="helium"){
 document.getElementById("depthRow").style.display="none";
 document.getElementById("heightRow").style.display="flex";
-}
-else{
+}else{
 document.getElementById("depthRow").style.display="flex";
 document.getElementById("heightRow").style.display="none";
-}
-
-}
-
-function toggleCalibration(){
-
-let panel=document.getElementById("calibrationPanel");
-
-if(panel.style.display=="none"){
-panel.style.display="block";
-}else{
-panel.style.display="none";
 }
 
 }
@@ -179,8 +136,8 @@ function calculate(){
 
 let shape=document.getElementById("shape").value;
 
-let L=parseFloat(document.getElementById("d1").value);
-let W=parseFloat(document.getElementById("d2").value);
+let L=parseFloat(document.getElementById("l").value);
+let W=parseFloat(document.getElementById("w").value);
 
 let avg=(L+W)/2;
 
@@ -192,29 +149,25 @@ height=parseFloat(document.getElementById("height").value);
 
 }else{
 
-let depthPercent=parseFloat(document.getElementById("depth").value);
+let depth=parseFloat(document.getElementById("depth").value);
 
 if(shape=="round"){
-height=avg*(depthPercent/100);
+height=avg*(depth/100);
 }else{
-height=W*(depthPercent/100);
+height=W*(depth/100);
 }
 
 }
 
-let constant=localStorage.getItem("diamondConstant");
+let constant=0;
 
-if(!constant){
-
-if(shape=="round") constant=0.00615;
-if(shape=="oval") constant=0.00630;
-if(shape=="pear") constant=0.00595;
+if(shape=="round") constant=0.0061;
+if(shape=="oval") constant=0.00625;
+if(shape=="pear") constant=0.0060;
 if(shape=="marquise") constant=0.0057;
 if(shape=="cushion") constant=0.0061;
 if(shape=="emerald") constant=0.0063;
 if(shape=="princess") constant=0.0061;
-
-}
 
 let weight;
 
@@ -230,20 +183,16 @@ document.getElementById("weight").innerHTML="Weight : "+weight.toFixed(2)+" ct";
 
 document.getElementById("ratio").innerHTML="Ratio : "+ratio;
 
-}
+let guide="";
 
-function calibrate(){
+if(shape=="oval") guide="Best Ratio 1.30 – 1.45";
+if(shape=="pear") guide="Best Ratio 1.45 – 1.60";
+if(shape=="marquise") guide="Best Ratio 1.75 – 2.20";
+if(shape=="emerald") guide="Best Ratio 1.30 – 1.50";
+if(shape=="cushion") guide="Best Ratio 1.00 – 1.20";
+if(shape=="princess") guide="Best Ratio 1.00 – 1.05";
 
-let L=parseFloat(document.getElementById("d1").value);
-let W=parseFloat(document.getElementById("d2").value);
-let H=parseFloat(document.getElementById("height").value);
-let heliumWeight=parseFloat(document.getElementById("heliumWeight").value);
-
-let constant=heliumWeight/(L*W*H);
-
-localStorage.setItem("diamondConstant",constant);
-
-alert("Calibration Saved : "+constant.toFixed(6));
+document.getElementById("guide").innerHTML=guide;
 
 }
 
