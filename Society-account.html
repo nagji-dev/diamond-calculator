@@ -1,20 +1,19 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html><html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Shiv Palace Society Account</title>
-
-<style>
+<title>શિવ પેલેસ સોસાયટી</title><style>
 body{
 font-family:Arial;
-background:#f2f2f2;
-text-align:center;
+padding:10px;
+background:#f4f4f4;
 }
 
 h2{
-background:#2c3e50;
+background:#2c4b63;
 color:white;
-padding:10px;
+padding:12px;
+text-align:center;
+border-radius:6px;
 }
 
 table{
@@ -24,15 +23,27 @@ background:white;
 }
 
 th,td{
-border:1px solid #999;
-padding:6px;
+border:1px solid #ccc;
+padding:8px;
 text-align:center;
 }
 
 input{
-width:70px;
-font-size:16px;
-text-align:center;
+width:80px;
+padding:4px;
+}
+
+button{
+padding:10px 15px;
+margin:5px;
+border:none;
+background:#2c4b63;
+color:white;
+border-radius:5px;
+}
+
+button:hover{
+background:#1d3244;
 }
 
 .total{
@@ -40,118 +51,122 @@ color:green;
 font-weight:bold;
 }
 
-button{
-padding:10px 20px;
-margin:10px;
-background:#3498db;
-color:white;
-border:none;
-border-radius:5px;
+.section{
+margin-top:15px;
+background:white;
+padding:10px;
+border-radius:6px;
 }
-
-</style>
-</head>
-
-<body>
-
-<h2>શિવ પેલેસ મેનેજમેન્ટ એકાઉન્ટ</h2>
-
-<table id="maintable">
-
+</style></head><body><h2>શિવ પેલેસ સોસાયટી ની આવક જાવક નો હિસાબ</h2><div class="section"><h3>મેન્ટેનન્સ</h3><table>
 <tr>
-<th>ક્રમ</th>
-<th>બિલ્ડિંગ</th>
-<th>કુલ ફ્લેટ</th>
+<th>વિગત</th>
 <th>ચૂકવ્યા</th>
-<th>બાકી</th>
-<th>મેન્ટેનન્સ</th>
+<th>દર</th>
 <th>કુલ રૂપિયા</th>
-</tr>
-
-<tbody></tbody>
-
-</table>
-
-<br>
-
-Transfer Fee ₹ <input type="number" id="transfer" value="0">
+</tr><tr>
+<td>ફ્લેટ</td>
+<td><input id="flatPaid"></td>
+<td>700</td>
+<td id="flatTotal">0</td>
+</tr><tr>
+<td>દુકાન</td>
+<td><input id="shopPaid"></td>
+<td>300</td>
+<td id="shopTotal">0</td>
+</tr></table></div><div class="section"><h3>આવક</h3>અગાઉનું બેલેન્સ ₹
+<input id="oldBalance">
 
 <br><br>
 
-પ્રસંગ આવક ₹ <input type="number" id="event" value="0">
+Transfer Fee ₹
+<input id="transfer">
 
-<h3>કુલ મેન્ટેનન્સ ₹ <span id="maintotal">0</span></h3>
+<br><br>
 
-<h3>કુલ આવક ₹ <span id="grandtotal">0</span></h3>
+પ્રસંગ આવક ₹
+<input id="event">
 
-<button onclick="window.print()">PDF બનાવો</button>
+<br><br>
 
-<script>
+<h3>કુલ મેન્ટેનન્સ ₹ <span id="maintenanceTotal">0</span></h3><h3>કુલ આવક ₹ <span id="incomeTotal">0</span></h3></div><div class="section"><h3>જાવક</h3><table><tr>
+<th>તારીખ</th>
+<th>વિગત</th>
+<th>રૂપીયા</th>
+</tr><tr><td><input></td><td><input></td><td><input class="exp"></td></tr>
+<tr><td><input></td><td><input></td><td><input class="exp"></td></tr>
+<tr><td><input></td><td><input></td><td><input class="exp"></td></tr>
+<tr><td><input></td><td><input></td><td><input class="exp"></td></tr>
+<tr><td><input></td><td><input></td><td><input class="exp"></td></tr>
+<tr><td><input></td><td><input></td><td><input class="exp"></td></tr>
+<tr><td><input></td><td><input></td><td><input class="exp"></td></tr>
+<tr><td><input></td><td><input></td><td><input class="exp"></td></tr>
+<tr><td><input></td><td><input></td><td><input class="exp"></td></tr>
+<tr><td><input></td><td><input></td><td><input class="exp"></td></tr>
+<tr><td><input></td><td><input></td><td><input class="exp"></td></tr>
+<tr><td><input></td><td><input></td><td><input class="exp"></td></tr></table><h3>કુલ જાવક ₹ <span id="expenseTotal">0</span></h3></div><div class="section"><h2>ફાઈનલ બેલેન્સ ₹ <span id="balance">0</span></h2><h3>આગળ ની બેલેન્સ ₹ <span id="nextBalance">0</span></h3></div><div style="text-align:center"><button onclick="calc()">કેલ્ક્યુલેટ</button>
 
-let flats=[
-"A-1","A-2","A-3","A-4","A-5",
-"B-1","B-2","B-3","B-4","B-5","B-6",
-"C","D","Shop"
-];
+<button onclick="clearAll()">ક્લિયર</button>
 
-let tbody=document.querySelector("tbody");
+<button onclick="window.print()">PDF</button>
 
-flats.forEach((f,i)=>{
-
-let row=document.createElement("tr");
-
-row.innerHTML=`
-
-<td>${i+1}</td>
-<td>${f}</td>
-<td><input type="number" class="flat" value="20"></td>
-<td><input type="number" class="paid" value="0"></td>
-<td class="pending">0</td>
-<td><input type="number" class="rate" value="700"></td>
-<td class="total">0</td>
-
-`;
-
-tbody.appendChild(row);
-
-});
+</div><script>
 
 function calc(){
 
-let maintotal=0;
+let flatPaid=Number(document.getElementById("flatPaid").value);
+let shopPaid=Number(document.getElementById("shopPaid").value);
 
-document.querySelectorAll("#maintable tbody tr").forEach(r=>{
+let flatTotal=flatPaid*700;
+let shopTotal=shopPaid*300;
 
-let flat=r.querySelector(".flat").value||0;
-let paid=r.querySelector(".paid").value||0;
-let rate=r.querySelector(".rate").value||0;
+document.getElementById("flatTotal").innerText=flatTotal;
+document.getElementById("shopTotal").innerText=shopTotal;
 
-let pending=flat-paid;
+let maintenance=flatTotal+shopTotal;
 
-r.querySelector(".pending").innerText=pending;
+document.getElementById("maintenanceTotal").innerText=maintenance;
 
-let total=paid*rate;
+let old=Number(document.getElementById("oldBalance").value);
+let transfer=Number(document.getElementById("transfer").value);
+let event=Number(document.getElementById("event").value);
 
-r.querySelector(".total").innerText=total;
+let income=maintenance+old+transfer+event;
 
-maintotal+=total;
+document.getElementById("incomeTotal").innerText=income;
 
-});
+let exp=document.querySelectorAll(".exp");
+let totalExp=0;
 
-document.getElementById("maintotal").innerText=maintotal;
+for(let i=0;i<exp.length;i++){
+totalExp+=Number(exp[i].value);
+}
 
-let transfer=Number(document.getElementById("transfer").value||0);
-let event=Number(document.getElementById("event").value||0);
+document.getElementById("expenseTotal").innerText=totalExp;
 
-document.getElementById("grandtotal").innerText=maintotal+transfer+event;
+let balance=income-totalExp;
+
+document.getElementById("balance").innerText=balance;
+document.getElementById("nextBalance").innerText=balance;
 
 }
 
-document.addEventListener("input",calc);
+function clearAll(){
 
-calc();
+let inputs=document.querySelectorAll("input");
 
-</script>
+for(let i=0;i<inputs.length;i++){
+inputs[i].value="";
+}
 
-</body>
+document.getElementById("flatTotal").innerText=0;
+document.getElementById("shopTotal").innerText=0;
+document.getElementById("maintenanceTotal").innerText=0;
+document.getElementById("incomeTotal").innerText=0;
+document.getElementById("expenseTotal").innerText=0;
+document.getElementById("balance").innerText=0;
+document.getElementById("nextBalance").innerText=0;
+
+}
+
+</script></body>
 </html>
