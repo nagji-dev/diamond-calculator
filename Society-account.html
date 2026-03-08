@@ -1,163 +1,212 @@
-<!DOCTYPE html><html>
+<!DOCTYPE html>
+<html lang="gu">
 <head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>શિવ પેલેસ મેનેજમેન્ટ</title><style>
+
+<title>શિવ પેલેસ સોસાયટી મેનેજમેન્ટ</title>
+
+<style>
 
 body{
-font-family:Arial;
-padding:10px;
+font-family:sans-serif;
 background:#f2f2f2;
+padding:10px;
 }
 
 h2{
-background:#2c4b63;
+background:#2f5d73;
 color:white;
-padding:12px;
+padding:10px;
+border-radius:8px;
 text-align:center;
-border-radius:6px;
 }
 
 table{
 width:100%;
 border-collapse:collapse;
 background:white;
-margin-bottom:15px;
+margin-top:10px;
 }
 
 th,td{
 border:1px solid #ccc;
-padding:6px;
+padding:8px;
 text-align:center;
 }
 
 input{
-width:70px;
+width:80px;
+padding:5px;
 }
 
 .total{
-color:green;
+font-size:20px;
 font-weight:bold;
+margin-top:10px;
 }
 
 button{
-padding:10px 15px;
+padding:10px 20px;
 margin:5px;
 border:none;
-background:#2c4b63;
+background:#2f5d73;
 color:white;
-border-radius:5px;
+border-radius:6px;
 }
 
-</style></head><body><h2>શિવ પેલેસ સોસાયટી મેનેજમેન્ટ</h2><table><tr>
-<th>કમ</th>
+</style>
+</head>
+
+<body>
+
+<h2>શિવ પેલેસ સોસાયટી મેનેજમેન્ટ</h2>
+
+દર ₹ <input id="rate" value="700">
+
+<table>
+
+<tr>
+<th>ક્રમ</th>
 <th>બિલ્ડિંગ</th>
 <th>કુલ ફ્લેટ</th>
 <th>ચૂકવ્યા</th>
-<th>દર</th>
 <th>કુલ રૂપિયા</th>
-</tr><tr><td>1</td><td>A-1</td><td>20</td><td><input oninput="calc()"></td><td>700</td><td class="amt">0</td></tr>
-<tr><td>2</td><td>A-2</td><td>20</td><td><input oninput="calc()"></td><td>700</td><td class="amt">0</td></tr>
-<tr><td>3</td><td>A-3</td><td>20</td><td><input oninput="calc()"></td><td>700</td><td class="amt">0</td></tr>
-<tr><td>4</td><td>A-4</td><td>20</td><td><input oninput="calc()"></td><td>700</td><td class="amt">0</td></tr>
-<tr><td>5</td><td>A-5</td><td>20</td><td><input oninput="calc()"></td><td>700</td><td class="amt">0</td></tr><tr><td>6</td><td>B-1</td><td>20</td><td><input oninput="calc()"></td><td>700</td><td class="amt">0</td></tr>
-<tr><td>7</td><td>B-2</td><td>20</td><td><input oninput="calc()"></td><td>700</td><td class="amt">0</td></tr>
-<tr><td>8</td><td>B-3</td><td>20</td><td><input oninput="calc()"></td><td>700</td><td class="amt">0</td></tr>
-<tr><td>9</td><td>B-4</td><td>20</td><td><input oninput="calc()"></td><td>700</td><td class="amt">0</td></tr>
-<tr><td>10</td><td>B-5</td><td>20</td><td><input oninput="calc()"></td><td>700</td><td class="amt">0</td></tr><tr><td>11</td><td>B-6</td><td>20</td><td><input oninput="calc()"></td><td>700</td><td class="amt">0</td></tr>
-<tr><td>12</td><td>C</td><td>20</td><td><input oninput="calc()"></td><td>700</td><td class="amt">0</td></tr>
-<tr><td>13</td><td>D</td><td>15</td><td><input oninput="calc()"></td><td>700</td><td class="amt">0</td></tr>
-<tr><td>14</td><td>Shop</td><td>10</td><td><input oninput="calc()"></td><td>300</td><td class="amt">0</td></tr></table><h3>કુલ મેન્ટેનન્સ ₹ <span id="maintTotal">0</span></h3><h3>આવક</h3>અગાઉનું બેલેન્સ ₹
-<input id="oldBal" oninput="calc()">
+</tr>
+
+<tr><td>1</td><td>A-1</td><td>16</td><td><input class="paid"></td><td class="amount">0</td></tr>
+<tr><td>2</td><td>A-2</td><td>20</td><td><input class="paid"></td><td class="amount">0</td></tr>
+<tr><td>3</td><td>A-3</td><td>20</td><td><input class="paid"></td><td class="amount">0</td></tr>
+<tr><td>4</td><td>A-4</td><td>20</td><td><input class="paid"></td><td class="amount">0</td></tr>
+<tr><td>5</td><td>A-5</td><td>20</td><td><input class="paid"></td><td class="amount">0</td></tr>
+<tr><td>6</td><td>B-1</td><td>20</td><td><input class="paid"></td><td class="amount">0</td></tr>
+<tr><td>7</td><td>B-2</td><td>20</td><td><input class="paid"></td><td class="amount">0</td></tr>
+<tr><td>8</td><td>B-3</td><td>20</td><td><input class="paid"></td><td class="amount">0</td></tr>
+<tr><td>9</td><td>B-4</td><td>20</td><td><input class="paid"></td><td class="amount">0</td></tr>
+<tr><td>10</td><td>B-5</td><td>20</td><td><input class="paid"></td><td class="amount">0</td></tr>
+<tr><td>11</td><td>B-6</td><td>20</td><td><input class="paid"></td><td class="amount">0</td></tr>
+<tr><td>12</td><td>C</td><td>20</td><td><input class="paid"></td><td class="amount">0</td></tr>
+<tr><td>13</td><td>D</td><td>15</td><td><input class="paid"></td><td class="amount">0</td></tr>
+<tr><td>14</td><td>Shop</td><td>10</td><td><input class="paid"></td><td class="amount">0</td></tr>
+
+</table>
+
+<div class="total">
+કુલ મેન્ટેનન્સ ₹ <span id="maintenance">0</span>
+</div>
+
+<h3>આવક</h3>
+
+અગાઉનું બેલેન્સ ₹  
+<input id="balance">
 
 <br><br>
 
-Transfer Fee ₹
-<input id="transfer" oninput="calc()">
+Transfer Fee ₹  
+<input id="transfer">
 
 <br><br>
 
-પ્રસંગ આવક ₹
-<input id="event" oninput="calc()">
+પ્રસંગ આવક ₹  
+<input id="event">
 
-<h3>કુલ આવક ₹ <span id="income">0</span></h3><h3>જાવક</h3><table><tr>
+<div class="total">
+કુલ આવક ₹ <span id="income">0</span>
+</div>
+
+<h3>જાવક</h3>
+
+<table>
+
+<tr>
 <th>તારીખ</th>
 <th>વિગત</th>
 <th>રૂપીયા</th>
-</tr><tr><td><input></td><td><input></td><td><input class="exp" oninput="calc()"></td></tr>
-<tr><td><input></td><td><input></td><td><input class="exp" oninput="calc()"></td></tr>
-<tr><td><input></td><td><input></td><td><input class="exp" oninput="calc()"></td></tr>
-<tr><td><input></td><td><input></td><td><input class="exp" oninput="calc()"></td></tr>
-<tr><td><input></td><td><input></td><td><input class="exp" oninput="calc()"></td></tr>
-<tr><td><input></td><td><input></td><td><input class="exp" oninput="calc()"></td></tr>
-<tr><td><input></td><td><input></td><td><input class="exp" oninput="calc()"></td></tr>
-<tr><td><input></td><td><input></td><td><input class="exp" oninput="calc()"></td></tr>
-<tr><td><input></td><td><input></td><td><input class="exp" oninput="calc()"></td></tr>
-<tr><td><input></td><td><input></td><td><input class="exp" oninput="calc()"></td></tr>
-<tr><td><input></td><td><input></td><td><input class="exp" oninput="calc()"></td></tr>
-<tr><td><input></td><td><input></td><td><input class="exp" oninput="calc()"></td></tr></table><h3>કુલ જાવક ₹ <span id="expTotal">0</span></h3><h2>ફાઈનલ બેલેન્સ ₹ <span id="balance">0</span></h2><h3>આગળ ની બેલેન્સ ₹ <span id="nextBal">0</span></h3><button onclick="clearAll()">ક્લિયર</button>
+</tr>
+
+<tr><td><input></td><td><input></td><td><input class="expense"></td></tr>
+<tr><td><input></td><td><input></td><td><input class="expense"></td></tr>
+<tr><td><input></td><td><input></td><td><input class="expense"></td></tr>
+<tr><td><input></td><td><input></td><td><input class="expense"></td></tr>
+<tr><td><input></td><td><input></td><td><input class="expense"></td></tr>
+
+</table>
+
+<div class="total">
+કુલ જાવક ₹ <span id="expenseTotal">0</span>
+</div>
+
+<div class="total">
+ફાઈનલ બેલેન્સ ₹ <span id="final">0</span>
+</div>
+
+<button onclick="clearAll()">ક્લિયર</button>
 <button onclick="window.print()">PDF</button>
 
 <script>
 
-function calc(){
+function calculate(){
 
-let rows=document.querySelectorAll("table tr")
-let inputs=document.querySelectorAll("table input")
-let amts=document.querySelectorAll(".amt")
+let rate = Number(document.getElementById("rate").value) || 0;
 
-let total=0
+let maintenance = 0;
 
-for(let i=0;i<amts.length;i++){
+document.querySelectorAll(".paid").forEach(function(input,index){
 
-let val=Number(rows[i+1].children[3].children[0].value)
-let rate=Number(rows[i+1].children[4].innerText)
+let paid = Number(input.value) || 0;
 
-let amt=val*rate
+let amount = paid * rate;
 
-amts[i].innerText=amt
+document.querySelectorAll(".amount")[index].innerText = amount;
 
-total+=amt
+maintenance += amount;
 
-}
+});
 
-document.getElementById("maintTotal").innerText=total
+document.getElementById("maintenance").innerText = maintenance;
 
-let old=Number(oldBal.value)
-let tr=Number(transfer.value)
-let ev=Number(event.value)
+let balance = Number(document.getElementById("balance").value) || 0;
+let transfer = Number(document.getElementById("transfer").value) || 0;
+let event = Number(document.getElementById("event").value) || 0;
 
-let income=total+old+tr+ev
+let income = maintenance + balance + transfer + event;
 
-document.getElementById("income").innerText=income
+document.getElementById("income").innerText = income;
 
-let exp=document.querySelectorAll(".exp")
+let expense = 0;
 
-let expTot=0
+document.querySelectorAll(".expense").forEach(function(el){
+expense += Number(el.value) || 0;
+});
 
-exp.forEach(e=>expTot+=Number(e.value))
+document.getElementById("expenseTotal").innerText = expense;
 
-document.getElementById("expTotal").innerText=expTot
-
-let bal=income-expTot
-
-document.getElementById("balance").innerText=bal
-document.getElementById("nextBal").innerText=bal
+document.getElementById("final").innerText = income - expense;
 
 }
 
 function clearAll(){
 
-document.querySelectorAll("input").forEach(i=>i.value="")
+document.querySelectorAll("input").forEach(function(el){
+el.value="";
+});
 
-document.querySelectorAll(".amt").forEach(a=>a.innerText=0)
+document.querySelectorAll(".amount").forEach(function(el){
+el.innerText="0";
+});
 
-document.getElementById("maintTotal").innerText=0
-document.getElementById("income").innerText=0
-document.getElementById("expTotal").innerText=0
-document.getElementById("balance").innerText=0
-document.getElementById("nextBal").innerText=0
+document.getElementById("maintenance").innerText="0";
+document.getElementById("income").innerText="0";
+document.getElementById("expenseTotal").innerText="0";
+document.getElementById("final").innerText="0";
 
 }
 
-</script></body>
+document.querySelectorAll("input").forEach(function(el){
+el.addEventListener("input",calculate);
+});
+
+</script>
+
+</body>
 </html>
