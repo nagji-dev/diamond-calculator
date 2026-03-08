@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Society Account Register</title>
+
+<title>Society Account</title>
 
 <style>
 
@@ -12,14 +14,8 @@ background:#f2f2f2;
 padding:10px;
 }
 
-h1{
-text-align:center;
-font-size:22px;
-}
-
 h2{
 text-align:center;
-margin-top:25px;
 }
 
 table{
@@ -30,25 +26,19 @@ margin-top:10px;
 }
 
 th,td{
-border:1px solid #000;
+border:1px solid black;
 padding:6px;
 text-align:center;
-font-size:14px;
-}
-
-th{
-background:#e6e6e6;
 }
 
 input{
-width:95%;
+width:90%;
 border:none;
 text-align:center;
-font-size:14px;
 }
 
 .total{
-background:#dcdcdc;
+background:#ddd;
 font-weight:bold;
 }
 
@@ -60,7 +50,6 @@ color:white;
 border:none;
 font-size:16px;
 margin-top:10px;
-border-radius:6px;
 }
 
 </style>
@@ -69,16 +58,13 @@ border-radius:6px;
 
 <body>
 
-<h1>Society Account Register</h1>
-
-
-<h2>File 1 - Income (આવક)</h2>
+<h2>Society Income</h2>
 
 <table>
 
 <tr>
 <th>Building</th>
-<th>Months</th>
+<th>Month</th>
 <th>Amount</th>
 </tr>
 
@@ -103,10 +89,12 @@ border-radius:6px;
 </table>
 
 
+<h2>Other Income</h2>
+
 <table>
 
 <tr>
-<th>Other Income</th>
+<th>Type</th>
 <th>Amount</th>
 <th>Remark</th>
 </tr>
@@ -126,14 +114,14 @@ border-radius:6px;
 </table>
 
 
-<h2>File 2 - Expense (જવાક)</h2>
+<h2>Expense</h2>
 
 <table>
 
 <tr>
 <th>No</th>
 <th>Amount</th>
-<th>Expense Detail</th>
+<th>Detail</th>
 <th>Date</th>
 </tr>
 
@@ -141,10 +129,6 @@ border-radius:6px;
 <tr><td>2</td><td><input class="expense"></td><td><input></td><td><input type="date"></td></tr>
 <tr><td>3</td><td><input class="expense"></td><td><input></td><td><input type="date"></td></tr>
 <tr><td>4</td><td><input class="expense"></td><td><input></td><td><input type="date"></td></tr>
-<tr><td>5</td><td><input class="expense"></td><td><input></td><td><input type="date"></td></tr>
-<tr><td>6</td><td><input class="expense"></td><td><input></td><td><input type="date"></td></tr>
-<tr><td>7</td><td><input class="expense"></td><td><input></td><td><input type="date"></td></tr>
-<tr><td>8</td><td><input class="expense"></td><td><input></td><td><input type="date"></td></tr>
 
 </table>
 
@@ -175,11 +159,9 @@ border-radius:6px;
 
 </table>
 
-
 <button onclick="calculate()">Calculate</button>
 
 <button onclick="window.print()">Download PDF</button>
-
 
 <script>
 
@@ -208,7 +190,6 @@ document.getElementById("balance").innerText=prev+income-expense
 }
 
 </script>
-
 
 </body>
 </html>
