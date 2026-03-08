@@ -4,7 +4,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Society Account</title>
+<title>Society Register</title>
 
 <style>
 
@@ -14,7 +14,7 @@ background:#f2f2f2;
 padding:10px;
 }
 
-h2{
+h1{
 text-align:center;
 }
 
@@ -32,24 +32,23 @@ text-align:center;
 }
 
 input{
-width:90%;
-border:none;
+width:70px;
 text-align:center;
-}
-
-.total{
-background:#ddd;
-font-weight:bold;
+border:none;
 }
 
 button{
 width:100%;
 padding:12px;
+margin-top:10px;
 background:#2e7d32;
 color:white;
 border:none;
 font-size:16px;
-margin-top:10px;
+}
+
+.page{
+margin-top:40px;
 }
 
 </style>
@@ -58,33 +57,34 @@ margin-top:10px;
 
 <body>
 
-<h2>Society Income</h2>
+<h1>Society Income Register</h1>
 
 <table>
 
 <tr>
 <th>Building</th>
-<th>Month</th>
+<th>Flats</th>
+<th>Rate</th>
 <th>Amount</th>
 </tr>
 
-<tr><td>A1</td><td><input></td><td><input class="income"></td></tr>
-<tr><td>A2</td><td><input></td><td><input class="income"></td></tr>
-<tr><td>A3</td><td><input></td><td><input class="income"></td></tr>
-<tr><td>A4</td><td><input></td><td><input class="income"></td></tr>
-<tr><td>A5</td><td><input></td><td><input class="income"></td></tr>
+<tr><td>A1</td><td><input id="f1"></td><td>700</td><td id="a1">0</td></tr>
+<tr><td>A2</td><td><input id="f2"></td><td>700</td><td id="a2">0</td></tr>
+<tr><td>A3</td><td><input id="f3"></td><td>700</td><td id="a3">0</td></tr>
+<tr><td>A4</td><td><input id="f4"></td><td>700</td><td id="a4">0</td></tr>
+<tr><td>A5</td><td><input id="f5"></td><td>700</td><td id="a5">0</td></tr>
 
-<tr><td>B1</td><td><input></td><td><input class="income"></td></tr>
-<tr><td>B2</td><td><input></td><td><input class="income"></td></tr>
-<tr><td>B3</td><td><input></td><td><input class="income"></td></tr>
-<tr><td>B4</td><td><input></td><td><input class="income"></td></tr>
-<tr><td>B5</td><td><input></td><td><input class="income"></td></tr>
-<tr><td>B6</td><td><input></td><td><input class="income"></td></tr>
+<tr><td>B1</td><td><input id="f6"></td><td>700</td><td id="a6">0</td></tr>
+<tr><td>B2</td><td><input id="f7"></td><td>700</td><td id="a7">0</td></tr>
+<tr><td>B3</td><td><input id="f8"></td><td>700</td><td id="a8">0</td></tr>
+<tr><td>B4</td><td><input id="f9"></td><td>700</td><td id="a9">0</td></tr>
+<tr><td>B5</td><td><input id="f10"></td><td>700</td><td id="a10">0</td></tr>
+<tr><td>B6</td><td><input id="f11"></td><td>700</td><td id="a11">0</td></tr>
 
-<tr><td>C</td><td><input></td><td><input class="income"></td></tr>
-<tr><td>D</td><td><input></td><td><input class="income"></td></tr>
+<tr><td>C</td><td><input id="f12"></td><td>700</td><td id="a12">0</td></tr>
+<tr><td>D</td><td><input id="f13"></td><td>700</td><td id="a13">0</td></tr>
 
-<tr><td>Shopping</td><td><input></td><td><input class="income"></td></tr>
+<tr><td>Shopping</td><td><input id="shop"></td><td>300</td><td id="ashop">0</td></tr>
 
 </table>
 
@@ -101,20 +101,22 @@ margin-top:10px;
 
 <tr>
 <td>Transfer Fee</td>
-<td><input class="income"></td>
+<td><input id="transfer"></td>
 <td><input></td>
 </tr>
 
 <tr>
 <td>Penalty</td>
-<td><input class="income"></td>
+<td><input id="penalty"></td>
 <td><input></td>
 </tr>
 
 </table>
 
 
-<h2>Expense</h2>
+<div class="page">
+
+<h1>Society Expense Register</h1>
 
 <table>
 
@@ -125,15 +127,18 @@ margin-top:10px;
 <th>Date</th>
 </tr>
 
-<tr><td>1</td><td><input class="expense"></td><td><input></td><td><input type="date"></td></tr>
-<tr><td>2</td><td><input class="expense"></td><td><input></td><td><input type="date"></td></tr>
-<tr><td>3</td><td><input class="expense"></td><td><input></td><td><input type="date"></td></tr>
-<tr><td>4</td><td><input class="expense"></td><td><input></td><td><input type="date"></td></tr>
+<tr><td>1</td><td><input class="exp"></td><td><input></td><td><input type="date"></td></tr>
+<tr><td>2</td><td><input class="exp"></td><td><input></td><td><input type="date"></td></tr>
+<tr><td>3</td><td><input class="exp"></td><td><input></td><td><input type="date"></td></tr>
+<tr><td>4</td><td><input class="exp"></td><td><input></td><td><input type="date"></td></tr>
+<tr><td>5</td><td><input class="exp"></td><td><input></td><td><input type="date"></td></tr>
 
 </table>
 
+</div>
 
-<h2>Summary</h2>
+
+<h1>Summary</h1>
 
 <table>
 
@@ -144,15 +149,15 @@ margin-top:10px;
 
 <tr>
 <th>Total Income</th>
-<th id="incomeTotal">0</th>
+<th id="income">0</th>
 </tr>
 
 <tr>
 <th>Total Expense</th>
-<th id="expenseTotal">0</th>
+<th id="expense">0</th>
 </tr>
 
-<tr class="total">
+<tr>
 <th>Final Balance</th>
 <th id="balance">0</th>
 </tr>
@@ -160,31 +165,51 @@ margin-top:10px;
 </table>
 
 <button onclick="calculate()">Calculate</button>
-
 <button onclick="window.print()">Download PDF</button>
+
 
 <script>
 
 function calculate(){
 
+let rate=700
+
+let flats=[f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13]
+
 let income=0
 
-document.querySelectorAll(".income").forEach(i=>{
-income+=Number(i.value)
-})
+for(let i=0;i<flats.length;i++){
+
+let amount=Number(flats[i].value)*rate
+
+document.getElementById("a"+(i+1)).innerText=amount
+
+income+=amount
+
+}
+
+let shopAmount=shop.value*300
+
+document.getElementById("ashop").innerText=shopAmount
+
+income+=shopAmount
+
+income+=Number(transfer.value)
+
+income+=Number(penalty.value)
 
 let expense=0
 
-document.querySelectorAll(".expense").forEach(i=>{
-expense+=Number(i.value)
+document.querySelectorAll(".exp").forEach(e=>{
+
+expense+=Number(e.value)
+
 })
 
-let prev=Number(document.getElementById("prev").value)
+let prev=Number(prev.value)
 
-document.getElementById("incomeTotal").innerText=income
-
-document.getElementById("expenseTotal").innerText=expense
-
+document.getElementById("income").innerText=income
+document.getElementById("expense").innerText=expense
 document.getElementById("balance").innerText=prev+income-expense
 
 }
