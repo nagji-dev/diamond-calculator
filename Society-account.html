@@ -2,219 +2,102 @@
 <html>
 <head>
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shiv Palace Society</title>
 
-<title>Society Register</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
 
 body{
+margin:0;
 font-family:Arial;
-background:#f2f2f2;
+background:#ecf0f1;
+}
+
+.header{
+background:#2c3e50;
+color:white;
+padding:15px;
+text-align:center;
+font-size:22px;
+}
+
+.menu{
+display:flex;
+justify-content:space-around;
+background:#34495e;
 padding:10px;
 }
 
-h1{
-text-align:center;
-}
-
-table{
-width:100%;
-border-collapse:collapse;
-background:white;
-margin-top:10px;
-}
-
-th,td{
-border:1px solid black;
-padding:6px;
-text-align:center;
-}
-
-input{
-width:70px;
-text-align:center;
+.menu button{
+background:#3498db;
 border:none;
-}
-
-button{
-width:100%;
-padding:12px;
-margin-top:10px;
-background:#2e7d32;
 color:white;
-border:none;
+padding:10px 15px;
 font-size:16px;
+border-radius:6px;
 }
 
-.page{
-margin-top:40px;
+.menu button:hover{
+background:#2980b9;
+}
+
+iframe{
+width:100%;
+height:90vh;
+border:none;
+}
+
+.footer{
+text-align:center;
+padding:5px;
+font-size:12px;
+background:#bdc3c7;
 }
 
 </style>
+
+<script>
+
+function maintenance(){
+document.getElementById("frame").src="https://docs.google.com/spreadsheets/d/19qZP2-JKbczknAFb3L8k5OOw-bbsuH-QDB5U4JTV3QE/preview";
+}
+
+function expense(){
+document.getElementById("frame").src="https://docs.google.com/spreadsheets/d/19qZP2-JKbczknAFb3L8k5OOw-bbsuH-QDB5U4JTV3QE/edit#gid=0";
+}
+
+function report(){
+document.getElementById("frame").src="https://docs.google.com/spreadsheets/d/19qZP2-JKbczknAFb3L8k5OOw-bbsuH-QDB5U4JTV3QE";
+}
+
+</script>
 
 </head>
 
 <body>
 
-<h1>Society Income Register</h1>
+<div class="header">
+🏢 Shiv Palace Society Management
+</div>
 
-<table>
+<div class="menu">
 
-<tr>
-<th>Building</th>
-<th>Flats</th>
-<th>Rate</th>
-<th>Amount</th>
-</tr>
+<button onclick="maintenance()">Maintenance</button>
 
-<tr><td>A1</td><td><input id="f1"></td><td>700</td><td id="a1">0</td></tr>
-<tr><td>A2</td><td><input id="f2"></td><td>700</td><td id="a2">0</td></tr>
-<tr><td>A3</td><td><input id="f3"></td><td>700</td><td id="a3">0</td></tr>
-<tr><td>A4</td><td><input id="f4"></td><td>700</td><td id="a4">0</td></tr>
-<tr><td>A5</td><td><input id="f5"></td><td>700</td><td id="a5">0</td></tr>
+<button onclick="expense()">Expense</button>
 
-<tr><td>B1</td><td><input id="f6"></td><td>700</td><td id="a6">0</td></tr>
-<tr><td>B2</td><td><input id="f7"></td><td>700</td><td id="a7">0</td></tr>
-<tr><td>B3</td><td><input id="f8"></td><td>700</td><td id="a8">0</td></tr>
-<tr><td>B4</td><td><input id="f9"></td><td>700</td><td id="a9">0</td></tr>
-<tr><td>B5</td><td><input id="f10"></td><td>700</td><td id="a10">0</td></tr>
-<tr><td>B6</td><td><input id="f11"></td><td>700</td><td id="a11">0</td></tr>
-
-<tr><td>C</td><td><input id="f12"></td><td>700</td><td id="a12">0</td></tr>
-<tr><td>D</td><td><input id="f13"></td><td>700</td><td id="a13">0</td></tr>
-
-<tr><td>Shopping</td><td><input id="shop"></td><td>300</td><td id="ashop">0</td></tr>
-
-</table>
-
-
-<h2>Other Income</h2>
-
-<table>
-
-<tr>
-<th>Type</th>
-<th>Amount</th>
-<th>Remark</th>
-</tr>
-
-<tr>
-<td>Transfer Fee</td>
-<td><input id="transfer"></td>
-<td><input></td>
-</tr>
-
-<tr>
-<td>Penalty</td>
-<td><input id="penalty"></td>
-<td><input></td>
-</tr>
-
-</table>
-
-
-<div class="page">
-
-<h1>Society Expense Register</h1>
-
-<table>
-
-<tr>
-<th>No</th>
-<th>Amount</th>
-<th>Detail</th>
-<th>Date</th>
-</tr>
-
-<tr><td>1</td><td><input class="exp"></td><td><input></td><td><input type="date"></td></tr>
-<tr><td>2</td><td><input class="exp"></td><td><input></td><td><input type="date"></td></tr>
-<tr><td>3</td><td><input class="exp"></td><td><input></td><td><input type="date"></td></tr>
-<tr><td>4</td><td><input class="exp"></td><td><input></td><td><input type="date"></td></tr>
-<tr><td>5</td><td><input class="exp"></td><td><input></td><td><input type="date"></td></tr>
-
-</table>
+<button onclick="report()">Report</button>
 
 </div>
 
+<iframe id="frame"
+src="https://docs.google.com/spreadsheets/d/19qZP2-JKbczknAFb3L8k5OOw-bbsuH-QDB5U4JTV3QE/preview">
+</iframe>
 
-<h1>Summary</h1>
-
-<table>
-
-<tr>
-<th>Previous Balance</th>
-<th><input id="prev"></th>
-</tr>
-
-<tr>
-<th>Total Income</th>
-<th id="income">0</th>
-</tr>
-
-<tr>
-<th>Total Expense</th>
-<th id="expense">0</th>
-</tr>
-
-<tr>
-<th>Final Balance</th>
-<th id="balance">0</th>
-</tr>
-
-</table>
-
-<button onclick="calculate()">Calculate</button>
-<button onclick="window.print()">Download PDF</button>
-
-
-<script>
-
-function calculate(){
-
-let rate=700
-
-let flats=[f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13]
-
-let income=0
-
-for(let i=0;i<flats.length;i++){
-
-let amount=Number(flats[i].value)*rate
-
-document.getElementById("a"+(i+1)).innerText=amount
-
-income+=amount
-
-}
-
-let shopAmount=shop.value*300
-
-document.getElementById("ashop").innerText=shopAmount
-
-income+=shopAmount
-
-income+=Number(transfer.value)
-
-income+=Number(penalty.value)
-
-let expense=0
-
-document.querySelectorAll(".exp").forEach(e=>{
-
-expense+=Number(e.value)
-
-})
-
-let prev=Number(prev.value)
-
-document.getElementById("income").innerText=income
-document.getElementById("expense").innerText=expense
-document.getElementById("balance").innerText=prev+income-expense
-
-}
-
-</script>
+<div class="footer">
+Shiv Palace Society Account System
+</div>
 
 </body>
 </html>
