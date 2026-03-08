@@ -7,7 +7,7 @@
 <style>
 body{
 font-family:Arial;
-background:#f2f2f2;
+background:#f4f4f4;
 text-align:center;
 }
 
@@ -31,8 +31,18 @@ text-align:center;
 
 input{
 width:60px;
-text-align:center;
 font-size:16px;
+text-align:center;
+}
+
+button{
+padding:10px 20px;
+margin:10px;
+font-size:16px;
+background:#3498db;
+color:white;
+border:none;
+border-radius:5px;
 }
 
 .total{
@@ -40,19 +50,14 @@ font-weight:bold;
 color:green;
 }
 
-button{
-padding:10px 20px;
-margin:10px;
-font-size:16px;
-}
 </style>
 </head>
 
 <body>
 
-<h2>Shiv Palace Society Management</h2>
+<h2>Shiv Palace Society Account</h2>
 
-<table>
+<table id="societyTable">
 <tr>
 <th>No</th>
 <th>Flat</th>
@@ -61,51 +66,53 @@ font-size:16px;
 <th>Total</th>
 </tr>
 
-<tbody id="tableBody"></tbody>
+<tbody></tbody>
 
 </table>
 
-<h3>Total Collection: ₹ <span id="grandTotal">0</span></h3>
+<h3>Total Collection ₹ <span id="grandTotal">0</span></h3>
+
+<button onclick="downloadPDF()">Download PDF</button>
 
 <script>
 
-let flats = [
+let flats=[
 "A-1","A-2","A-3","A-4","A-5",
 "B-1","B-2","B-3","B-4","B-5","B-6",
 "C","D","Shop"
 ];
 
-let body = document.getElementById("tableBody");
+let tbody=document.querySelector("tbody");
 
 flats.forEach((flat,i)=>{
 
-let row = document.createElement("tr");
+let row=document.createElement("tr");
 
 row.innerHTML=`
 <td>${i+1}</td>
 <td>${flat}</td>
-<td><input type="number" value="700" oninput="calc()"></td>
-<td><input type="number" value="1" oninput="calc()"></td>
+<td><input type="number" class="rate"></td>
+<td><input type="number" class="month"></td>
 <td class="total">0</td>
 `;
 
-body.appendChild(row);
+tbody.appendChild(row);
 
 });
 
-function calc(){
+function calculate(){
 
-let rows=document.querySelectorAll("#tableBody tr");
+let rows=document.querySelectorAll("tbody tr");
 let grand=0;
 
-rows.forEach(r=>{
+rows.forEach((row,i)=>{
 
-let rate=r.children[2].children[0].value;
-let month=r.children[3].children[0].value;
+let rate=row.querySelector(".rate").value || 0;
+let month=row.querySelector(".month").value || 0;
 
 let total=rate*month;
 
-r.children[4].innerText=total;
+row.querySelector(".total").innerText=total;
 
 grand+=total;
 
@@ -113,9 +120,53 @@ grand+=total;
 
 document.getElementById("grandTotal").innerText=grand;
 
+saveData();
+
 }
 
-calc();
+document.addEventListener("input",calculate);
+
+function saveData(){
+
+let data=[];
+
+document.querySelectorAll("tbody tr").forEach(row=>{
+
+data.push({
+rate:row.querySelector(".rate").value,
+month:row.querySelector(".month").value
+});
+
+});
+
+localStorage.setItem("societyData",JSON.stringify(data));
+
+}
+
+function loadData(){
+
+let data=JSON.parse(localStorage.getItem("societyData"));
+
+if(!data) return;
+
+document.querySelectorAll("tbody tr").forEach((row,i)=>{
+
+row.querySelector(".rate").value=data[i].rate;
+row.querySelector(".month").value=data[i].month;
+
+});
+
+calculate();
+
+}
+
+function downloadPDF(){
+
+window.print();
+
+}
+
+loadData();
 
 </script>
 
