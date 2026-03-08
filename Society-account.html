@@ -1,103 +1,123 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-<title>Shiv Palace Society</title>
-
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Society Management</title>
 
 <style>
-
 body{
-margin:0;
 font-family:Arial;
-background:#ecf0f1;
+background:#f2f2f2;
+text-align:center;
 }
 
-.header{
+h2{
 background:#2c3e50;
 color:white;
-padding:15px;
-text-align:center;
-font-size:22px;
-}
-
-.menu{
-display:flex;
-justify-content:space-around;
-background:#34495e;
 padding:10px;
 }
 
-.menu button{
-background:#3498db;
-border:none;
-color:white;
-padding:10px 15px;
-font-size:16px;
-border-radius:6px;
-}
-
-.menu button:hover{
-background:#2980b9;
-}
-
-iframe{
+table{
 width:100%;
-height:90vh;
-border:none;
+border-collapse:collapse;
+background:white;
 }
 
-.footer{
+th,td{
+border:1px solid #ccc;
+padding:8px;
 text-align:center;
-padding:5px;
-font-size:12px;
-background:#bdc3c7;
 }
 
+input{
+width:60px;
+text-align:center;
+font-size:16px;
+}
+
+.total{
+font-weight:bold;
+color:green;
+}
+
+button{
+padding:10px 20px;
+margin:10px;
+font-size:16px;
+}
 </style>
-
-<script>
-
-function maintenance(){
-document.getElementById("frame").src="https://docs.google.com/spreadsheets/d/19qZP2-JKbczknAFb3L8k5OOw-bbsuH-QDB5U4JTV3QE/preview";
-}
-
-function expense(){
-document.getElementById("frame").src="https://docs.google.com/spreadsheets/d/19qZP2-JKbczknAFb3L8k5OOw-bbsuH-QDB5U4JTV3QE/edit#gid=0";
-}
-
-function report(){
-document.getElementById("frame").src="https://docs.google.com/spreadsheets/d/19qZP2-JKbczknAFb3L8k5OOw-bbsuH-QDB5U4JTV3QE";
-}
-
-</script>
-
 </head>
 
 <body>
 
-<div class="header">
-🏢 Shiv Palace Society Management
-</div>
+<h2>Shiv Palace Society Management</h2>
 
-<div class="menu">
+<table>
+<tr>
+<th>No</th>
+<th>Flat</th>
+<th>Rate</th>
+<th>Month</th>
+<th>Total</th>
+</tr>
 
-<button onclick="maintenance()">Maintenance</button>
+<tbody id="tableBody"></tbody>
 
-<button onclick="expense()">Expense</button>
+</table>
 
-<button onclick="report()">Report</button>
+<h3>Total Collection: ₹ <span id="grandTotal">0</span></h3>
 
-</div>
+<script>
 
-<iframe id="frame"
-src="https://docs.google.com/spreadsheets/d/19qZP2-JKbczknAFb3L8k5OOw-bbsuH-QDB5U4JTV3QE/preview">
-</iframe>
+let flats = [
+"A-1","A-2","A-3","A-4","A-5",
+"B-1","B-2","B-3","B-4","B-5","B-6",
+"C","D","Shop"
+];
 
-<div class="footer">
-Shiv Palace Society Account System
-</div>
+let body = document.getElementById("tableBody");
+
+flats.forEach((flat,i)=>{
+
+let row = document.createElement("tr");
+
+row.innerHTML=`
+<td>${i+1}</td>
+<td>${flat}</td>
+<td><input type="number" value="700" oninput="calc()"></td>
+<td><input type="number" value="1" oninput="calc()"></td>
+<td class="total">0</td>
+`;
+
+body.appendChild(row);
+
+});
+
+function calc(){
+
+let rows=document.querySelectorAll("#tableBody tr");
+let grand=0;
+
+rows.forEach(r=>{
+
+let rate=r.children[2].children[0].value;
+let month=r.children[3].children[0].value;
+
+let total=rate*month;
+
+r.children[4].innerText=total;
+
+grand+=total;
+
+});
+
+document.getElementById("grandTotal").innerText=grand;
+
+}
+
+calc();
+
+</script>
 
 </body>
 </html>
