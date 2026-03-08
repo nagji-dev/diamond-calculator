@@ -2,12 +2,12 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Society Management</title>
+<title>Shiv Palace Society Account</title>
 
 <style>
 body{
 font-family:Arial;
-background:#f4f4f4;
+background:#f2f2f2;
 text-align:center;
 }
 
@@ -24,30 +24,29 @@ background:white;
 }
 
 th,td{
-border:1px solid #ccc;
-padding:8px;
+border:1px solid #999;
+padding:6px;
 text-align:center;
 }
 
 input{
-width:60px;
+width:70px;
 font-size:16px;
 text-align:center;
+}
+
+.total{
+color:green;
+font-weight:bold;
 }
 
 button{
 padding:10px 20px;
 margin:10px;
-font-size:16px;
 background:#3498db;
 color:white;
 border:none;
 border-radius:5px;
-}
-
-.total{
-font-weight:bold;
-color:green;
 }
 
 </style>
@@ -55,24 +54,37 @@ color:green;
 
 <body>
 
-<h2>Shiv Palace Society Account</h2>
+<h2>શિવ પેલેસ મેનેજમેન્ટ એકાઉન્ટ</h2>
 
-<table id="societyTable">
+<table id="maintable">
+
 <tr>
-<th>No</th>
-<th>Flat</th>
-<th>Rate</th>
-<th>Month</th>
-<th>Total</th>
+<th>ક્રમ</th>
+<th>બિલ્ડિંગ</th>
+<th>કુલ ફ્લેટ</th>
+<th>ચૂકવ્યા</th>
+<th>બાકી</th>
+<th>મેન્ટેનન્સ</th>
+<th>કુલ રૂપિયા</th>
 </tr>
 
 <tbody></tbody>
 
 </table>
 
-<h3>Total Collection ₹ <span id="grandTotal">0</span></h3>
+<br>
 
-<button onclick="downloadPDF()">Download PDF</button>
+Transfer Fee ₹ <input type="number" id="transfer" value="0">
+
+<br><br>
+
+પ્રસંગ આવક ₹ <input type="number" id="event" value="0">
+
+<h3>કુલ મેન્ટેનન્સ ₹ <span id="maintotal">0</span></h3>
+
+<h3>કુલ આવક ₹ <span id="grandtotal">0</span></h3>
+
+<button onclick="window.print()">PDF બનાવો</button>
 
 <script>
 
@@ -84,89 +96,60 @@ let flats=[
 
 let tbody=document.querySelector("tbody");
 
-flats.forEach((flat,i)=>{
+flats.forEach((f,i)=>{
 
 let row=document.createElement("tr");
 
 row.innerHTML=`
+
 <td>${i+1}</td>
-<td>${flat}</td>
-<td><input type="number" class="rate"></td>
-<td><input type="number" class="month"></td>
+<td>${f}</td>
+<td><input type="number" class="flat" value="20"></td>
+<td><input type="number" class="paid" value="0"></td>
+<td class="pending">0</td>
+<td><input type="number" class="rate" value="700"></td>
 <td class="total">0</td>
+
 `;
 
 tbody.appendChild(row);
 
 });
 
-function calculate(){
+function calc(){
 
-let rows=document.querySelectorAll("tbody tr");
-let grand=0;
+let maintotal=0;
 
-rows.forEach((row,i)=>{
+document.querySelectorAll("#maintable tbody tr").forEach(r=>{
 
-let rate=row.querySelector(".rate").value || 0;
-let month=row.querySelector(".month").value || 0;
+let flat=r.querySelector(".flat").value||0;
+let paid=r.querySelector(".paid").value||0;
+let rate=r.querySelector(".rate").value||0;
 
-let total=rate*month;
+let pending=flat-paid;
 
-row.querySelector(".total").innerText=total;
+r.querySelector(".pending").innerText=pending;
 
-grand+=total;
+let total=paid*rate;
 
-});
+r.querySelector(".total").innerText=total;
 
-document.getElementById("grandTotal").innerText=grand;
-
-saveData();
-
-}
-
-document.addEventListener("input",calculate);
-
-function saveData(){
-
-let data=[];
-
-document.querySelectorAll("tbody tr").forEach(row=>{
-
-data.push({
-rate:row.querySelector(".rate").value,
-month:row.querySelector(".month").value
-});
+maintotal+=total;
 
 });
 
-localStorage.setItem("societyData",JSON.stringify(data));
+document.getElementById("maintotal").innerText=maintotal;
+
+let transfer=Number(document.getElementById("transfer").value||0);
+let event=Number(document.getElementById("event").value||0);
+
+document.getElementById("grandtotal").innerText=maintotal+transfer+event;
 
 }
 
-function loadData(){
+document.addEventListener("input",calc);
 
-let data=JSON.parse(localStorage.getItem("societyData"));
-
-if(!data) return;
-
-document.querySelectorAll("tbody tr").forEach((row,i)=>{
-
-row.querySelector(".rate").value=data[i].rate;
-row.querySelector(".month").value=data[i].month;
-
-});
-
-calculate();
-
-}
-
-function downloadPDF(){
-
-window.print();
-
-}
-
-loadData();
+calc();
 
 </script>
 
