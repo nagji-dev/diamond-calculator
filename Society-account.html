@@ -17,7 +17,7 @@ padding:10px;
 h2{
 background:#2f5d73;
 color:white;
-padding:10px;
+padding:12px;
 border-radius:8px;
 text-align:center;
 }
@@ -36,8 +36,11 @@ text-align:center;
 }
 
 input{
-width:80px;
 padding:5px;
+}
+
+.remark{
+width:120px;
 }
 
 .total{
@@ -62,7 +65,13 @@ border-radius:6px;
 
 <h2>શિવ પેલેસ સોસાયટી મેનેજમેન્ટ</h2>
 
-દર ₹ <input id="rate" value="700">
+તારીખ :
+<input type="date" id="date">
+
+<br><br>
+
+દર ₹
+<input id="rate" value="700">
 
 <table>
 
@@ -72,22 +81,23 @@ border-radius:6px;
 <th>કુલ ફ્લેટ</th>
 <th>ચૂકવ્યા</th>
 <th>કુલ રૂપિયા</th>
+<th>રીમાર્ક</th>
 </tr>
 
-<tr><td>1</td><td>A-1</td><td>16</td><td><input class="paid"></td><td class="amount">0</td></tr>
-<tr><td>2</td><td>A-2</td><td>20</td><td><input class="paid"></td><td class="amount">0</td></tr>
-<tr><td>3</td><td>A-3</td><td>20</td><td><input class="paid"></td><td class="amount">0</td></tr>
-<tr><td>4</td><td>A-4</td><td>20</td><td><input class="paid"></td><td class="amount">0</td></tr>
-<tr><td>5</td><td>A-5</td><td>20</td><td><input class="paid"></td><td class="amount">0</td></tr>
-<tr><td>6</td><td>B-1</td><td>20</td><td><input class="paid"></td><td class="amount">0</td></tr>
-<tr><td>7</td><td>B-2</td><td>20</td><td><input class="paid"></td><td class="amount">0</td></tr>
-<tr><td>8</td><td>B-3</td><td>20</td><td><input class="paid"></td><td class="amount">0</td></tr>
-<tr><td>9</td><td>B-4</td><td>20</td><td><input class="paid"></td><td class="amount">0</td></tr>
-<tr><td>10</td><td>B-5</td><td>20</td><td><input class="paid"></td><td class="amount">0</td></tr>
-<tr><td>11</td><td>B-6</td><td>20</td><td><input class="paid"></td><td class="amount">0</td></tr>
-<tr><td>12</td><td>C</td><td>20</td><td><input class="paid"></td><td class="amount">0</td></tr>
-<tr><td>13</td><td>D</td><td>15</td><td><input class="paid"></td><td class="amount">0</td></tr>
-<tr><td>14</td><td>Shop</td><td>10</td><td><input class="paid"></td><td class="amount">0</td></tr>
+<tr><td>1</td><td>A-1</td><td>16</td><td><input class="paid"></td><td class="amount">0</td><td><input class="remark"></td></tr>
+<tr><td>2</td><td>A-2</td><td>20</td><td><input class="paid"></td><td class="amount">0</td><td><input class="remark"></td></tr>
+<tr><td>3</td><td>A-3</td><td>20</td><td><input class="paid"></td><td class="amount">0</td><td><input class="remark"></td></tr>
+<tr><td>4</td><td>A-4</td><td>20</td><td><input class="paid"></td><td class="amount">0</td><td><input class="remark"></td></tr>
+<tr><td>5</td><td>A-5</td><td>20</td><td><input class="paid"></td><td class="amount">0</td><td><input class="remark"></td></tr>
+<tr><td>6</td><td>B-1</td><td>20</td><td><input class="paid"></td><td class="amount">0</td><td><input class="remark"></td></tr>
+<tr><td>7</td><td>B-2</td><td>20</td><td><input class="paid"></td><td class="amount">0</td><td><input class="remark"></td></tr>
+<tr><td>8</td><td>B-3</td><td>20</td><td><input class="paid"></td><td class="amount">0</td><td><input class="remark"></td></tr>
+<tr><td>9</td><td>B-4</td><td>20</td><td><input class="paid"></td><td class="amount">0</td><td><input class="remark"></td></tr>
+<tr><td>10</td><td>B-5</td><td>20</td><td><input class="paid"></td><td class="amount">0</td><td><input class="remark"></td></tr>
+<tr><td>11</td><td>B-6</td><td>20</td><td><input class="paid"></td><td class="amount">0</td><td><input class="remark"></td></tr>
+<tr><td>12</td><td>C</td><td>20</td><td><input class="paid"></td><td class="amount">0</td><td><input class="remark"></td></tr>
+<tr><td>13</td><td>D</td><td>15</td><td><input class="paid"></td><td class="amount">0</td><td><input class="remark"></td></tr>
+<tr><td>14</td><td>Shop</td><td>10</td><td><input class="paid"></td><td class="amount">0</td><td><input class="remark"></td></tr>
 
 </table>
 
@@ -97,18 +107,9 @@ border-radius:6px;
 
 <h3>આવક</h3>
 
-અગાઉનું બેલેન્સ ₹  
-<input id="balance">
-
-<br><br>
-
-Transfer Fee ₹  
-<input id="transfer">
-
-<br><br>
-
-પ્રસંગ આવક ₹  
-<input id="event">
+અગાઉનું બેલેન્સ ₹ <input id="balance"><br><br>
+Transfer Fee ₹ <input id="transfer"><br><br>
+પ્રસંગ આવક ₹ <input id="event">
 
 <div class="total">
 કુલ આવક ₹ <span id="income">0</span>
@@ -144,6 +145,17 @@ Transfer Fee ₹
 <button onclick="window.print()">PDF</button>
 
 <script>
+
+function saveData(){
+localStorage.setItem("societyData",document.body.innerHTML);
+}
+
+function loadData(){
+let data=localStorage.getItem("societyData");
+if(data){
+document.body.innerHTML=data;
+}
+}
 
 function calculate(){
 
@@ -183,22 +195,14 @@ document.getElementById("expenseTotal").innerText = expense;
 
 document.getElementById("final").innerText = income - expense;
 
+saveData();
+
 }
 
 function clearAll(){
 
-document.querySelectorAll("input").forEach(function(el){
-el.value="";
-});
-
-document.querySelectorAll(".amount").forEach(function(el){
-el.innerText="0";
-});
-
-document.getElementById("maintenance").innerText="0";
-document.getElementById("income").innerText="0";
-document.getElementById("expenseTotal").innerText="0";
-document.getElementById("final").innerText="0";
+localStorage.clear();
+location.reload();
 
 }
 
