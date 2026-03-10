@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>શિવ પેલેસ સોસાયટી મેનેજમેન્ટ</title>
+<title>Society Management</title>
 
 <style>
 
@@ -15,47 +14,58 @@ padding:10px;
 }
 
 h2{
-background:#2f5d73;
-color:white;
-padding:12px;
-border-radius:8px;
 text-align:center;
+background:#1f4e79;
+color:white;
+padding:10px;
+border-radius:8px;
+}
+
+button{
+padding:10px 15px;
+margin:5px;
+border:none;
+border-radius:6px;
+background:#1f4e79;
+color:white;
 }
 
 table{
 width:100%;
 border-collapse:collapse;
 background:white;
-margin-top:10px;
+margin-top:5px;
 }
 
 th,td{
 border:1px solid #ccc;
-padding:8px;
+padding:6px;
 text-align:center;
 }
 
 input{
-padding:5px;
+width:70px;
 }
 
-.remark{
-width:120px;
+.page{
+display:none;
+}
+
+.active{
+display:block;
 }
 
 .total{
-font-size:20px;
+font-size:18px;
 font-weight:bold;
 margin-top:10px;
 }
 
-button{
-padding:10px 20px;
-margin:5px;
-border:none;
-background:#2f5d73;
-color:white;
-border-radius:6px;
+.signature{
+margin-top:40px;
+display:flex;
+justify-content:space-around;
+font-weight:bold;
 }
 
 </style>
@@ -63,15 +73,17 @@ border-radius:6px;
 
 <body>
 
-<h2>શિવ પેલેસ સોસાયટી મેનેજમેન્ટ</h2>
+<h2>Society Management</h2>
 
-તારીખ :
-<input type="date" id="date">
+<button onclick="showPage(1)">Page 1</button>
+<button onclick="showPage(2)">Page 2</button>
 
-<br><br>
+<div id="page1" class="page active">
 
-દર ₹
-<input id="rate" value="700">
+<p>
+તારીખ <input type="text" id="date">
+દર ₹ <input id="rate" value="700">
+</p>
 
 <table>
 
@@ -80,24 +92,36 @@ border-radius:6px;
 <th>બિલ્ડિંગ</th>
 <th>કુલ ફ્લેટ</th>
 <th>ચૂકવ્યા</th>
+<th>Pending</th>
 <th>કુલ રૂપિયા</th>
-<th>રીમાર્ક</th>
 </tr>
 
-<tr><td>1</td><td>A-1</td><td>16</td><td><input class="paid"></td><td class="amount">0</td><td><input class="remark"></td></tr>
-<tr><td>2</td><td>A-2</td><td>20</td><td><input class="paid"></td><td class="amount">0</td><td><input class="remark"></td></tr>
-<tr><td>3</td><td>A-3</td><td>20</td><td><input class="paid"></td><td class="amount">0</td><td><input class="remark"></td></tr>
-<tr><td>4</td><td>A-4</td><td>20</td><td><input class="paid"></td><td class="amount">0</td><td><input class="remark"></td></tr>
-<tr><td>5</td><td>A-5</td><td>20</td><td><input class="paid"></td><td class="amount">0</td><td><input class="remark"></td></tr>
-<tr><td>6</td><td>B-1</td><td>20</td><td><input class="paid"></td><td class="amount">0</td><td><input class="remark"></td></tr>
-<tr><td>7</td><td>B-2</td><td>20</td><td><input class="paid"></td><td class="amount">0</td><td><input class="remark"></td></tr>
-<tr><td>8</td><td>B-3</td><td>20</td><td><input class="paid"></td><td class="amount">0</td><td><input class="remark"></td></tr>
-<tr><td>9</td><td>B-4</td><td>20</td><td><input class="paid"></td><td class="amount">0</td><td><input class="remark"></td></tr>
-<tr><td>10</td><td>B-5</td><td>20</td><td><input class="paid"></td><td class="amount">0</td><td><input class="remark"></td></tr>
-<tr><td>11</td><td>B-6</td><td>20</td><td><input class="paid"></td><td class="amount">0</td><td><input class="remark"></td></tr>
-<tr><td>12</td><td>C</td><td>20</td><td><input class="paid"></td><td class="amount">0</td><td><input class="remark"></td></tr>
-<tr><td>13</td><td>D</td><td>15</td><td><input class="paid"></td><td class="amount">0</td><td><input class="remark"></td></tr>
-<tr><td>14</td><td>Shop</td><td>10</td><td><input class="paid"></td><td class="amount">0</td><td><input class="remark"></td></tr>
+<tr>
+<td>1</td>
+<td>A1</td>
+<td>16</td>
+<td><input class="paid"></td>
+<td class="pending">0</td>
+<td class="amount">0</td>
+</tr>
+
+<tr>
+<td>2</td>
+<td>A2</td>
+<td>20</td>
+<td><input class="paid"></td>
+<td class="pending">0</td>
+<td class="amount">0</td>
+</tr>
+
+<tr>
+<td>3</td>
+<td>Shop</td>
+<td>10</td>
+<td><input class="paid"></td>
+<td class="pending">0</td>
+<td class="amount">0</td>
+</tr>
 
 </table>
 
@@ -107,108 +131,182 @@ border-radius:6px;
 
 <h3>આવક</h3>
 
-અગાઉનું બેલેન્સ ₹ <input id="balance"><br><br>
-Transfer Fee ₹ <input id="transfer"><br><br>
-પ્રસંગ આવક ₹ <input id="event">
-
-<div class="total">
-કુલ આવક ₹ <span id="income">0</span>
-</div>
-
-<h3>જાવક</h3>
-
 <table>
 
 <tr>
-<th>તારીખ</th>
-<th>વિગત</th>
-<th>રૂપીયા</th>
+<td>આગળ ની બેલેન્સ</td>
+<td><input class="income"></td>
 </tr>
 
-<tr><td><input></td><td><input></td><td><input class="expense"></td></tr>
-<tr><td><input></td><td><input></td><td><input class="expense"></td></tr>
-<tr><td><input></td><td><input></td><td><input class="expense"></td></tr>
-<tr><td><input></td><td><input></td><td><input class="expense"></td></tr>
-<tr><td><input></td><td><input></td><td><input class="expense"></td></tr>
+<tr>
+<td>હાલની આવક</td>
+<td><input class="income"></td>
+</tr>
+
+<tr>
+<td>ટ્રાન્સફર ફી</td>
+<td><input class="income"></td>
+</tr>
+
+<tr>
+<td>પ્રસંગ</td>
+<td><input class="income"></td>
+</tr>
+
+<tr>
+<td>ટ્રાવર નું ભાડું</td>
+<td><input class="income"></td>
+</tr>
+
+<tr>
+<td>અન્ય આવક</td>
+<td><input class="income"></td>
+</tr>
+
+<tr>
+<td>અન્ય આવક</td>
+<td><input class="income"></td>
+</tr>
 
 </table>
 
 <div class="total">
-કુલ જાવક ₹ <span id="expenseTotal">0</span>
+ટોટલ આવક ₹ <span id="totalIncome">0</span>
+</div>
+
+</div>
+
+<div id="page2" class="page">
+
+<h3>ખર્ચ</h3>
+
+<table>
+
+<tr><td>હોચમેન પગાર</td><td><input class="expense"></td></tr>
+<tr><td>લાઈટ બિલ</td><td><input class="expense"></td></tr>
+<tr><td>સાર્વજનિક ખર્ચ</td><td><input class="expense"></td></tr>
+<tr><td>સફાઈ પગાર</td><td><input class="expense"></td></tr>
+<tr><td>રીપેરીંગ</td><td><input class="expense"></td></tr>
+<tr><td>અન્ય ખર્ચ</td><td><input class="expense"></td></tr>
+<tr><td>અન્ય ખર્ચ</td><td><input class="expense"></td></tr>
+<tr><td>અન્ય ખર્ચ</td><td><input class="expense"></td></tr>
+
+</table>
+
+<div class="total">
+ટોટલ જાવક ₹ <span id="totalExpense">0</span>
 </div>
 
 <div class="total">
-ફાઈનલ બેલેન્સ ₹ <span id="final">0</span>
+હાલની બેલેન્સ ₹ <span id="balance">0</span>
 </div>
 
-<button onclick="clearAll()">ક્લિયર</button>
+<div class="signature">
+<div>પ્રમુખ શ્રી</div>
+<div>ખજાનચી</div>
+</div>
+
+</div>
+
+<button onclick="clearAll()">Clear</button>
 <button onclick="window.print()">PDF</button>
 
 <script>
 
-function saveData(){
-localStorage.setItem("societyData",document.body.innerHTML);
-}
+function showPage(p){
 
-function loadData(){
-let data=localStorage.getItem("societyData");
-if(data){
-document.body.innerHTML=data;
-}
+document.getElementById("page1").classList.remove("active")
+document.getElementById("page2").classList.remove("active")
+
+document.getElementById("page"+p).classList.add("active")
+
 }
 
 function calculate(){
 
-let rate = Number(document.getElementById("rate").value) || 0;
+let rate = Number(document.getElementById("rate").value) || 0
 
-let maintenance = 0;
+let maintenance=0
 
-document.querySelectorAll(".paid").forEach(function(input,index){
+document.querySelectorAll("tr").forEach(function(row){
 
-let paid = Number(input.value) || 0;
+let paid=row.querySelector(".paid")
+let pending=row.querySelector(".pending")
+let amount=row.querySelector(".amount")
 
-let amount = paid * rate;
+if(paid){
 
-document.querySelectorAll(".amount")[index].innerText = amount;
+let flats=Number(row.cells[2].innerText)
+let p=Number(paid.value)||0
 
-maintenance += amount;
+pending.innerText=flats-p
 
-});
+let r=row.cells[1].innerText=="Shop"?300:rate
 
-document.getElementById("maintenance").innerText = maintenance;
+let a=p*r
 
-let balance = Number(document.getElementById("balance").value) || 0;
-let transfer = Number(document.getElementById("transfer").value) || 0;
-let event = Number(document.getElementById("event").value) || 0;
+amount.innerText=a
 
-let income = maintenance + balance + transfer + event;
-
-document.getElementById("income").innerText = income;
-
-let expense = 0;
-
-document.querySelectorAll(".expense").forEach(function(el){
-expense += Number(el.value) || 0;
-});
-
-document.getElementById("expenseTotal").innerText = expense;
-
-document.getElementById("final").innerText = income - expense;
-
-saveData();
+maintenance+=a
 
 }
+
+})
+
+document.getElementById("maintenance").innerText=maintenance
+
+let income=maintenance
+
+document.querySelectorAll(".income").forEach(function(i){
+
+income+=Number(i.value)||0
+
+})
+
+document.getElementById("totalIncome").innerText=income
+
+let expense=0
+
+document.querySelectorAll(".expense").forEach(function(e){
+
+expense+=Number(e.value)||0
+
+})
+
+document.getElementById("totalExpense").innerText=expense
+
+document.getElementById("balance").innerText=income-expense
+
+saveData()
+
+}
+
+document.querySelectorAll("input").forEach(function(i){
+
+i.addEventListener("input",calculate)
+
+})
 
 function clearAll(){
 
-localStorage.clear();
-location.reload();
+localStorage.clear()
+location.reload()
 
 }
 
-document.querySelectorAll("input").forEach(function(el){
-el.addEventListener("input",calculate);
-});
+function saveData(){
+
+localStorage.setItem("society",document.body.innerHTML)
+
+}
+
+let saved=localStorage.getItem("society")
+
+if(saved){
+
+document.body.innerHTML=saved
+
+}
 
 </script>
 
