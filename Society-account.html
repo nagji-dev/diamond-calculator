@@ -1,70 +1,47 @@
 <!DOCTYPE html>
-<html lang="gu">
+<html>
 <head>
-<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Society Management</title>
 
 <style>
 
 body{
-font-family:sans-serif;
+font-family:Arial;
 background:#f2f2f2;
 padding:10px;
 }
 
 h2{
 text-align:center;
-background:#1f4e79;
-color:white;
-padding:10px;
-border-radius:8px;
-}
-
-button{
-padding:10px 15px;
-margin:5px;
-border:none;
-border-radius:6px;
-background:#1f4e79;
-color:white;
 }
 
 table{
 width:100%;
 border-collapse:collapse;
 background:white;
-margin-top:5px;
+margin-bottom:20px;
 }
 
 th,td{
-border:1px solid #ccc;
+border:1px solid #999;
 padding:6px;
 text-align:center;
 }
 
+th{
+background:#4CAF50;
+color:white;
+}
+
 input{
-width:70px;
-}
-
-.page{
-display:none;
-}
-
-.active{
-display:block;
+width:100%;
+border:none;
+text-align:center;
 }
 
 .total{
-font-size:18px;
-font-weight:bold;
-margin-top:10px;
-}
-
-.signature{
-margin-top:40px;
-display:flex;
-justify-content:space-around;
+background:#ffe0e0;
 font-weight:bold;
 }
 
@@ -73,240 +50,151 @@ font-weight:bold;
 
 <body>
 
-<h2>Society Management</h2>
+<h2>Society Income (Sheet1)</h2>
 
-<button onclick="showPage(1)">Page 1</button>
-<button onclick="showPage(2)">Page 2</button>
-
-<div id="page1" class="page active">
-
-<p>
-તારીખ <input type="text" id="date">
-દર ₹ <input id="rate" value="700">
-</p>
-
-<table>
+<table id="income">
 
 <tr>
 <th>ક્રમ</th>
 <th>બિલ્ડિંગ</th>
-<th>કુલ ફ્લેટ</th>
-<th>ચૂકવ્યા</th>
-<th>Pending</th>
-<th>કુલ રૂપિયા</th>
+<th>ટોટલ ફ્લેટ</th>
+<th>મેન્ટેનન્સ ફ્લેટ</th>
+<th>ટોટલ રૂપિયા</th>
 </tr>
 
 <tr>
 <td>1</td>
-<td>A1</td>
-<td>16</td>
-<td><input class="paid"></td>
-<td class="pending">0</td>
+<td>A-1</td>
+<td>20</td>
+<td><input type="number" class="flat"></td>
 <td class="amount">0</td>
 </tr>
 
 <tr>
 <td>2</td>
-<td>A2</td>
+<td>A-2</td>
 <td>20</td>
-<td><input class="paid"></td>
-<td class="pending">0</td>
+<td><input type="number" class="flat"></td>
 <td class="amount">0</td>
 </tr>
 
 <tr>
 <td>3</td>
-<td>Shop</td>
-<td>10</td>
-<td><input class="paid"></td>
-<td class="pending">0</td>
+<td>A-3</td>
+<td>20</td>
+<td><input type="number" class="flat"></td>
 <td class="amount">0</td>
 </tr>
 
 </table>
 
-<div class="total">
-કુલ મેન્ટેનન્સ ₹ <span id="maintenance">0</span>
-</div>
+<h3>Total Income : ₹ <span id="incomeTotal">0</span></h3>
 
-<h3>આવક</h3>
 
-<table>
+<h2>Expense (Sheet2)</h2>
+
+<table id="expense">
 
 <tr>
-<td>આગળ ની બેલેન્સ</td>
-<td><input class="income"></td>
+<th>ક્રમ</th>
+<th>રૂપિયા</th>
+<th>ખર્ચ વિગત</th>
 </tr>
 
 <tr>
-<td>હાલની આવક</td>
-<td><input class="income"></td>
+<td>1</td>
+<td><input type="number" class="exp"></td>
+<td><input type="text"></td>
 </tr>
 
 <tr>
-<td>ટ્રાન્સફર ફી</td>
-<td><input class="income"></td>
-</tr>
-
-<tr>
-<td>પ્રસંગ</td>
-<td><input class="income"></td>
-</tr>
-
-<tr>
-<td>ટ્રાવર નું ભાડું</td>
-<td><input class="income"></td>
-</tr>
-
-<tr>
-<td>અન્ય આવક</td>
-<td><input class="income"></td>
-</tr>
-
-<tr>
-<td>અન્ય આવક</td>
-<td><input class="income"></td>
+<td>2</td>
+<td><input type="number" class="exp"></td>
+<td><input type="text"></td>
 </tr>
 
 </table>
 
-<div class="total">
-ટોટલ આવક ₹ <span id="totalIncome">0</span>
-</div>
+<h3>Total Expense : ₹ <span id="expenseTotal">0</span></h3>
 
-</div>
 
-<div id="page2" class="page">
-
-<h3>ખર્ચ</h3>
+<h2>Balance</h2>
 
 <table>
 
-<tr><td>હોચમેન પગાર</td><td><input class="expense"></td></tr>
-<tr><td>લાઈટ બિલ</td><td><input class="expense"></td></tr>
-<tr><td>સાર્વજનિક ખર્ચ</td><td><input class="expense"></td></tr>
-<tr><td>સફાઈ પગાર</td><td><input class="expense"></td></tr>
-<tr><td>રીપેરીંગ</td><td><input class="expense"></td></tr>
-<tr><td>અન્ય ખર્ચ</td><td><input class="expense"></td></tr>
-<tr><td>અન્ય ખર્ચ</td><td><input class="expense"></td></tr>
-<tr><td>અન્ય ખર્ચ</td><td><input class="expense"></td></tr>
+<tr>
+<td>આગલા બેલેન્સ</td>
+<td><input type="number" id="oldBalance" value="392675"></td>
+</tr>
+
+<tr>
+<td>હાલ ની આવક</td>
+<td id="incomeShow">0</td>
+</tr>
+
+<tr>
+<td>કુલ રકમ</td>
+<td id="grandTotal">0</td>
+</tr>
+
+<tr>
+<td>ખર્ચ</td>
+<td id="expenseShow">0</td>
+</tr>
+
+<tr class="total">
+<td>હાલ ની બેલેન્સ</td>
+<td id="finalBalance">0</td>
+</tr>
 
 </table>
-
-<div class="total">
-ટોટલ જાવક ₹ <span id="totalExpense">0</span>
-</div>
-
-<div class="total">
-હાલની બેલેન્સ ₹ <span id="balance">0</span>
-</div>
-
-<div class="signature">
-<div>પ્રમુખ શ્રી</div>
-<div>ખજાનચી</div>
-</div>
-
-</div>
-
-<button onclick="clearAll()">Clear</button>
-<button onclick="window.print()">PDF</button>
 
 <script>
 
-function showPage(p){
-
-document.getElementById("page1").classList.remove("active")
-document.getElementById("page2").classList.remove("active")
-
-document.getElementById("page"+p).classList.add("active")
-
-}
+let rate=700
 
 function calculate(){
 
-let rate = Number(document.getElementById("rate").value) || 0
+let flats=document.querySelectorAll(".flat")
+let amounts=document.querySelectorAll(".amount")
 
-let maintenance=0
+let incomeTotal=0
 
-document.querySelectorAll("tr").forEach(function(row){
+flats.forEach((f,i)=>{
 
-let paid=row.querySelector(".paid")
-let pending=row.querySelector(".pending")
-let amount=row.querySelector(".amount")
-
-if(paid){
-
-let flats=Number(row.cells[2].innerText)
-let p=Number(paid.value)||0
-
-pending.innerText=flats-p
-
-let r=row.cells[1].innerText=="Shop"?300:rate
-
-let a=p*r
-
-amount.innerText=a
-
-maintenance+=a
-
-}
+let val=f.value*rate
+amounts[i].innerText=val
+incomeTotal+=val
 
 })
 
-document.getElementById("maintenance").innerText=maintenance
+document.getElementById("incomeTotal").innerText=incomeTotal
+document.getElementById("incomeShow").innerText=incomeTotal
 
-let income=maintenance
 
-document.querySelectorAll(".income").forEach(function(i){
+let exp=document.querySelectorAll(".exp")
 
-income+=Number(i.value)||0
+let expenseTotal=0
 
+exp.forEach(e=>{
+expenseTotal+=Number(e.value)
 })
 
-document.getElementById("totalIncome").innerText=income
+document.getElementById("expenseTotal").innerText=expenseTotal
+document.getElementById("expenseShow").innerText=expenseTotal
 
-let expense=0
 
-document.querySelectorAll(".expense").forEach(function(e){
+let old=Number(document.getElementById("oldBalance").value)
 
-expense+=Number(e.value)||0
+let grand=old+incomeTotal
 
-})
+document.getElementById("grandTotal").innerText=grand
 
-document.getElementById("totalExpense").innerText=expense
-
-document.getElementById("balance").innerText=income-expense
-
-saveData()
+document.getElementById("finalBalance").innerText=grand-expenseTotal
 
 }
 
-document.querySelectorAll("input").forEach(function(i){
-
-i.addEventListener("input",calculate)
-
-})
-
-function clearAll(){
-
-localStorage.clear()
-location.reload()
-
-}
-
-function saveData(){
-
-localStorage.setItem("society",document.body.innerHTML)
-
-}
-
-let saved=localStorage.getItem("society")
-
-if(saved){
-
-document.body.innerHTML=saved
-
-}
+document.addEventListener("input",calculate)
 
 </script>
 
