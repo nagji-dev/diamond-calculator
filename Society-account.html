@@ -1,209 +1,172 @@
 <!DOCTYPE html>
-<html>
+<html lang="gu">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Society Management</title>
-
+<title>શિવ પેલેસ સોસાયટી મેનેજમેન્ટ</title>
 <style>
-body{
-font-family:Arial;
-background:#f2f2f2;
-padding:10px;
+body{font-family:Arial;background:#f2f2f2;margin:0;padding:10px}
+h2{margin:8px 0}
+.tabs{display:flex;gap:6px;margin-bottom:8px}
+.tabs button{padding:8px 12px;border:1px solid #888;background:#fff;cursor:pointer}
+.tabs button.active{background:#4CAF50;color:#fff}
+.page{display:none}
+.page.active{display:block}
+table{width:100%;border-collapse:collapse;background:#fff}
+th,td{border:1px solid #888;padding:6px;text-align:center}
+th{background:#18a54a;color:#fff}
+input{width:100%;border:none;text-align:center;background:#fff}
+.total{background:#ffdede;font-weight:bold}
+.section{margin-top:10px;background:#fff;border:1px solid #888;padding:8px}
+.actions{margin:10px 0}
+.actions button{padding:8px 12px;margin-right:6px}
+.sign{display:flex;justify-content:space-between;margin-top:20px}
+@media print{
+  .tabs,.actions{display:none}
+  body{background:#fff}
 }
-
-button{
-padding:8px 15px;
-margin:5px;
-}
-
-table{
-width:100%;
-border-collapse:collapse;
-background:white;
-margin-top:10px;
-}
-
-th,td{
-border:1px solid #888;
-padding:6px;
-text-align:center;
-}
-
-th{
-background:#4CAF50;
-color:white;
-}
-
-input{
-width:100%;
-border:none;
-text-align:center;
-}
-
-.page{display:none;}
-.active{display:block;}
-
-.total{
-background:#ffd9d9;
-font-weight:bold;
-}
-
 </style>
 </head>
-
 <body>
 
-<button onclick="showPage('p1')">Page 1 આવક</button>
-<button onclick="showPage('p2')">Page 2 જાવક</button>
+<div class="tabs">
+  <button class="active" onclick="showTab('p1',this)">Page-1 આવક</button>
+  <button onclick="showTab('p2',this)">Page-2 જાવક</button>
+</div>
 
+<div class="actions">
+  <button onclick="window.print()">PDF / Print</button>
+</div>
+
+<!-- PAGE 1 -->
 <div id="p1" class="page active">
+  <h2>શિવ પેલેસ મેનેજમેન્ટ – આવક</h2>
+  તારીખ: <input type="date">
 
-<h2>આવક રજીસ્ટર</h2>
+  <table>
+    <tr>
+      <th>બિલ્ડિંગ</th>
+      <th>કુલ ફ્લેટ</th>
+      <th>જમા ફ્લેટ</th>
+      <th>બાકી ફ્લેટ</th>
+      <th>ટ્રાન્સફર ફી</th>
+      <th>પ્રસંગ આવક</th>
+      <th>રીમાર્ક</th>
+    </tr>
 
-તારીખ <input type="date">
+    <!-- બિલ્ડિંગ રો (manual entry) -->
+    <tr><td>A-1</td><td>16</td><td><input class="cPaid"></td><td><input class="cRemain"></td><td><input class="cTransfer"></td><td><input class="cEvent"></td><td><input></td></tr>
+    <tr><td>A-2</td><td>20</td><td><input class="cPaid"></td><td><input class="cRemain"></td><td><input class="cTransfer"></td><td><input class="cEvent"></td><td><input></td></tr>
+    <tr><td>A-3</td><td>20</td><td><input class="cPaid"></td><td><input class="cRemain"></td><td><input class="cTransfer"></td><td><input class="cEvent"></td><td><input></td></tr>
+    <tr><td>A-4</td><td>20</td><td><input class="cPaid"></td><td><input class="cRemain"></td><td><input class="cTransfer"></td><td><input class="cEvent"></td><td><input></td></tr>
+    <tr><td>A-5</td><td>20</td><td><input class="cPaid"></td><td><input class="cRemain"></td><td><input class="cTransfer"></td><td><input class="cEvent"></td><td><input></td></tr>
 
-<table>
+    <tr><td>B-1</td><td>20</td><td><input class="cPaid"></td><td><input class="cRemain"></td><td><input class="cTransfer"></td><td><input class="cEvent"></td><td><input></td></tr>
+    <tr><td>B-2</td><td>20</td><td><input class="cPaid"></td><td><input class="cRemain"></td><td><input class="cTransfer"></td><td><input class="cEvent"></td><td><input></td></tr>
+    <tr><td>B-3</td><td>20</td><td><input class="cPaid"></td><td><input class="cRemain"></td><td><input class="cTransfer"></td><td><input class="cEvent"></td><td><input></td></tr>
+    <tr><td>B-4</td><td>20</td><td><input class="cPaid"></td><td><input class="cRemain"></td><td><input class="cTransfer"></td><td><input class="cEvent"></td><td><input></td></tr>
+    <tr><td>B-5</td><td>20</td><td><input class="cPaid"></td><td><input class="cRemain"></td><td><input class="cTransfer"></td><td><input class="cEvent"></td><td><input></td></tr>
+    <tr><td>B-6</td><td>20</td><td><input class="cPaid"></td><td><input class="cRemain"></td><td><input class="cTransfer"></td><td><input class="cEvent"></td><td><input></td></tr>
 
-<tr>
-<th>બિલ્ડિંગ</th>
-<th>કુલ ફ્લેટ</th>
-<th>જમા ફ્લેટ</th>
-<th>બાકી ફ્લેટ</th>
-<th>કુલ રૂપિયા</th>
-<th>રિમાર્ક</th>
-</tr>
+    <tr><td>C</td><td>20</td><td><input class="cPaid"></td><td><input class="cRemain"></td><td><input class="cTransfer"></td><td><input class="cEvent"></td><td><input></td></tr>
+    <tr><td>D</td><td>15</td><td><input class="cPaid"></td><td><input class="cRemain"></td><td><input class="cTransfer"></td><td><input class="cEvent"></td><td><input></td></tr>
+    <tr><td>દુકાન</td><td>10</td><td><input class="cPaid"></td><td><input class="cRemain"></td><td><input class="cTransfer"></td><td><input class="cEvent"></td><td><input></td></tr>
+  </table>
 
-<tr><td>A1</td><td>16</td><td><input class="paid"></td><td class="remain">0</td><td class="amount">0</td><td><input></td></tr>
-<tr><td>A2</td><td>20</td><td><input class="paid"></td><td class="remain">0</td><td class="amount">0</td><td><input></td></tr>
-<tr><td>A3</td><td>20</td><td><input class="paid"></td><td class="remain">0</td><td class="amount">0</td><td><input></td></tr>
-<tr><td>A4</td><td>20</td><td><input class="paid"></td><td class="remain">0</td><td class="amount">0</td><td><input></td></tr>
-<tr><td>A5</td><td>20</td><td><input class="paid"></td><td class="remain">0</td><td class="amount">0</td><td><input></td></tr>
-
-<tr><td>B1</td><td>20</td><td><input class="paid"></td><td class="remain">0</td><td class="amount">0</td><td><input></td></tr>
-<tr><td>B2</td><td>20</td><td><input class="paid"></td><td class="remain">0</td><td class="amount">0</td><td><input></td></tr>
-<tr><td>B3</td><td>20</td><td><input class="paid"></td><td class="remain">0</td><td class="amount">0</td><td><input></td></tr>
-<tr><td>B4</td><td>20</td><td><input class="paid"></td><td class="remain">0</td><td class="amount">0</td><td><input></td></tr>
-<tr><td>B5</td><td>20</td><td><input class="paid"></td><td class="remain">0</td><td class="amount">0</td><td><input></td></tr>
-<tr><td>B6</td><td>20</td><td><input class="paid"></td><td class="remain">0</td><td class="amount">0</td><td><input></td></tr>
-
-<tr><td>C</td><td>20</td><td><input class="paid"></td><td class="remain">0</td><td class="amount">0</td><td><input></td></tr>
-<tr><td>D</td><td>15</td><td><input class="paid"></td><td class="remain">0</td><td class="amount">0</td><td><input></td></tr>
-<tr><td>Shop</td><td>10</td><td><input class="paid"></td><td class="remain">0</td><td class="amount">0</td><td><input></td></tr>
-
-</table>
-
-<br>
-
-Transfer Fee <input id="transfer"><br><br>
-પ્રસંગ આવક <input id="event"><br><br>
-
-<h3>કુલ મેન્ટેનન્સ : ₹ <span id="maintTotal">0</span></h3>
-<h3 class="total">કુલ આવક : ₹ <span id="incomeTotal">0</span></h3>
-
+  <div class="section">
+    ટાવર ભાડું ₹ <input id="tower">
+    <br><br>
+    અન્ય આવક ₹ <input id="otherIncome">
+    <br><br>
+    <div class="total">ટોટલ આવક ₹ <span id="incomeTotal">0</span></div>
+    <br>
+    માનસ ₹ <input id="manas">
+    <div class="total">ફાઇનલ ટોટલ ₹ <span id="finalIncome">0</span></div>
+  </div>
 </div>
 
-
-
+<!-- PAGE 2 -->
 <div id="p2" class="page">
+  <h2>જાવક રજીસ્ટર</h2>
+  તારીખ: <input type="date">
 
-<h2>જાવક રજીસ્ટર</h2>
+  <table>
+    <tr>
+      <th>ખર્ચ ની વિગત</th>
+      <th>રૂપિયા</th>
+      <th>તારીખ</th>
+      <th>રીમાર્ક</th>
+      <th></th>
+    </tr>
+    <tr><td>હોચમેન નો પગાર</td><td><input class="exp"></td><td><input type="date"></td><td><input></td><td></td></tr>
+    <tr><td>હોચમેન નો પગાર</td><td><input class="exp"></td><td><input type="date"></td><td><input></td><td></td></tr>
+    <tr><td>સફાઈ વાળ નો પગાર</td><td><input class="exp"></td><td><input type="date"></td><td><input></td><td></td></tr>
+    <tr><td>લાઈટ બિલ</td><td><input class="exp"></td><td><input type="date"></td><td><input></td><td></td></tr>
+    <tr><td>સાર્વજનિક ખર્ચ</td><td><input class="exp"></td><td><input type="date"></td><td><input></td><td></td></tr>
+    <tr><td>અન્ય ખર્ચ</td><td><input class="exp"></td><td><input type="date"></td><td><input></td><td></td></tr>
+    <tr><td>અન્ય ખર્ચ</td><td><input class="exp"></td><td><input type="date"></td><td><input></td><td></td></tr>
+  </table>
 
-<table>
+  <div class="section">
+    <div>કુલ જાવક ₹ <span id="expenseTotal">0</span></div>
+    <br>
+    આગળ ની બેલેન્સ ₹ <input id="oldBal">
+    <br><br>
+    હાલ ની આવક ₹ <span id="incomeShow">0</span>
+    <br>
+    બંને નો ટોટલ ₹ <span id="grandTotal">0</span>
+    <br>
+    ખર્ચ બાદ ₹ <span id="afterExpense">0</span>
+    <br>
+    <div class="total">હાલ ની બેલેન્સ ₹ <span id="finalBal">0</span></div>
+  </div>
 
-<tr>
-<th>ખર્ચ</th>
-<th>રૂપિયા</th>
-<th>તારીખ</th>
-<th>રિમાર્ક</th>
-</tr>
-
-<tr><td>હોચમેન નો પગાર</td><td><input class="exp"></td><td><input type="date"></td><td><input></td></tr>
-<tr><td>હોચમેન નો પગાર</td><td><input class="exp"></td><td><input type="date"></td><td><input></td></tr>
-<tr><td>સફાઈ વાળ નો પગાર</td><td><input class="exp"></td><td><input type="date"></td><td><input></td></tr>
-<tr><td>લાઈટ બિલ</td><td><input class="exp"></td><td><input type="date"></td><td><input></td></tr>
-<tr><td>સાર્વજનિક ખર્ચ</td><td><input class="exp"></td><td><input type="date"></td><td><input></td></tr>
-<tr><td>અન્ય ખર્ચ</td><td><input class="exp"></td><td><input type="date"></td><td><input></td></tr>
-
-</table>
-
-<h3>કુલ જાવક : ₹ <span id="expenseTotal">0</span></h3>
-
-<br>
-
-આગળ ની બેલેન્સ <input id="oldBalance"><br><br>
-
-<h3>હાલ ની આવક : ₹ <span id="incomeShow">0</span></h3>
-<h3>બંને નો ટોટલ : ₹ <span id="grandTotal">0</span></h3>
-<h3 class="total">હાલ ની બેલેન્સ : ₹ <span id="finalBalance">0</span></h3>
-
+  <div class="sign">
+    <div>પ્રમુખ શ્રી – સહિ __________</div>
+    <div>ખજાનચી શ્રી – સહિ __________</div>
+  </div>
 </div>
-
 
 <script>
-
-let rate=700
-
-function showPage(p){
-document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"))
-document.getElementById(p).classList.add("active")
+function showTab(id,btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
 }
 
-document.addEventListener("input",calc)
+document.addEventListener('input',calc);
+
+function num(v){ return Number(v)||0; }
 
 function calc(){
+  // Page1 income
+  let t=0;
+  document.querySelectorAll('.cTransfer').forEach(x=>t+=num(x.value));
+  document.querySelectorAll('.cEvent').forEach(x=>t+=num(x.value));
+  t += num(document.getElementById('tower').value);
+  t += num(document.getElementById('otherIncome').value);
 
-let paid=document.querySelectorAll(".paid")
-let remain=document.querySelectorAll(".remain")
-let amount=document.querySelectorAll(".amount")
+  document.getElementById('incomeTotal').innerText = t;
 
-let total=0
+  let manas = num(document.getElementById('manas').value);
+  let finalIncome = t + manas;
+  document.getElementById('finalIncome').innerText = finalIncome;
 
-paid.forEach((p,i)=>{
+  // Page2 expense
+  let exp=0;
+  document.querySelectorAll('.exp').forEach(e=>exp+=num(e.value));
+  document.getElementById('expenseTotal').innerText = exp;
 
-let flats=p.parentElement.parentElement.children[1].innerText
+  document.getElementById('incomeShow').innerText = finalIncome;
 
-remain[i].innerText=flats-(Number(p.value)||0)
+  let old = num(document.getElementById('oldBal').value);
+  let grand = old + finalIncome;
+  document.getElementById('grandTotal').innerText = grand;
 
-let money=(Number(p.value)||0)*rate
-
-amount[i].innerText=money
-
-total+=money
-
-})
-
-document.getElementById("maintTotal").innerText=total
-
-let transfer=Number(document.getElementById("transfer").value)||0
-let event=Number(document.getElementById("event").value)||0
-
-let income=total+transfer+event
-
-document.getElementById("incomeTotal").innerText=income
-document.getElementById("incomeShow").innerText=income
-
-
-let exp=document.querySelectorAll(".exp")
-
-let expTotal=0
-
-exp.forEach(e=>{
-expTotal+=Number(e.value)||0
-})
-
-document.getElementById("expenseTotal").innerText=expTotal
-
-
-let old=Number(document.getElementById("oldBalance").value)||0
-
-let grand=old+income
-
-document.getElementById("grandTotal").innerText=grand
-
-document.getElementById("finalBalance").innerText=grand-expTotal
-
+  let after = grand - exp;
+  document.getElementById('afterExpense').innerText = after;
+  document.getElementById('finalBal').innerText = after;
 }
-
 </script>
 
 </body>
