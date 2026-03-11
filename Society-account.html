@@ -2,20 +2,18 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Shiv Palace Management</title>
+<title>Society Management</title>
 
 <style>
-
 body{
 font-family:Arial;
-background:#f5f5f5;
+background:#f2f2f2;
 padding:10px;
 }
 
 button{
 padding:8px 15px;
 margin:5px;
-font-size:16px;
 }
 
 table{
@@ -42,33 +40,27 @@ border:none;
 text-align:center;
 }
 
-.page{
-display:none;
-}
-
-.active{
-display:block;
-}
+.page{display:none;}
+.active{display:block;}
 
 .total{
-background:#ffdede;
+background:#ffd9d9;
 font-weight:bold;
 }
 
 </style>
-
 </head>
 
 <body>
 
 <button onclick="showPage('p1')">Page 1 આવક</button>
-<button onclick="showPage('p2')">Page 2 ખર્ચ</button>
-<button onclick="window.print()">Print Report</button>
-
+<button onclick="showPage('p2')">Page 2 જાવક</button>
 
 <div id="p1" class="page active">
 
-<h2>શિવ પેલેસ મેનેજમેન્ટ – આવક</h2>
+<h2>આવક રજીસ્ટર</h2>
+
+તારીખ <input type="date">
 
 <table>
 
@@ -77,41 +69,36 @@ font-weight:bold;
 <th>કુલ ફ્લેટ</th>
 <th>જમા ફ્લેટ</th>
 <th>બાકી ફ્લેટ</th>
-<th>ટ્રાન્સફર ફી</th>
-<th>પ્રસંગ આવક</th>
-<th>રીમાર્ક</th>
+<th>કુલ રૂપિયા</th>
+<th>રિમાર્ક</th>
 </tr>
 
-<tr><td>A1</td><td>16</td><td><input class="paid"></td><td class="remain">0</td><td><input class="income"></td><td><input class="income"></td><td><input></td></tr>
-<tr><td>A2</td><td>20</td><td><input class="paid"></td><td class="remain">0</td><td><input class="income"></td><td><input class="income"></td><td><input></td></tr>
-<tr><td>A3</td><td>20</td><td><input class="paid"></td><td class="remain">0</td><td><input class="income"></td><td><input class="income"></td><td><input></td></tr>
-<tr><td>A4</td><td>20</td><td><input class="paid"></td><td class="remain">0</td><td><input class="income"></td><td><input class="income"></td><td><input></td></tr>
-<tr><td>A5</td><td>20</td><td><input class="paid"></td><td class="remain">0</td><td><input class="income"></td><td><input class="income"></td><td><input></td></tr>
+<tr><td>A1</td><td>16</td><td><input class="paid"></td><td class="remain">0</td><td class="amount">0</td><td><input></td></tr>
+<tr><td>A2</td><td>20</td><td><input class="paid"></td><td class="remain">0</td><td class="amount">0</td><td><input></td></tr>
+<tr><td>A3</td><td>20</td><td><input class="paid"></td><td class="remain">0</td><td class="amount">0</td><td><input></td></tr>
+<tr><td>A4</td><td>20</td><td><input class="paid"></td><td class="remain">0</td><td class="amount">0</td><td><input></td></tr>
+<tr><td>A5</td><td>20</td><td><input class="paid"></td><td class="remain">0</td><td class="amount">0</td><td><input></td></tr>
 
-<tr><td>B1</td><td>20</td><td><input class="paid"></td><td class="remain">0</td><td><input class="income"></td><td><input class="income"></td><td><input></td></tr>
-<tr><td>B2</td><td>20</td><td><input class="paid"></td><td class="remain">0</td><td><input class="income"></td><td><input class="income"></td><td><input></td></tr>
-<tr><td>B3</td><td>20</td><td><input class="paid"></td><td class="remain">0</td><td><input class="income"></td><td><input class="income"></td><td><input></td></tr>
-<tr><td>B4</td><td>20</td><td><input class="paid"></td><td class="remain">0</td><td><input class="income"></td><td><input class="income"></td><td><input></td></tr>
-<tr><td>B5</td><td>20</td><td><input class="paid"></td><td class="remain">0</td><td><input class="income"></td><td><input class="income"></td><td><input></td></tr>
-<tr><td>B6</td><td>20</td><td><input class="paid"></td><td class="remain">0</td><td><input class="income"></td><td><input class="income"></td><td><input></td></tr>
+<tr><td>B1</td><td>20</td><td><input class="paid"></td><td class="remain">0</td><td class="amount">0</td><td><input></td></tr>
+<tr><td>B2</td><td>20</td><td><input class="paid"></td><td class="remain">0</td><td class="amount">0</td><td><input></td></tr>
+<tr><td>B3</td><td>20</td><td><input class="paid"></td><td class="remain">0</td><td class="amount">0</td><td><input></td></tr>
+<tr><td>B4</td><td>20</td><td><input class="paid"></td><td class="remain">0</td><td class="amount">0</td><td><input></td></tr>
+<tr><td>B5</td><td>20</td><td><input class="paid"></td><td class="remain">0</td><td class="amount">0</td><td><input></td></tr>
+<tr><td>B6</td><td>20</td><td><input class="paid"></td><td class="remain">0</td><td class="amount">0</td><td><input></td></tr>
 
-<tr><td>C</td><td>20</td><td><input class="paid"></td><td class="remain">0</td><td><input class="income"></td><td><input class="income"></td><td><input></td></tr>
-
-<tr><td>D</td><td>15</td><td><input class="paid"></td><td class="remain">0</td><td><input class="income"></td><td><input class="income"></td><td><input></td></tr>
-
-<tr><td>દુકાન</td><td>10</td><td><input class="paid"></td><td class="remain">0</td><td><input class="income"></td><td><input class="income"></td><td><input></td></tr>
+<tr><td>C</td><td>20</td><td><input class="paid"></td><td class="remain">0</td><td class="amount">0</td><td><input></td></tr>
+<tr><td>D</td><td>15</td><td><input class="paid"></td><td class="remain">0</td><td class="amount">0</td><td><input></td></tr>
+<tr><td>Shop</td><td>10</td><td><input class="paid"></td><td class="remain">0</td><td class="amount">0</td><td><input></td></tr>
 
 </table>
 
 <br>
 
-અન્ય આવક <input id="otherIncome">
+Transfer Fee <input id="transfer"><br><br>
+પ્રસંગ આવક <input id="event"><br><br>
 
-<h3>ટોટલ આવક : ₹ <span id="totalIncome">0</span></h3>
-
-માનસ ઓપન <input id="manual">
-
-<h3 class="total">ફાઇનલ ટોટલ : ₹ <span id="finalIncome">0</span></h3>
+<h3>કુલ મેન્ટેનન્સ : ₹ <span id="maintTotal">0</span></h3>
+<h3 class="total">કુલ આવક : ₹ <span id="incomeTotal">0</span></h3>
 
 </div>
 
@@ -119,15 +106,15 @@ font-weight:bold;
 
 <div id="p2" class="page">
 
-<h2>શિવ પેલેસ મેનેજમેન્ટ – ખર્ચ</h2>
+<h2>જાવક રજીસ્ટર</h2>
 
 <table>
 
 <tr>
-<th>ખર્ચ ની વિગત</th>
+<th>ખર્ચ</th>
 <th>રૂપિયા</th>
 <th>તારીખ</th>
-<th>રીમાર્ક</th>
+<th>રિમાર્ક</th>
 </tr>
 
 <tr><td>હોચમેન નો પગાર</td><td><input class="exp"></td><td><input type="date"></td><td><input></td></tr>
@@ -136,34 +123,25 @@ font-weight:bold;
 <tr><td>લાઈટ બિલ</td><td><input class="exp"></td><td><input type="date"></td><td><input></td></tr>
 <tr><td>સાર્વજનિક ખર્ચ</td><td><input class="exp"></td><td><input type="date"></td><td><input></td></tr>
 <tr><td>અન્ય ખર્ચ</td><td><input class="exp"></td><td><input type="date"></td><td><input></td></tr>
-<tr><td>અન્ય ખર્ચ</td><td><input class="exp"></td><td><input type="date"></td><td><input></td></tr>
 
 </table>
 
-<h3>કુલ ખર્ચ : ₹ <span id="expenseTotal">0</span></h3>
+<h3>કુલ જાવક : ₹ <span id="expenseTotal">0</span></h3>
 
 <br>
 
-આગલા બેલેન્સ <input id="oldBalance">
+આગળ ની બેલેન્સ <input id="oldBalance"><br><br>
 
 <h3>હાલ ની આવક : ₹ <span id="incomeShow">0</span></h3>
-
-<h3>કુલ રકમ : ₹ <span id="grandTotal">0</span></h3>
-
+<h3>બંને નો ટોટલ : ₹ <span id="grandTotal">0</span></h3>
 <h3 class="total">હાલ ની બેલેન્સ : ₹ <span id="finalBalance">0</span></h3>
-
-<br><br>
-
-પ્રમુખ શ્રી – સહિ __________________
-
-<br><br>
-
-ખજાનચી શ્રી – સહિ __________________
 
 </div>
 
 
 <script>
+
+let rate=700
 
 function showPage(p){
 document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"))
@@ -176,31 +154,33 @@ function calc(){
 
 let paid=document.querySelectorAll(".paid")
 let remain=document.querySelectorAll(".remain")
-
-paid.forEach((p,i)=>{
-let total=p.parentElement.parentElement.children[1].innerText
-remain[i].innerText=total-(Number(p.value)||0)
-})
-
-let income=document.querySelectorAll(".income")
+let amount=document.querySelectorAll(".amount")
 
 let total=0
 
-income.forEach(i=>{
-total+=Number(i.value)||0
+paid.forEach((p,i)=>{
+
+let flats=p.parentElement.parentElement.children[1].innerText
+
+remain[i].innerText=flats-(Number(p.value)||0)
+
+let money=(Number(p.value)||0)*rate
+
+amount[i].innerText=money
+
+total+=money
+
 })
 
-total+=Number(document.getElementById("otherIncome").value)||0
+document.getElementById("maintTotal").innerText=total
 
-document.getElementById("totalIncome").innerText=total
+let transfer=Number(document.getElementById("transfer").value)||0
+let event=Number(document.getElementById("event").value)||0
 
-let manual=Number(document.getElementById("manual").value)||0
+let income=total+transfer+event
 
-let finalIncome=total+manual
-
-document.getElementById("finalIncome").innerText=finalIncome
-
-document.getElementById("incomeShow").innerText=finalIncome
+document.getElementById("incomeTotal").innerText=income
+document.getElementById("incomeShow").innerText=income
 
 
 let exp=document.querySelectorAll(".exp")
@@ -213,28 +193,18 @@ expTotal+=Number(e.value)||0
 
 document.getElementById("expenseTotal").innerText=expTotal
 
+
 let old=Number(document.getElementById("oldBalance").value)||0
 
-let grand=old+finalIncome
+let grand=old+income
 
 document.getElementById("grandTotal").innerText=grand
 
 document.getElementById("finalBalance").innerText=grand-expTotal
-
-
-localStorage.setItem("societyData",document.body.innerHTML)
-
-}
-
-window.onload=function(){
-let data=localStorage.getItem("societyData")
-if(data){
-document.body.innerHTML=data
-}
 
 }
 
 </script>
 
 </body>
-                                                         </html>
+</html>
