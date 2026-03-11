@@ -2,29 +2,31 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Society Management</title>
+<title>Shiv Palace Management</title>
 
 <style>
 
 body{
 font-family:Arial;
-background:#f2f2f2;
+background:#f5f5f5;
 padding:10px;
 }
 
-h2{
-text-align:center;
+button{
+padding:8px 15px;
+margin:5px;
+font-size:16px;
 }
 
 table{
 width:100%;
 border-collapse:collapse;
 background:white;
-margin-bottom:20px;
+margin-top:10px;
 }
 
 th,td{
-border:1px solid #999;
+border:1px solid #888;
 padding:6px;
 text-align:center;
 }
@@ -40,163 +42,199 @@ border:none;
 text-align:center;
 }
 
+.page{
+display:none;
+}
+
+.active{
+display:block;
+}
+
 .total{
-background:#ffe0e0;
+background:#ffdede;
 font-weight:bold;
 }
 
 </style>
+
 </head>
 
 <body>
 
-<h2>Society Income (Sheet1)</h2>
-
-<table id="income">
-
-<tr>
-<th>ક્રમ</th>
-<th>બિલ્ડિંગ</th>
-<th>ટોટલ ફ્લેટ</th>
-<th>મેન્ટેનન્સ ફ્લેટ</th>
-<th>ટોટલ રૂપિયા</th>
-</tr>
-
-<tr>
-<td>1</td>
-<td>A-1</td>
-<td>20</td>
-<td><input type="number" class="flat"></td>
-<td class="amount">0</td>
-</tr>
-
-<tr>
-<td>2</td>
-<td>A-2</td>
-<td>20</td>
-<td><input type="number" class="flat"></td>
-<td class="amount">0</td>
-</tr>
-
-<tr>
-<td>3</td>
-<td>A-3</td>
-<td>20</td>
-<td><input type="number" class="flat"></td>
-<td class="amount">0</td>
-</tr>
-
-</table>
-
-<h3>Total Income : ₹ <span id="incomeTotal">0</span></h3>
+<button onclick="showPage('p1')">Page 1 આવક</button>
+<button onclick="showPage('p2')">Page 2 ખર્ચ</button>
+<button onclick="window.print()">Print Report</button>
 
 
-<h2>Expense (Sheet2)</h2>
+<div id="p1" class="page active">
 
-<table id="expense">
-
-<tr>
-<th>ક્રમ</th>
-<th>રૂપિયા</th>
-<th>ખર્ચ વિગત</th>
-</tr>
-
-<tr>
-<td>1</td>
-<td><input type="number" class="exp"></td>
-<td><input type="text"></td>
-</tr>
-
-<tr>
-<td>2</td>
-<td><input type="number" class="exp"></td>
-<td><input type="text"></td>
-</tr>
-
-</table>
-
-<h3>Total Expense : ₹ <span id="expenseTotal">0</span></h3>
-
-
-<h2>Balance</h2>
+<h2>શિવ પેલેસ મેનેજમેન્ટ – આવક</h2>
 
 <table>
 
 <tr>
-<td>આગલા બેલેન્સ</td>
-<td><input type="number" id="oldBalance" value="392675"></td>
+<th>બિલ્ડિંગ</th>
+<th>કુલ ફ્લેટ</th>
+<th>જમા ફ્લેટ</th>
+<th>બાકી ફ્લેટ</th>
+<th>ટ્રાન્સફર ફી</th>
+<th>પ્રસંગ આવક</th>
+<th>રીમાર્ક</th>
 </tr>
 
-<tr>
-<td>હાલ ની આવક</td>
-<td id="incomeShow">0</td>
-</tr>
+<tr><td>A1</td><td>16</td><td><input class="paid"></td><td class="remain">0</td><td><input class="income"></td><td><input class="income"></td><td><input></td></tr>
+<tr><td>A2</td><td>20</td><td><input class="paid"></td><td class="remain">0</td><td><input class="income"></td><td><input class="income"></td><td><input></td></tr>
+<tr><td>A3</td><td>20</td><td><input class="paid"></td><td class="remain">0</td><td><input class="income"></td><td><input class="income"></td><td><input></td></tr>
+<tr><td>A4</td><td>20</td><td><input class="paid"></td><td class="remain">0</td><td><input class="income"></td><td><input class="income"></td><td><input></td></tr>
+<tr><td>A5</td><td>20</td><td><input class="paid"></td><td class="remain">0</td><td><input class="income"></td><td><input class="income"></td><td><input></td></tr>
 
-<tr>
-<td>કુલ રકમ</td>
-<td id="grandTotal">0</td>
-</tr>
+<tr><td>B1</td><td>20</td><td><input class="paid"></td><td class="remain">0</td><td><input class="income"></td><td><input class="income"></td><td><input></td></tr>
+<tr><td>B2</td><td>20</td><td><input class="paid"></td><td class="remain">0</td><td><input class="income"></td><td><input class="income"></td><td><input></td></tr>
+<tr><td>B3</td><td>20</td><td><input class="paid"></td><td class="remain">0</td><td><input class="income"></td><td><input class="income"></td><td><input></td></tr>
+<tr><td>B4</td><td>20</td><td><input class="paid"></td><td class="remain">0</td><td><input class="income"></td><td><input class="income"></td><td><input></td></tr>
+<tr><td>B5</td><td>20</td><td><input class="paid"></td><td class="remain">0</td><td><input class="income"></td><td><input class="income"></td><td><input></td></tr>
+<tr><td>B6</td><td>20</td><td><input class="paid"></td><td class="remain">0</td><td><input class="income"></td><td><input class="income"></td><td><input></td></tr>
 
-<tr>
-<td>ખર્ચ</td>
-<td id="expenseShow">0</td>
-</tr>
+<tr><td>C</td><td>20</td><td><input class="paid"></td><td class="remain">0</td><td><input class="income"></td><td><input class="income"></td><td><input></td></tr>
 
-<tr class="total">
-<td>હાલ ની બેલેન્સ</td>
-<td id="finalBalance">0</td>
-</tr>
+<tr><td>D</td><td>15</td><td><input class="paid"></td><td class="remain">0</td><td><input class="income"></td><td><input class="income"></td><td><input></td></tr>
+
+<tr><td>દુકાન</td><td>10</td><td><input class="paid"></td><td class="remain">0</td><td><input class="income"></td><td><input class="income"></td><td><input></td></tr>
 
 </table>
 
+<br>
+
+અન્ય આવક <input id="otherIncome">
+
+<h3>ટોટલ આવક : ₹ <span id="totalIncome">0</span></h3>
+
+માનસ ઓપન <input id="manual">
+
+<h3 class="total">ફાઇનલ ટોટલ : ₹ <span id="finalIncome">0</span></h3>
+
+</div>
+
+
+
+<div id="p2" class="page">
+
+<h2>શિવ પેલેસ મેનેજમેન્ટ – ખર્ચ</h2>
+
+<table>
+
+<tr>
+<th>ખર્ચ ની વિગત</th>
+<th>રૂપિયા</th>
+<th>તારીખ</th>
+<th>રીમાર્ક</th>
+</tr>
+
+<tr><td>હોચમેન નો પગાર</td><td><input class="exp"></td><td><input type="date"></td><td><input></td></tr>
+<tr><td>હોચમેન નો પગાર</td><td><input class="exp"></td><td><input type="date"></td><td><input></td></tr>
+<tr><td>સફાઈ વાળ નો પગાર</td><td><input class="exp"></td><td><input type="date"></td><td><input></td></tr>
+<tr><td>લાઈટ બિલ</td><td><input class="exp"></td><td><input type="date"></td><td><input></td></tr>
+<tr><td>સાર્વજનિક ખર્ચ</td><td><input class="exp"></td><td><input type="date"></td><td><input></td></tr>
+<tr><td>અન્ય ખર્ચ</td><td><input class="exp"></td><td><input type="date"></td><td><input></td></tr>
+<tr><td>અન્ય ખર્ચ</td><td><input class="exp"></td><td><input type="date"></td><td><input></td></tr>
+
+</table>
+
+<h3>કુલ ખર્ચ : ₹ <span id="expenseTotal">0</span></h3>
+
+<br>
+
+આગલા બેલેન્સ <input id="oldBalance">
+
+<h3>હાલ ની આવક : ₹ <span id="incomeShow">0</span></h3>
+
+<h3>કુલ રકમ : ₹ <span id="grandTotal">0</span></h3>
+
+<h3 class="total">હાલ ની બેલેન્સ : ₹ <span id="finalBalance">0</span></h3>
+
+<br><br>
+
+પ્રમુખ શ્રી – સહિ __________________
+
+<br><br>
+
+ખજાનચી શ્રી – સહિ __________________
+
+</div>
+
+
 <script>
 
-let rate=700
+function showPage(p){
+document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"))
+document.getElementById(p).classList.add("active")
+}
 
-function calculate(){
+document.addEventListener("input",calc)
 
-let flats=document.querySelectorAll(".flat")
-let amounts=document.querySelectorAll(".amount")
+function calc(){
 
-let incomeTotal=0
+let paid=document.querySelectorAll(".paid")
+let remain=document.querySelectorAll(".remain")
 
-flats.forEach((f,i)=>{
-
-let val=f.value*rate
-amounts[i].innerText=val
-incomeTotal+=val
-
+paid.forEach((p,i)=>{
+let total=p.parentElement.parentElement.children[1].innerText
+remain[i].innerText=total-(Number(p.value)||0)
 })
 
-document.getElementById("incomeTotal").innerText=incomeTotal
-document.getElementById("incomeShow").innerText=incomeTotal
+let income=document.querySelectorAll(".income")
+
+let total=0
+
+income.forEach(i=>{
+total+=Number(i.value)||0
+})
+
+total+=Number(document.getElementById("otherIncome").value)||0
+
+document.getElementById("totalIncome").innerText=total
+
+let manual=Number(document.getElementById("manual").value)||0
+
+let finalIncome=total+manual
+
+document.getElementById("finalIncome").innerText=finalIncome
+
+document.getElementById("incomeShow").innerText=finalIncome
 
 
 let exp=document.querySelectorAll(".exp")
 
-let expenseTotal=0
+let expTotal=0
 
 exp.forEach(e=>{
-expenseTotal+=Number(e.value)
+expTotal+=Number(e.value)||0
 })
 
-document.getElementById("expenseTotal").innerText=expenseTotal
-document.getElementById("expenseShow").innerText=expenseTotal
+document.getElementById("expenseTotal").innerText=expTotal
 
+let old=Number(document.getElementById("oldBalance").value)||0
 
-let old=Number(document.getElementById("oldBalance").value)
-
-let grand=old+incomeTotal
+let grand=old+finalIncome
 
 document.getElementById("grandTotal").innerText=grand
 
-document.getElementById("finalBalance").innerText=grand-expenseTotal
+document.getElementById("finalBalance").innerText=grand-expTotal
+
+
+localStorage.setItem("societyData",document.body.innerHTML)
 
 }
 
-document.addEventListener("input",calculate)
+window.onload=function(){
+let data=localStorage.getItem("societyData")
+if(data){
+document.body.innerHTML=data
+}
+
+}
 
 </script>
 
 </body>
-</html>
+                                                         </html>
