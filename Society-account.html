@@ -38,7 +38,6 @@ color:white;
 
 input{
 width:100%;
-border:none;
 text-align:center;
 }
 
@@ -53,6 +52,7 @@ display:block;
 .total{
 background:#ffd7d7;
 font-weight:bold;
+padding:6px;
 }
 
 </style>
@@ -65,15 +65,14 @@ font-weight:bold;
 <button onclick="showPage('p2')">Page-2 જાવક</button>
 <button onclick="window.print()">PDF / Print</button>
 
-
 <!-- PAGE 1 -->
 
 <div id="p1" class="active page">
 
 <h2>આવક રજીસ્ટર</h2>
 
-તારીખ
-<input type="date">
+તારીખ  
+<input type="text" placeholder="તારીખ">
 
 <table>
 
@@ -87,61 +86,50 @@ font-weight:bold;
 <th>રીમાર્ક</th>
 </tr>
 
-<tr><td>A-1</td><td>16</td><td><input class="maint"></td><td><input class="transfer"></td><td><input class="event"></td><td><input type="date"></td><td><input></td></tr>
-<tr><td>A-2</td><td>20</td><td><input class="maint"></td><td><input class="transfer"></td><td><input class="event"></td><td><input type="date"></td><td><input></td></tr>
-<tr><td>A-3</td><td>20</td><td><input class="maint"></td><td><input class="transfer"></td><td><input class="event"></td><td><input type="date"></td><td><input></td></tr>
-<tr><td>A-4</td><td>20</td><td><input class="maint"></td><td><input class="transfer"></td><td><input class="event"></td><td><input type="date"></td><td><input></td></tr>
-<tr><td>A-5</td><td>20</td><td><input class="maint"></td><td><input class="transfer"></td><td><input class="event"></td><td><input type="date"></td><td><input></td></tr>
+<tr><td>A-1</td><td>16</td><td><input class="maint"></td><td><input class="transfer"></td><td><input class="event"></td><td><input type="text"></td><td><input></td></tr>
+<tr><td>A-2</td><td>20</td><td><input class="maint"></td><td><input class="transfer"></td><td><input class="event"></td><td><input type="text"></td><td><input></td></tr>
+<tr><td>A-3</td><td>20</td><td><input class="maint"></td><td><input class="transfer"></td><td><input class="event"></td><td><input type="text"></td><td><input></td></tr>
+<tr><td>A-4</td><td>20</td><td><input class="maint"></td><td><input class="transfer"></td><td><input class="event"></td><td><input type="text"></td><td><input></td></tr>
+<tr><td>A-5</td><td>20</td><td><input class="maint"></td><td><input class="transfer"></td><td><input class="event"></td><td><input type="text"></td><td><input></td></tr>
 
-<tr><td>B-1</td><td>20</td><td><input class="maint"></td><td><input class="transfer"></td><td><input class="event"></td><td><input type="date"></td><td><input></td></tr>
-<tr><td>B-2</td><td>20</td><td><input class="maint"></td><td><input class="transfer"></td><td><input class="event"></td><td><input type="date"></td><td><input></td></tr>
-<tr><td>B-3</td><td>20</td><td><input class="maint"></td><td><input class="transfer"></td><td><input class="event"></td><td><input type="date"></td><td><input></td></tr>
-<tr><td>B-4</td><td>20</td><td><input class="maint"></td><td><input class="transfer"></td><td><input class="event"></td><td><input type="date"></td><td><input></td></tr>
-<tr><td>B-5</td><td>20</td><td><input class="maint"></td><td><input class="transfer"></td><td><input class="event"></td><td><input type="date"></td><td><input></td></tr>
-<tr><td>B-6</td><td>20</td><td><input class="maint"></td><td><input class="transfer"></td><td><input class="event"></td><td><input type="date"></td><td><input></td></tr>
+<tr><td>B-1</td><td>20</td><td><input class="maint"></td><td><input class="transfer"></td><td><input class="event"></td><td><input type="text"></td><td><input></td></tr>
+<tr><td>B-2</td><td>20</td><td><input class="maint"></td><td><input class="transfer"></td><td><input class="event"></td><td><input type="text"></td><td><input></td></tr>
+<tr><td>B-3</td><td>20</td><td><input class="maint"></td><td><input class="transfer"></td><td><input class="event"></td><td><input type="text"></td><td><input></td></tr>
+<tr><td>B-4</td><td>20</td><td><input class="maint"></td><td><input class="transfer"></td><td><input class="event"></td><td><input type="text"></td><td><input></td></tr>
+<tr><td>B-5</td><td>20</td><td><input class="maint"></td><td><input class="transfer"></td><td><input class="event"></td><td><input type="text"></td><td><input></td></tr>
+<tr><td>B-6</td><td>20</td><td><input class="maint"></td><td><input class="transfer"></td><td><input class="event"></td><td><input type="text"></td><td><input></td></tr>
 
-<tr><td>C</td><td>20</td><td><input class="maint"></td><td><input class="transfer"></td><td><input class="event"></td><td><input type="date"></td><td><input></td></tr>
-<tr><td>D</td><td>15</td><td><input class="maint"></td><td><input class="transfer"></td><td><input class="event"></td><td><input type="date"></td><td><input></td></tr>
-<tr><td>દુકાન</td><td>10</td><td><input class="maint"></td><td><input class="transfer"></td><td><input class="event"></td><td><input type="date"></td><td><input></td></tr>
+<tr><td>C</td><td>20</td><td><input class="maint"></td><td><input class="transfer"></td><td><input class="event"></td><td><input type="text"></td><td><input></td></tr>
+<tr><td>D</td><td>15</td><td><input class="maint"></td><td><input class="transfer"></td><td><input class="event"></td><td><input type="text"></td><td><input></td></tr>
+<tr><td>દુકાન</td><td>10</td><td><input class="maint"></td><td><input class="transfer"></td><td><input class="event"></td><td><input type="text"></td><td><input></td></tr>
 
 </table>
 
 <br>
 
-ટાવર ભાડું ₹
+ટાવર નું ભાડું ₹  
 <input id="tower">
-
-તારીખ
-<input type="date">
 
 <br><br>
 
-અન્ય આવક ₹
+અન્ય આવક ₹  
 <input id="other">
-
-તારીખ
-<input type="date">
 
 <br><br>
 
 <div class="total">
-કુલ આવક ₹
-<span id="incomeTotal">0</span>
+કુલ આવક ₹ <span id="incomeTotal">0</span>
 </div>
 
 <br>
 
-માઇનસ / માનસ ₹
+માઇનસ / માનસ ₹  
 <input id="minus">
-
-તારીખ
-<input type="date">
 
 <br><br>
 
 <div class="total">
-ફાઇનલ ટોટલ ₹
-<span id="finalIncome">0</span>
+ફાઇનલ ટોટલ ₹ <span id="finalIncome">0</span>
 </div>
 
 </div>
@@ -153,8 +141,8 @@ font-weight:bold;
 
 <h2>જાવક રજીસ્ટર</h2>
 
-તારીખ
-<input type="date">
+તારીખ  
+<input type="text">
 
 <table>
 
@@ -165,50 +153,45 @@ font-weight:bold;
 <th>રીમાર્ક</th>
 </tr>
 
-<tr><td>હાઉસમેન પગાર</td><td><input class="exp"></td><td><input type="date"></td><td><input></td></tr>
-<tr><td>હાઉસમેન પગાર</td><td><input class="exp"></td><td><input type="date"></td><td><input></td></tr>
-<tr><td>સફાઈ પગાર</td><td><input class="exp"></td><td><input type="date"></td><td><input></td></tr>
-<tr><td>લાઈટ બિલ</td><td><input class="exp"></td><td><input type="date"></td><td><input></td></tr>
-<tr><td>સાર્વજનિક ખર્ચ</td><td><input class="exp"></td><td><input type="date"></td><td><input></td></tr>
-<tr><td>અન્ય ખર્ચ</td><td><input class="exp"></td><td><input type="date"></td><td><input></td></tr>
+<tr><td>હાઉસમેન પગાર</td><td><input class="exp"></td><td><input type="text"></td><td><input></td></tr>
+<tr><td>હાઉસમેન પગાર</td><td><input class="exp"></td><td><input type="text"></td><td><input></td></tr>
+<tr><td>સફાઈ પગાર</td><td><input class="exp"></td><td><input type="text"></td><td><input></td></tr>
+<tr><td>લાઈટ બિલ</td><td><input class="exp"></td><td><input type="text"></td><td><input></td></tr>
+<tr><td>સાર્વજનિક ખર્ચ</td><td><input class="exp"></td><td><input type="text"></td><td><input></td></tr>
+<tr><td>અન્ય ખર્ચ</td><td><input class="exp"></td><td><input type="text"></td><td><input></td></tr>
 
 </table>
 
 <br>
 
 <div class="total">
-કુલ ખર્ચ ₹
-<span id="expenseTotal">0</span>
+કુલ ખર્ચ ₹ <span id="expenseTotal">0</span>
 </div>
 
 <br>
 
-આગળ ની બેલેન્સ ₹
+આગળ ની બેલેન્સ ₹  
 <input id="old">
-
-તારીખ
-<input type="date">
 
 <br><br>
 
-હાલ ની આવક ₹
+હાલ ની આવક ₹  
 <span id="incomeShow">0</span>
 
 <br><br>
 
-બંને નો ટોટલ ₹
+બન્ને નો ટોટલ ₹  
 <span id="grand"></span>
 
 <br><br>
 
-ખર્ચ બાદ ₹
+ખર્ચ બાદ ₹  
 <span id="after"></span>
 
 <br><br>
 
 <div class="total">
-હાલ ની બેલેન્સ ₹
-<span id="balance"></span>
+હાલ ની બેલેન્સ ₹ <span id="balance"></span>
 </div>
 
 </div>
