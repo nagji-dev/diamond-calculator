@@ -1,71 +1,58 @@
 <!DOCTYPE html>
-<html lang="gu">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Society Management</title>
+<title>Shiv Palace Management</title>
 
 <style>
 
 body{
-font-family:sans-serif;
+font-family:Arial;
 background:#f2f2f2;
-padding:10px;
-}
-
-h2{
 text-align:center;
-background:#1f4e79;
-color:white;
-padding:10px;
-border-radius:8px;
 }
 
-button{
-padding:10px 15px;
-margin:5px;
-border:none;
-border-radius:6px;
-background:#1f4e79;
+h1{
+background:#2c3e50;
 color:white;
+padding:15px;
 }
 
 table{
-width:100%;
+width:95%;
+margin:auto;
 border-collapse:collapse;
 background:white;
-margin-top:5px;
 }
 
 th,td{
 border:1px solid #ccc;
-padding:6px;
+padding:8px;
 text-align:center;
 }
 
+th{
+background:#3498db;
+color:white;
+}
+
 input{
-width:70px;
+width:80px;
+padding:4px;
 }
 
-.page{
-display:none;
-}
-
-.active{
-display:block;
+button{
+padding:10px 20px;
+margin:10px;
+background:#27ae60;
+color:white;
+border:none;
+border-radius:5px;
 }
 
 .total{
-font-size:18px;
-font-weight:bold;
-margin-top:10px;
-}
-
-.signature{
-margin-top:40px;
-display:flex;
-justify-content:space-around;
-font-weight:bold;
+font-size:20px;
+color:red;
+margin:20px;
 }
 
 </style>
@@ -73,238 +60,147 @@ font-weight:bold;
 
 <body>
 
-<h2>Society Management</h2>
+<h1>Shiv Palace Society Management</h1>
 
-<button onclick="showPage(1)">Page 1</button>
-<button onclick="showPage(2)">Page 2</button>
-
-<div id="page1" class="page active">
-
-<p>
-તારીખ <input type="text" id="date">
-દર ₹ <input id="rate" value="700">
-</p>
+<h2>Maintenance Entry</h2>
 
 <table>
 
 <tr>
-<th>ક્રમ</th>
-<th>બિલ્ડિંગ</th>
-<th>કુલ ફ્લેટ</th>
-<th>ચૂકવ્યા</th>
-<th>Pending</th>
-<th>કુલ રૂપિયા</th>
+<th>Flat</th>
+<th>Total Month</th>
+<th>Paid Month</th>
+<th>Amount</th>
 </tr>
 
 <tr>
-<td>1</td>
 <td>A1</td>
-<td>16</td>
+<td><input value="20"></td>
 <td><input class="paid"></td>
-<td class="pending">0</td>
 <td class="amount">0</td>
 </tr>
 
 <tr>
-<td>2</td>
 <td>A2</td>
-<td>20</td>
+<td><input value="20"></td>
 <td><input class="paid"></td>
-<td class="pending">0</td>
 <td class="amount">0</td>
 </tr>
 
 <tr>
-<td>3</td>
+<td>A3</td>
+<td><input value="20"></td>
+<td><input class="paid"></td>
+<td class="amount">0</td>
+</tr>
+
+<tr>
+<td>A4</td>
+<td><input value="20"></td>
+<td><input class="paid"></td>
+<td class="amount">0</td>
+</tr>
+
+<tr>
+<td>A5</td>
+<td><input value="20"></td>
+<td><input class="paid"></td>
+<td class="amount">0</td>
+</tr>
+
+<tr>
+<td>B1</td>
+<td><input value="20"></td>
+<td><input class="paid"></td>
+<td class="amount">0</td>
+</tr>
+
+<tr>
+<td>B2</td>
+<td><input value="20"></td>
+<td><input class="paid"></td>
+<td class="amount">0</td>
+</tr>
+
+<tr>
+<td>B3</td>
+<td><input value="20"></td>
+<td><input class="paid"></td>
+<td class="amount">0</td>
+</tr>
+
+<tr>
+<td>B4</td>
+<td><input value="20"></td>
+<td><input class="paid"></td>
+<td class="amount">0</td>
+</tr>
+
+<tr>
+<td>B5</td>
+<td><input value="20"></td>
+<td><input class="paid"></td>
+<td class="amount">0</td>
+</tr>
+
+<tr>
+<td>B6</td>
+<td><input value="20"></td>
+<td><input class="paid"></td>
+<td class="amount">0</td>
+</tr>
+
+<tr>
+<td>C</td>
+<td><input value="20"></td>
+<td><input class="paid"></td>
+<td class="amount">0</td>
+</tr>
+
+<tr>
+<td>D</td>
+<td><input value="15"></td>
+<td><input class="paid"></td>
+<td class="amount">0</td>
+</tr>
+
+<tr>
 <td>Shop</td>
-<td>10</td>
+<td><input value="10"></td>
 <td><input class="paid"></td>
-<td class="pending">0</td>
 <td class="amount">0</td>
 </tr>
 
 </table>
 
-<div class="total">
-કુલ મેન્ટેનન્સ ₹ <span id="maintenance">0</span>
-</div>
-
-<h3>આવક</h3>
-
-<table>
-
-<tr>
-<td>આગળ ની બેલેન્સ</td>
-<td><input class="income"></td>
-</tr>
-
-<tr>
-<td>હાલની આવક</td>
-<td><input class="income"></td>
-</tr>
-
-<tr>
-<td>ટ્રાન્સફર ફી</td>
-<td><input class="income"></td>
-</tr>
-
-<tr>
-<td>પ્રસંગ</td>
-<td><input class="income"></td>
-</tr>
-
-<tr>
-<td>ટ્રાવર નું ભાડું</td>
-<td><input class="income"></td>
-</tr>
-
-<tr>
-<td>અન્ય આવક</td>
-<td><input class="income"></td>
-</tr>
-
-<tr>
-<td>અન્ય આવક</td>
-<td><input class="income"></td>
-</tr>
-
-</table>
+<button onclick="calculate()">Calculate Total</button>
 
 <div class="total">
-ટોટલ આવક ₹ <span id="totalIncome">0</span>
+Total Maintenance ₹ <span id="total">0</span>
 </div>
-
-</div>
-
-<div id="page2" class="page">
-
-<h3>ખર્ચ</h3>
-
-<table>
-
-<tr><td>હોચમેન પગાર</td><td><input class="expense"></td></tr>
-<tr><td>લાઈટ બિલ</td><td><input class="expense"></td></tr>
-<tr><td>સાર્વજનિક ખર્ચ</td><td><input class="expense"></td></tr>
-<tr><td>સફાઈ પગાર</td><td><input class="expense"></td></tr>
-<tr><td>રીપેરીંગ</td><td><input class="expense"></td></tr>
-<tr><td>અન્ય ખર્ચ</td><td><input class="expense"></td></tr>
-<tr><td>અન્ય ખર્ચ</td><td><input class="expense"></td></tr>
-<tr><td>અન્ય ખર્ચ</td><td><input class="expense"></td></tr>
-
-</table>
-
-<div class="total">
-ટોટલ જાવક ₹ <span id="totalExpense">0</span>
-</div>
-
-<div class="total">
-હાલની બેલેન્સ ₹ <span id="balance">0</span>
-</div>
-
-<div class="signature">
-<div>પ્રમુખ શ્રી</div>
-<div>ખજાનચી</div>
-</div>
-
-</div>
-
-<button onclick="clearAll()">Clear</button>
-<button onclick="window.print()">PDF</button>
 
 <script>
 
-function showPage(p){
-
-document.getElementById("page1").classList.remove("active")
-document.getElementById("page2").classList.remove("active")
-
-document.getElementById("page"+p).classList.add("active")
-
-}
-
 function calculate(){
 
-let rate = Number(document.getElementById("rate").value) || 0
+let paid=document.querySelectorAll(".paid");
+let amount=document.querySelectorAll(".amount");
 
-let maintenance=0
+let total=0;
 
-document.querySelectorAll("tr").forEach(function(row){
+for(let i=0;i<paid.length;i++){
 
-let paid=row.querySelector(".paid")
-let pending=row.querySelector(".pending")
-let amount=row.querySelector(".amount")
+let m=paid[i].value;
 
-if(paid){
+let money=m*700;
 
-let flats=Number(row.cells[2].innerText)
-let p=Number(paid.value)||0
+amount[i].innerText=money;
 
-pending.innerText=flats-p
-
-let r=row.cells[1].innerText=="Shop"?300:rate
-
-let a=p*r
-
-amount.innerText=a
-
-maintenance+=a
+total+=money;
 
 }
 
-})
-
-document.getElementById("maintenance").innerText=maintenance
-
-let income=maintenance
-
-document.querySelectorAll(".income").forEach(function(i){
-
-income+=Number(i.value)||0
-
-})
-
-document.getElementById("totalIncome").innerText=income
-
-let expense=0
-
-document.querySelectorAll(".expense").forEach(function(e){
-
-expense+=Number(e.value)||0
-
-})
-
-document.getElementById("totalExpense").innerText=expense
-
-document.getElementById("balance").innerText=income-expense
-
-saveData()
-
-}
-
-document.querySelectorAll("input").forEach(function(i){
-
-i.addEventListener("input",calculate)
-
-})
-
-function clearAll(){
-
-localStorage.clear()
-location.reload()
-
-}
-
-function saveData(){
-
-localStorage.setItem("society",document.body.innerHTML)
-
-}
-
-let saved=localStorage.getItem("society")
-
-if(saved){
-
-document.body.innerHTML=saved
+document.getElementById("total").innerText=total;
 
 }
 
